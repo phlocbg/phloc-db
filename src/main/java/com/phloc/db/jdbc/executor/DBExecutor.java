@@ -28,6 +28,7 @@ import java.util.List;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
+import javax.annotation.CheckForSigned;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.WillClose;
@@ -435,10 +436,13 @@ public class DBExecutor
     final List <DBResultRow> aAllResultRows = new ArrayList <DBResultRow> ();
     return queryAll (sSQL, new IResultSetRowCallback ()
     {
-      public void run (@Nonnull final DBResultRow aCurrentObject)
+      public void run (@Nullable final DBResultRow aCurrentObject)
       {
-        // We need to clone the object!
-        aAllResultRows.add (aCurrentObject.getClone ());
+        if (aCurrentObject != null)
+        {
+          // We need to clone the object!
+          aAllResultRows.add (aCurrentObject.getClone ());
+        }
       }
     }).isFailure () ? null : aAllResultRows;
   }
@@ -450,10 +454,13 @@ public class DBExecutor
     final List <DBResultRow> aAllResultRows = new ArrayList <DBResultRow> ();
     return queryAll (sSQL, aPSDP, new IResultSetRowCallback ()
     {
-      public void run (@Nonnull final DBResultRow aCurrentObject)
+      public void run (@Nullable final DBResultRow aCurrentObject)
       {
-        // We need to clone the object!
-        aAllResultRows.add (aCurrentObject.getClone ());
+        if (aCurrentObject != null)
+        {
+          // We need to clone the object!
+          aAllResultRows.add (aCurrentObject.getClone ());
+        }
       }
     }).isFailure () ? null : aAllResultRows;
   }
@@ -481,12 +488,14 @@ public class DBExecutor
     return ContainerHelper.getFirstElement (aAllResultRows);
   }
 
+  @CheckForSigned
   public int queryCount (@Nonnull final String sSQL)
   {
     final DBResultRow aResult = querySingle (sSQL);
     return aResult == null ? CGlobal.ILLEGAL_UINT : ((Number) aResult.getValue (0)).intValue ();
   }
 
+  @CheckForSigned
   public int queryCount (@Nonnull final String sSQL, @Nonnull final IPreparedStatementDataProvider aPSDP)
   {
     final DBResultRow aResult = querySingle (sSQL, aPSDP);

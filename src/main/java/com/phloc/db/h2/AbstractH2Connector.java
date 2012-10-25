@@ -295,10 +295,13 @@ public abstract class AbstractH2Connector implements IDataSourceProvider, Closea
       final DBExecutor aExecutor = new DBExecutor (this);
       final ESuccess ret = aExecutor.queryAll ("SCRIPT SIMPLE", new IResultSetRowCallback ()
       {
-        public void run (@Nonnull final DBResultRow aCurrentObject)
+        public void run (@Nullable final DBResultRow aCurrentObject)
         {
-          // The value of the first column is the script line
-          aPrintWriter.println (aCurrentObject.get (0).getValue ());
+          if (aCurrentObject != null)
+          {
+            // The value of the first column is the script line
+            aPrintWriter.println (aCurrentObject.get (0).getValue ());
+          }
         }
       });
       aPrintWriter.flush ();
