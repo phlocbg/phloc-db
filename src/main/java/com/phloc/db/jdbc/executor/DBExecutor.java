@@ -60,17 +60,17 @@ import com.phloc.db.jdbc.JDBCUtils;
 @NotThreadSafe
 public class DBExecutor
 {
-  protected static interface IWithConnectionCallback
+  protected interface IWithConnectionCallback
   {
     void run (@Nonnull Connection aConnection) throws SQLException;
   }
 
-  protected static interface IWithStatementCallback
+  protected interface IWithStatementCallback
   {
     void run (@Nonnull Statement aStatement) throws SQLException;
   }
 
-  protected static interface IWithPreparedStatementCallback
+  protected interface IWithPreparedStatementCallback
   {
     void run (@Nonnull PreparedStatement aPreparedStatement) throws SQLException;
   }
