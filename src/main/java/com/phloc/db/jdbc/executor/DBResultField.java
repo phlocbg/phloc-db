@@ -23,6 +23,7 @@ import javax.annotation.Nullable;
 import com.phloc.commons.annotations.Nonempty;
 import com.phloc.commons.string.StringHelper;
 import com.phloc.commons.string.ToStringGenerator;
+import com.phloc.commons.typeconvert.TypeConverter;
 
 /**
  * Represents a single DB query result value within a result row.
@@ -50,10 +51,59 @@ public final class DBResultField
     return m_sColumnName;
   }
 
+  /**
+   * @return The generic value as retrieved from the DB
+   */
   @Nullable
   public Object getValue ()
   {
     return m_aValue;
+  }
+
+  @Nullable
+  public String getAsString ()
+  {
+    return TypeConverter.convertIfNecessary (m_aValue, String.class);
+  }
+
+  public boolean getAsBoolean ()
+  {
+    return TypeConverter.convertToBoolean (m_aValue);
+  }
+
+  public byte getAsByte ()
+  {
+    return TypeConverter.convertToByte (m_aValue);
+  }
+
+  public char getAsChar ()
+  {
+    return TypeConverter.convertToChar (m_aValue);
+  }
+
+  public double getAsDouble ()
+  {
+    return TypeConverter.convertToDouble (m_aValue);
+  }
+
+  public float getAsFloat ()
+  {
+    return TypeConverter.convertToFloat (m_aValue);
+  }
+
+  public int getAsInt ()
+  {
+    return TypeConverter.convertToInt (m_aValue);
+  }
+
+  public long getAsLong ()
+  {
+    return TypeConverter.convertToLong (m_aValue);
+  }
+
+  public short getAsShort ()
+  {
+    return TypeConverter.convertToShort (m_aValue);
   }
 
   @Override

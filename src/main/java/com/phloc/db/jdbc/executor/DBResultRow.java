@@ -17,12 +17,16 @@
  */
 package com.phloc.db.jdbc.executor;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.phloc.commons.ICloneable;
 import com.phloc.commons.annotations.Nonempty;
+import com.phloc.commons.annotations.ReturnsMutableCopy;
 import com.phloc.commons.collections.ArrayHelper;
 import com.phloc.commons.string.ToStringGenerator;
 
@@ -90,6 +94,20 @@ public final class DBResultRow implements ICloneable <DBResultRow>
   public Object getValue (@Nonnegative final int nIndex)
   {
     return get (nIndex).getValue ();
+  }
+
+  /**
+   * @return A map that contains the mapping from column name to the respective
+   *         index
+   */
+  @Nonnull
+  @ReturnsMutableCopy
+  public Map <String, Integer> getColumnNameToIndexMap ()
+  {
+    final Map <String, Integer> ret = new HashMap <String, Integer> ();
+    for (int i = 0; i < m_aCols.length; ++i)
+      ret.put (m_aCols[i].getColumnName (), Integer.valueOf (i));
+    return ret;
   }
 
   @Nonnull
