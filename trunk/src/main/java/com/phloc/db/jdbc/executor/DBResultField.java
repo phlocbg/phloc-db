@@ -17,6 +17,9 @@
  */
 package com.phloc.db.jdbc.executor;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -64,6 +67,18 @@ public final class DBResultField
   public String getAsString ()
   {
     return TypeConverter.convertIfNecessary (m_aValue, String.class);
+  }
+
+  @Nullable
+  public BigDecimal getAsBigDecimal ()
+  {
+    return TypeConverter.convertIfNecessary (m_aValue, BigDecimal.class);
+  }
+
+  @Nullable
+  public BigInteger getAsBigInteger ()
+  {
+    return TypeConverter.convertIfNecessary (m_aValue, BigInteger.class);
   }
 
   public boolean getAsBoolean ()

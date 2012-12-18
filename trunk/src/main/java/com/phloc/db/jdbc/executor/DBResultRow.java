@@ -17,6 +17,8 @@
  */
 package com.phloc.db.jdbc.executor;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -100,6 +102,18 @@ public final class DBResultRow implements ICloneable <DBResultRow>
   public String getAsString (@Nonnegative final int nIndex)
   {
     return get (nIndex).getAsString ();
+  }
+
+  @Nullable
+  public BigDecimal getAsBigDecimal (@Nonnegative final int nIndex)
+  {
+    return get (nIndex).getAsBigDecimal ();
+  }
+
+  @Nullable
+  public BigInteger getAsBigInteger (@Nonnegative final int nIndex)
+  {
+    return get (nIndex).getAsBigInteger ();
   }
 
   public boolean getAsBoolean (@Nonnegative final int nIndex)
