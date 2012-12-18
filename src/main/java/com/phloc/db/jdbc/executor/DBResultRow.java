@@ -156,6 +156,54 @@ public final class DBResultRow implements ICloneable <DBResultRow>
     return get (nIndex).getAsShort ();
   }
 
+  @Nullable
+  public Boolean getAsBooleanObj (@Nonnegative final int nIndex)
+  {
+    return get (nIndex).getAsBooleanObj ();
+  }
+
+  @Nullable
+  public Byte getAsByteObj (@Nonnegative final int nIndex)
+  {
+    return get (nIndex).getAsByteObj ();
+  }
+
+  @Nullable
+  public Character getAsCharObj (@Nonnegative final int nIndex)
+  {
+    return get (nIndex).getAsCharObj ();
+  }
+
+  @Nullable
+  public Double getAsDoubleObj (@Nonnegative final int nIndex)
+  {
+    return get (nIndex).getAsDoubleObj ();
+  }
+
+  @Nullable
+  public Float getAsFloatObj (@Nonnegative final int nIndex)
+  {
+    return get (nIndex).getAsFloatObj ();
+  }
+
+  @Nullable
+  public Integer getAsIntObj (@Nonnegative final int nIndex)
+  {
+    return get (nIndex).getAsIntObj ();
+  }
+
+  @Nullable
+  public Long getAsLongObj (@Nonnegative final int nIndex)
+  {
+    return get (nIndex).getAsLongObj ();
+  }
+
+  @Nullable
+  public Short getAsShortObj (@Nonnegative final int nIndex)
+  {
+    return get (nIndex).getAsShortObj ();
+  }
+
   /**
    * @return A map that contains the mapping from column name to the respective
    *         index

@@ -121,6 +121,54 @@ public final class DBResultField
     return TypeConverter.convertToShort (m_aValue);
   }
 
+  @Nullable
+  public Boolean getAsBooleanObj ()
+  {
+    return TypeConverter.convertIfNecessary (m_aValue, Boolean.class);
+  }
+
+  @Nullable
+  public Byte getAsByteObj ()
+  {
+    return TypeConverter.convertIfNecessary (m_aValue, Byte.class);
+  }
+
+  @Nullable
+  public Character getAsCharObj ()
+  {
+    return TypeConverter.convertIfNecessary (m_aValue, Character.class);
+  }
+
+  @Nullable
+  public Double getAsDoubleObj ()
+  {
+    return TypeConverter.convertIfNecessary (m_aValue, Double.class);
+  }
+
+  @Nullable
+  public Float getAsFloatObj ()
+  {
+    return TypeConverter.convertIfNecessary (m_aValue, Float.class);
+  }
+
+  @Nullable
+  public Integer getAsIntObj ()
+  {
+    return TypeConverter.convertIfNecessary (m_aValue, Integer.class);
+  }
+
+  @Nullable
+  public Long getAsLongObj ()
+  {
+    return TypeConverter.convertIfNecessary (m_aValue, Long.class);
+  }
+
+  @Nullable
+  public Short getAsShortObj ()
+  {
+    return TypeConverter.convertIfNecessary (m_aValue, Short.class);
+  }
+
   @Override
   public String toString ()
   {
