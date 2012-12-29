@@ -18,35 +18,30 @@
 package com.phloc.db.h2;
 
 import java.io.BufferedWriter;
-import java.io.Closeable;
 import java.io.File;
 import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.sql.SQLException;
 import java.util.Locale;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.WillClose;
-import javax.sql.DataSource;
 
-import org.apache.commons.dbcp.BasicDataSource;
 import org.h2.api.DatabaseEventListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.phloc.commons.annotations.Nonempty;
 import com.phloc.commons.charset.CCharset;
 import com.phloc.commons.io.file.FileUtils;
 import com.phloc.commons.io.streams.StreamUtils;
 import com.phloc.commons.state.ESuccess;
-import com.phloc.db.jdbc.IDataSourceProvider;
+import com.phloc.db.jdbc.AbstractConnector;
 import com.phloc.db.jdbc.executor.DBExecutor;
 import com.phloc.db.jdbc.executor.DBResultRow;
 import com.phloc.db.jdbc.executor.IResultSetRowCallback;
 
-public abstract class AbstractH2Connector implements IDataSourceProvider, Closeable
+public abstract class AbstractH2Connector extends AbstractConnector
 {
   public static final int DEFAULT_TRACE_LEVEL_FILE = 1;
   public static final int DEFAULT_TRACE_LEVEL_SYSOUT = 0;
@@ -55,8 +50,6 @@ public abstract class AbstractH2Connector implements IDataSourceProvider, Closea
   protected static final String JDBC_DRIVER_CLASS = "org.h2.Driver";
   private static final Logger s_aLogger = LoggerFactory.getLogger (AbstractH2Connector.class);
 
-  private final Lock m_aLock = new ReentrantLock ();
-  protected BasicDataSource m_aDataSource;
   private int m_nTraceLevelFile = DEFAULT_TRACE_LEVEL_FILE;
   private int m_nTraceLevelSysOut = DEFAULT_TRACE_LEVEL_SYSOUT;
   private Class <? extends DatabaseEventListener> m_aEventListenerClass = H2EventListener.class;
@@ -65,135 +58,120 @@ public abstract class AbstractH2Connector implements IDataSourceProvider, Closea
   public AbstractH2Connector ()
   {}
 
+  @Override
   @Nonnull
-  protected final Lock getLock ()
+  @Nonempty
+  protected final String getJDBCDriverClassName ()
   {
-    return m_aLock;
+    return JDBC_DRIVER_CLASS;
   }
 
   public final int getTraceLevelFile ()
   {
-    m_aLock.lock ();
+    getLock ().lock ();
     try
     {
       return m_nTraceLevelFile;
     }
     finally
     {
-      m_aLock.unlock ();
+      getLock ().unlock ();
     }
   }
 
   public final void setTraceLevelFile (final int nTraceLevelFile)
   {
-    m_aLock.lock ();
+    getLock ().lock ();
     try
     {
       m_nTraceLevelFile = nTraceLevelFile;
     }
     finally
     {
-      m_aLock.unlock ();
+      getLock ().unlock ();
     }
   }
 
   public final int getTraceLevelSysOut ()
   {
-    m_aLock.lock ();
+    getLock ().lock ();
     try
     {
       return m_nTraceLevelSysOut;
     }
     finally
     {
-      m_aLock.unlock ();
+      getLock ().unlock ();
     }
   }
 
   public final void setTraceLevelSysOut (final int nTraceLevelSysOut)
   {
-    m_aLock.lock ();
+    getLock ().lock ();
     try
     {
       m_nTraceLevelSysOut = nTraceLevelSysOut;
     }
     finally
     {
-      m_aLock.unlock ();
+      getLock ().unlock ();
     }
   }
 
   @Nullable
   public final Class <? extends DatabaseEventListener> getEventListenerClass ()
   {
-    m_aLock.lock ();
+    getLock ().lock ();
     try
     {
       return m_aEventListenerClass;
     }
     finally
     {
-      m_aLock.unlock ();
+      getLock ().unlock ();
     }
   }
 
   public final void setEventListenerClass (@Nullable final Class <? extends DatabaseEventListener> aEventListenerClass)
   {
-    m_aLock.lock ();
+    getLock ().lock ();
     try
     {
       m_aEventListenerClass = aEventListenerClass;
     }
     finally
     {
-      m_aLock.unlock ();
+      getLock ().unlock ();
     }
   }
 
   public final boolean isCloseOnExit ()
   {
-    m_aLock.lock ();
+    getLock ().lock ();
     try
     {
       return m_bCloseOnExit;
     }
     finally
     {
-      m_aLock.unlock ();
+      getLock ().unlock ();
     }
   }
 
   public final void setCloseOnExit (final boolean bCloseOnExit)
   {
-    m_aLock.lock ();
+    getLock ().lock ();
     try
     {
       m_bCloseOnExit = bCloseOnExit;
     }
     finally
     {
-      m_aLock.unlock ();
+      getLock ().unlock ();
     }
   }
 
-  /**
-   * @return Connection user name
-   */
-  @Nullable
-  protected abstract String getUserName ();
-
-  /**
-   * @return Connection password
-   */
-  @Nullable
-  protected abstract String getPassword ();
-
-  /**
-   * @return Name of the database to connect to
-   */
-  @Nonnull
-  protected abstract String getDatabase ();
-
+  @Override
   @Nonnull
   public final String getConnectionUrl ()
   {
@@ -208,60 +186,6 @@ public abstract class AbstractH2Connector implements IDataSourceProvider, Closea
     if (m_bCloseOnExit != DEFAULT_CLOSE_ON_EXIT)
       ret.append (";DB_CLOSE_ON_EXIT=").append (Boolean.toString (m_bCloseOnExit).toUpperCase (Locale.US));
     return ret.toString ();
-  }
-
-  @Nonnull
-  public final DataSource getDataSource ()
-  {
-    m_aLock.lock ();
-    try
-    {
-      if (m_aDataSource == null)
-      {
-        // build data source
-        m_aDataSource = new BasicDataSource ();
-        m_aDataSource.setDriverClassName (JDBC_DRIVER_CLASS);
-        if (getUserName () != null)
-          m_aDataSource.setUsername (getUserName ());
-        if (getPassword () != null)
-          m_aDataSource.setPassword (getPassword ());
-        m_aDataSource.setUrl (getConnectionUrl ());
-        m_aDataSource.setDefaultAutoCommit (false);
-        m_aDataSource.setPoolPreparedStatements (true);
-      }
-      return m_aDataSource;
-    }
-    finally
-    {
-      m_aLock.unlock ();
-    }
-  }
-
-  public final void close ()
-  {
-    m_aLock.lock ();
-    try
-    {
-      if (m_aDataSource != null)
-      {
-        try
-        {
-          m_aDataSource.close ();
-          m_aDataSource = null;
-        }
-        catch (final SQLException ex)
-        {
-          throw new IllegalStateException ("Failed to close H2 DataSource", ex);
-        }
-
-        if (s_aLogger.isDebugEnabled ())
-          s_aLogger.debug ("Closed H2 database connection to '" + getDatabase () + "'");
-      }
-    }
-    finally
-    {
-      m_aLock.unlock ();
-    }
   }
 
   @Nonnull
