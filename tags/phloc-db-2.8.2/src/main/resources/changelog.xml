@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (C) 2006-2012 phloc systems
+    http://www.phloc.com
+    office[at]phloc[dot]com
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+            http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
+<changelog xmlns="http://www.phloc.com/ns/changelog/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.phloc.com/ns/changelog/1.0 schemas/changelog-1.0.xsd" version="1.0" component="phloc-db">
+  <release date="2012-12-29" version="2.8.2" />
+  <entry date="2012-12-29" category="api" action="add">
+    <change>
+      <text locale="en">Added class AbstractMSSQLConnector based on a common AbstractConnector</text>
+    </change>
+  </entry>
+  <entry date="2012-12-18" category="api" action="add">
+    <change>
+      <text locale="en">Extended API in DBResultField and DBResultRow</text>
+    </change>
+  </entry>
+  <release date="2012-10-22" version="2.8.1" />
+  <entry date="2012-10-22" category="tech" action="update">
+    <change>
+      <text locale="en">Initial release as OSS under Apache2 license</text>
+    </change>
+  </entry>
+  <entry date="2012-09-09" category="tech" action="update">
+    <change>
+      <text locale="en">Updated to H2 1.3.169</text>
+    </change>
+  </entry>
+  <release date="2012-09-06" version="2.8.0" />
+  <release date="2012-08-17" version="2.7.9" />
+  <entry date="2012-08-14" category="api" action="add">
+    <change>
+      <text locale="en">Added customizable JPA execution time exceeded handler</text>
+    </change>
+  </entry>
+  <release date="2012-08-12" version="2.7.8" />
+  <entry date="2012-08-12" category="api" action="update" incompatible="true">
+    <change>
+      <text locale="en">Heavily improved DBExecutor API to handle things even more easily</text>
+    </change>
+  </entry>
+  <release date="2012-08-12" version="2.7.7" />
+  <entry date="2012-08-12" category="tech" action="update">
+    <change>
+      <text locale="en">Added sanity check on JPA factory parameters when PersistenceUnitProperties.DDL_GENERATION is defined and PersistenceUnitProperties.DDL_GENERATION_MODE is not defined</text>
+    </change>
+  </entry>
+  <release date="2012-08-10" version="2.7.6" />
+  <entry date="2012-08-10" category="tech" action="update">
+    <change>
+      <text locale="en">Using the correct property to set the EclipseLink logger to JPALogger</text>
+    </change>
+  </entry>
+  <entry date="2012-07-14" category="tech" action="update">
+    <change>
+      <text locale="en">Updated to H2 1.3.168</text>
+    </change>
+  </entry>
+  <release date="2012-06-27" version="2.7.5" />
+  <entry date="2012-06-27" category="tech" action="update">
+    <change>
+      <text locale="en">Updated to EclipseLink 2.4</text>
+    </change>
+  </entry>
+  <release date="2012-06-04" version="2.7.4" />
+  <entry date="2012-05-24" category="tech" action="update">
+    <change>
+      <text locale="en">Updated to H2 1.3.167</text>
+    </change>
+  </entry>
+  <entry date="2012-04-10" category="tech" action="update">
+    <change>
+      <text locale="en">Updated to H2 1.3.166</text>
+    </change>
+  </entry>
+  <release date="2012-03-22" version="2.7.3" />
+  <release date="2012-03-20" version="2.7.2" />
+  <entry date="2012-03-19" category="tech" action="update">
+    <change>
+      <text locale="en">Updated to H2 1.3.165</text>
+    </change>
+  </entry>
+  <release date="2012-03-05" version="2.7.1" />
+  <entry date="2012-03-05" category="tech" action="fix">
+    <change>
+      <text locale="en">Catching exceptions from custom exception handlers</text>
+    </change>
+  </entry>
+  <release date="2012-02-09" version="2.7.0" />
+  <entry date="2012-02-27" category="tech" action="add">
+    <change>
+      <text locale="en">Added statistics to AbstractJPAEnabledManager</text>
+    </change>
+  </entry>
+  <entry date="2012-02-27" category="tech" action="update">
+    <change>
+      <text locale="en">Improved synchronization in AbstractJPAEnabledManager</text>
+    </change>
+  </entry>
+  <entry date="2012-02-24" category="api" action="add">
+    <change>
+      <text locale="en">Started adding MySQL support</text>
+    </change>
+  </entry>
+  <release date="2012-02-05" version="2.6.3" />
+  <entry date="2012-02-04" category="tech" action="update">
+    <change>
+      <text locale="en">Updated to H2 1.3.164</text>
+    </change>
+  </entry>
+  <release date="2012-01-31" version="2.6.2" />
+  <entry date="2012-01-31" category="api" action="change" incompatible="true">
+    <change>
+      <text locale="en">Moved H2 JPA components into a separate package and added a new constructor parameter for connection string properties</text>
+    </change>
+  </entry>
+  <release date="2012-01-26" version="2.6.1" />
+  <entry date="2012-01-23" category="api" action="change">
+    <change>
+      <text locale="en">Using SuccessWithValue from phloc-commons</text>
+    </change>
+  </entry>
+  <release date="2012-01-26" version="2.6.0" />
+  <entry date="2012-01-23" category="api" action="add">
+    <change>
+      <text locale="en">Added the possibility to set whether select statements should use transactions or not in the AbstractJPAEnabledManager</text>
+    </change>
+  </entry>
+  <entry date="2012-01-23" category="api" action="add">
+    <change>
+      <text locale="en">Added the possibility to set nested transaction handling and entity manager synchronization in the AbstractJPAEnabledManager</text>
+    </change>
+  </entry>
+  <release date="2012-01-23" version="2.5.10" />
+  <entry date="2012-01-23" category="api" action="add">
+    <change>
+      <text locale="en">Added the possibility to set an external callback handler, if a transaction failed</text>
+    </change>
+  </entry>
+  <release date="2012-01-21" version="2.5.9" />
+  <release date="2012-01-11" version="2.5.8" />
+  <release date="2011-12-22" version="2.5.7" />
+  <release date="2011-12-15" version="2.5.6" />
+  <entry date="2011-12-15" category="api" action="change" incompatible="true">
+    <change>
+      <text locale="en">Changed the way, how the logging level in the JPASessionCustomizer can be set from the outside</text>
+    </change>
+  </entry>
+  <entry date="2011-12-15" category="tech" action="update">
+    <change>
+      <text locale="en">Updated to EclipseLink 2.3.2</text>
+    </change>
+  </entry>
+  <entry date="2011-11-28" category="tech" action="update">
+    <change>
+      <text locale="en">Updated to H2 DB 1.3.162</text>
+    </change>
+  </entry>
+  <release date="2011-11-22" version="2.5.5" />
+  <entry date="2011-11-22" category="tech" action="update">
+    <change>
+      <text locale="en">Updated to EclipseLink 2.3.1</text>
+    </change>
+  </entry>
+  <release date="2011-11-21" version="2.5.4" />
+  <release date="2011-10-07" version="2.5.3" />
+  <entry date="2011-10-07" category="tech" action="update">
+    <change>
+      <text locale="en">Updated to H2 DB 1.3.161</text>
+    </change>
+  </entry>
+  <release date="2011-09-12" version="2.5.2" />
+  <entry date="2011-09-12" category="tech" action="update">
+    <change>
+      <text locale="en">Updated to phloc-commons 3.1.0</text>
+    </change>
+  </entry>
+  <entry date="2011-09-12" category="tech" action="update">
+    <change>
+      <text locale="en">Updated to H2 DB 1.3.160</text>
+    </change>
+  </entry>
+  <release date="2011-09-07" version="2.5.1" />
+  <entry date="2011-08-26" category="tech" action="update">
+    <change>
+      <text locale="en">Updated to EclipseLink 2.3.0</text>
+    </change>
+  </entry>
+  <entry date="2011-08-15" category="tech" action="update">
+    <change>
+      <text locale="en">Updated to H2 DB 1.3.159</text>
+    </change>
+  </entry>
+</changelog>
