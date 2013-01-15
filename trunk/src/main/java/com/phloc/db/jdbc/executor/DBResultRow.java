@@ -19,6 +19,13 @@ package com.phloc.db.jdbc.executor;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.sql.Blob;
+import java.sql.Clob;
+import java.sql.Date;
+import java.sql.NClob;
+import java.sql.RowId;
+import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -62,9 +69,12 @@ public final class DBResultRow implements ICloneable <DBResultRow>
     m_nIndex = 0;
   }
 
-  void add (@Nonnull final DBResultField aCol)
+  void add (@Nonnull final DBResultField aResultField)
   {
-    m_aCols[m_nIndex++] = aCol;
+    if (aResultField == null)
+      throw new NullPointerException ("ResultField");
+
+    m_aCols[m_nIndex++] = aResultField;
   }
 
   @Nonnegative
@@ -83,6 +93,17 @@ public final class DBResultRow implements ICloneable <DBResultRow>
   public DBResultField get (@Nonnegative final int nIndex)
   {
     return m_aCols[nIndex];
+  }
+
+  public int getColumnType (@Nonnegative final int nIndex)
+  {
+    return get (nIndex).getColumnType ();
+  }
+
+  @Nullable
+  public String getColumnTypeName (@Nonnegative final int nIndex)
+  {
+    return get (nIndex).getColumnTypeName ();
   }
 
   @Nonnull
@@ -202,6 +223,48 @@ public final class DBResultRow implements ICloneable <DBResultRow>
   public Short getAsShortObj (@Nonnegative final int nIndex)
   {
     return get (nIndex).getAsShortObj ();
+  }
+
+  @Nullable
+  public Blob getAsBlob (@Nonnegative final int nIndex)
+  {
+    return get (nIndex).getAsBlob ();
+  }
+
+  @Nullable
+  public Clob getAsClob (@Nonnegative final int nIndex)
+  {
+    return get (nIndex).getAsClob ();
+  }
+
+  @Nullable
+  public Date getAsDate (@Nonnegative final int nIndex)
+  {
+    return get (nIndex).getAsDate ();
+  }
+
+  @Nullable
+  public NClob getAsNClob (@Nonnegative final int nIndex)
+  {
+    return get (nIndex).getAsNClob ();
+  }
+
+  @Nullable
+  public RowId getAsRowId (@Nonnegative final int nIndex)
+  {
+    return get (nIndex).getAsRowId ();
+  }
+
+  @Nullable
+  public Time getAsTime (@Nonnegative final int nIndex)
+  {
+    return get (nIndex).getAsTime ();
+  }
+
+  @Nullable
+  public Timestamp getAsTimestamp (@Nonnegative final int nIndex)
+  {
+    return get (nIndex).getAsTimestamp ();
   }
 
   /**

@@ -19,6 +19,13 @@ package com.phloc.db.jdbc.executor;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.sql.Blob;
+import java.sql.Clob;
+import java.sql.Date;
+import java.sql.NClob;
+import java.sql.RowId;
+import java.sql.Time;
+import java.sql.Timestamp;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -27,6 +34,7 @@ import com.phloc.commons.annotations.Nonempty;
 import com.phloc.commons.string.StringHelper;
 import com.phloc.commons.string.ToStringGenerator;
 import com.phloc.commons.typeconvert.TypeConverter;
+import com.phloc.db.jdbc.JDBCUtils;
 
 /**
  * Represents a single DB query result value within a result row.
@@ -37,13 +45,17 @@ import com.phloc.commons.typeconvert.TypeConverter;
 public final class DBResultField
 {
   private final String m_sColumnName;
+  private final int m_nColumnType;
   private final Object m_aValue;
 
-  public DBResultField (@Nonnull @Nonempty final String sColumnName, @Nullable final Object aValue)
+  public DBResultField (@Nonnull @Nonempty final String sColumnName,
+                        final int nColumnType,
+                        @Nullable final Object aValue)
   {
     if (StringHelper.hasNoText (sColumnName))
       throw new IllegalArgumentException ("columnName");
     m_sColumnName = sColumnName;
+    m_nColumnType = nColumnType;
     m_aValue = aValue;
   }
 
@@ -52,6 +64,20 @@ public final class DBResultField
   public String getColumnName ()
   {
     return m_sColumnName;
+  }
+
+  /**
+   * @return The column type as defined in {@link java.sql.Types}.
+   */
+  public int getColumnType ()
+  {
+    return m_nColumnType;
+  }
+
+  @Nullable
+  public String getColumnTypeName ()
+  {
+    return JDBCUtils.getJDBCTypeName (m_nColumnType);
   }
 
   /**
@@ -169,9 +195,54 @@ public final class DBResultField
     return TypeConverter.convertIfNecessary (m_aValue, Short.class);
   }
 
+  @Nullable
+  public Blob getAsBlob ()
+  {
+    return (Blob) m_aValue;
+  }
+
+  @Nullable
+  public Clob getAsClob ()
+  {
+    return (Clob) m_aValue;
+  }
+
+  @Nullable
+  public Date getAsDate ()
+  {
+    return (Date) m_aValue;
+  }
+
+  @Nullable
+  public NClob getAsNClob ()
+  {
+    return (NClob) m_aValue;
+  }
+
+  @Nullable
+  public RowId getAsRowId ()
+  {
+    return (RowId) m_aValue;
+  }
+
+  @Nullable
+  public Time getAsTime ()
+  {
+    return (Time) m_aValue;
+  }
+
+  @Nullable
+  public Timestamp getAsTimestamp ()
+  {
+    return (Timestamp) m_aValue;
+  }
+
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("columnName", m_sColumnName).append ("value", m_aValue).toString ();
+    return new ToStringGenerator (this).append ("columnName", m_sColumnName)
+                                       .append ("columnType", m_nColumnType)
+                                       .append ("value", m_aValue)
+                                       .toString ();
   }
 }

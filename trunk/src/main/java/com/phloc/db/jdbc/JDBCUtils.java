@@ -250,7 +250,21 @@ public final class JDBCUtils
         return "DATALINK";
       case Types.BOOLEAN:
         return "BOOLEAN";
+        // JDBC 4.0
+      case Types.ROWID:
+        return "ROWID";
+      case Types.NCHAR:
+        return "NCHAR";
+      case Types.NVARCHAR:
+        return "NVARCHAR";
+      case Types.LONGNVARCHAR:
+        return "LONGNVARCHAR";
+      case Types.NCLOB:
+        return "NCLOB";
+      case Types.SQLXML:
+        return "SQLXML";
     }
+    s_aLogger.warn ("Unsupported JDBC type " + nType);
     return null;
   }
 }
