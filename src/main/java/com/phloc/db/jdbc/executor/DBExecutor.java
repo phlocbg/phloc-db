@@ -374,8 +374,12 @@ public class DBExecutor
       final ResultSetMetaData aRSMD = aRS.getMetaData ();
       final int nCols = aRSMD.getColumnCount ();
       final String [] aColumnNames = new String [nCols];
+      final int [] aColumnTypes = new int [nCols];
       for (int i = 1; i <= nCols; ++i)
+      {
         aColumnNames[i - 1] = aRSMD.getColumnName (i).intern ();
+        aColumnTypes[i - 1] = aRSMD.getColumnType (i);
+      }
 
       // create object once for all rows
       final DBResultRow aRow = new DBResultRow (nCols);
@@ -388,7 +392,7 @@ public class DBExecutor
         for (int i = 1; i <= nCols; ++i)
         {
           final Object aColumnValue = aRS.getObject (i);
-          aRow.add (new DBResultField (aColumnNames[i - 1], aColumnValue));
+          aRow.add (new DBResultField (aColumnNames[i - 1], aColumnTypes[i - 1], aColumnValue));
         }
 
         // add result object
