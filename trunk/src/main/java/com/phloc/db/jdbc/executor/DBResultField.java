@@ -112,9 +112,19 @@ public final class DBResultField
     return TypeConverter.convertToBoolean (m_aValue);
   }
 
+  public boolean getAsBoolean (final boolean bDefault)
+  {
+    return m_aValue == null ? bDefault : getAsBoolean ();
+  }
+
   public byte getAsByte ()
   {
     return TypeConverter.convertToByte (m_aValue);
+  }
+
+  public byte getAsByte (final byte nDefault)
+  {
+    return m_aValue == null ? nDefault : getAsByte ();
   }
 
   public char getAsChar ()
@@ -122,9 +132,19 @@ public final class DBResultField
     return TypeConverter.convertToChar (m_aValue);
   }
 
+  public char getAsChar (final char cDefault)
+  {
+    return m_aValue == null ? cDefault : getAsChar ();
+  }
+
   public double getAsDouble ()
   {
     return TypeConverter.convertToDouble (m_aValue);
+  }
+
+  public double getAsDouble (final double dDefault)
+  {
+    return m_aValue == null ? dDefault : getAsDouble ();
   }
 
   public float getAsFloat ()
@@ -132,9 +152,19 @@ public final class DBResultField
     return TypeConverter.convertToFloat (m_aValue);
   }
 
+  public float getAsFloat (final float fDefault)
+  {
+    return m_aValue == null ? fDefault : getAsFloat ();
+  }
+
   public int getAsInt ()
   {
     return TypeConverter.convertToInt (m_aValue);
+  }
+
+  public int getAsInt (final int nDefault)
+  {
+    return m_aValue == null ? nDefault : getAsInt ();
   }
 
   public long getAsLong ()
@@ -142,9 +172,19 @@ public final class DBResultField
     return TypeConverter.convertToLong (m_aValue);
   }
 
+  public long getAsLong (final long nDefault)
+  {
+    return m_aValue == null ? nDefault : getAsLong ();
+  }
+
   public short getAsShort ()
   {
     return TypeConverter.convertToShort (m_aValue);
+  }
+
+  public short getAsShort (final short nDefault)
+  {
+    return m_aValue == null ? nDefault : getAsShort ();
   }
 
   @Nullable

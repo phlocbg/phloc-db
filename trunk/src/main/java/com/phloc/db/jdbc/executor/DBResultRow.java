@@ -147,9 +147,19 @@ public final class DBResultRow implements ICloneable <DBResultRow>
     return get (nIndex).getAsByte ();
   }
 
+  public byte getAsByte (@Nonnegative final int nIndex, final byte nDefault)
+  {
+    return get (nIndex).getAsByte (nDefault);
+  }
+
   public char getAsChar (@Nonnegative final int nIndex)
   {
     return get (nIndex).getAsChar ();
+  }
+
+  public char getAsChar (@Nonnegative final int nIndex, final char cDefault)
+  {
+    return get (nIndex).getAsChar (cDefault);
   }
 
   public double getAsDouble (@Nonnegative final int nIndex)
@@ -157,9 +167,19 @@ public final class DBResultRow implements ICloneable <DBResultRow>
     return get (nIndex).getAsDouble ();
   }
 
+  public double getAsDouble (@Nonnegative final int nIndex, final double dDefault)
+  {
+    return get (nIndex).getAsDouble (dDefault);
+  }
+
   public float getAsFloat (@Nonnegative final int nIndex)
   {
     return get (nIndex).getAsFloat ();
+  }
+
+  public float getAsFloat (@Nonnegative final int nIndex, final float fDefault)
+  {
+    return get (nIndex).getAsFloat (fDefault);
   }
 
   public int getAsInt (@Nonnegative final int nIndex)
@@ -167,14 +187,29 @@ public final class DBResultRow implements ICloneable <DBResultRow>
     return get (nIndex).getAsInt ();
   }
 
+  public int getAsInt (@Nonnegative final int nIndex, final int nDefault)
+  {
+    return get (nIndex).getAsInt (nDefault);
+  }
+
   public long getAsLong (@Nonnegative final int nIndex)
   {
     return get (nIndex).getAsLong ();
   }
 
+  public long getAsLong (@Nonnegative final int nIndex, final long nDefault)
+  {
+    return get (nIndex).getAsLong (nDefault);
+  }
+
   public short getAsShort (@Nonnegative final int nIndex)
   {
     return get (nIndex).getAsShort ();
+  }
+
+  public short getAsShort (@Nonnegative final int nIndex, final short nDefault)
+  {
+    return get (nIndex).getAsShort (nDefault);
   }
 
   @Nullable
