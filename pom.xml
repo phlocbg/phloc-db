@@ -124,7 +124,7 @@
     <dependency>
       <groupId>com.phloc</groupId>
       <artifactId>phloc-scopes</artifactId>
-      <version>4.1.5</version>
+      <version>4.1.6</version>
       <optional>true</optional>
     </dependency>
 
