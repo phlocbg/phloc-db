@@ -24,7 +24,8 @@ import com.phloc.db.jdbc.AbstractConnector;
 
 public abstract class AbstractMSSQLConnector extends AbstractConnector
 {
-  protected static final String CONNECTION_PREFIX = "jdbc:sqlserver://";
+  /** Default JDBC URL prefix */
+  public static final String CONNECTION_PREFIX = "jdbc:sqlserver://";
   protected static final String JDBC_DRIVER_CLASS = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
 
   public AbstractMSSQLConnector ()

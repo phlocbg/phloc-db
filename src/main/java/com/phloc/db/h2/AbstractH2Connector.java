@@ -43,8 +43,11 @@ import com.phloc.db.jdbc.executor.IResultSetRowCallback;
 
 public abstract class AbstractH2Connector extends AbstractConnector
 {
+  /** Default trace level file: 1 */
   public static final int DEFAULT_TRACE_LEVEL_FILE = 1;
+  /** Default trace level system.out: 0 */
   public static final int DEFAULT_TRACE_LEVEL_SYSOUT = 0;
+  /** Default close on exit: true */
   public static final boolean DEFAULT_CLOSE_ON_EXIT = true;
   protected static final String CONNECTION_PREFIX = "jdbc:h2:";
   protected static final String JDBC_DRIVER_CLASS = "org.h2.Driver";

@@ -56,11 +56,14 @@ import com.phloc.commons.timing.StopWatch;
 @ThreadSafe
 public abstract class AbstractJPAEnabledManager
 {
-  private static final int DEFAULT_EXECUTION_WARN_TIME_MS = 1000;
+  /** By default the entity manager is locked */
   public static final boolean DEFAULT_LOCK_ENTITY_MGR = true;
+  /** By default nested transactions are not allowed */
   public static final boolean DEFAULT_ALLOW_NESTED_TRANSACTIONS = false;
+  /** By default no transaction is used for select statements */
   public static final boolean DEFAULT_USE_TRANSACTIONS_FOR_SELECT = false;
 
+  private static final int DEFAULT_EXECUTION_WARN_TIME_MS = 1000;
   private static final Logger s_aLogger = LoggerFactory.getLogger (AbstractJPAEnabledManager.class);
   private static final IStatisticsHandlerCounter s_aStatsCounterTransactions = StatisticsManager.getCounterHandler (AbstractJPAEnabledManager.class.getName () +
                                                                                                                     "$transactions");

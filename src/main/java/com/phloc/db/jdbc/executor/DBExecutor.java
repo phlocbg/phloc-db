@@ -123,6 +123,7 @@ public class DBExecutor
     }
   }
 
+  // ESCA-JAVA0143:
   @CodingStyleguideUnaware ("Needs to be synchronized!")
   @Nonnull
   private synchronized ESuccess _withConnectionDo (@Nonnull final IWithConnectionCallback aCB)

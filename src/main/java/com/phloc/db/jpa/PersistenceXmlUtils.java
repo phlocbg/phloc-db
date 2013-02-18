@@ -37,6 +37,7 @@ import com.phloc.commons.string.StringHelper;
 @Immutable
 public final class PersistenceXmlUtils
 {
+  /** The JPA consifuguration file relative to the classpath */
   public static final String PATH_PERSISTENCE_XML = "META-INF/persistence.xml";
   private static final Logger s_aLogger = LoggerFactory.getLogger (PersistenceXmlUtils.class);
 

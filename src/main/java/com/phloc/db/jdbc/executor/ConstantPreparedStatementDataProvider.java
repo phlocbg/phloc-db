@@ -18,7 +18,6 @@
 package com.phloc.db.jdbc.executor;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import javax.annotation.Nonnegative;
@@ -43,9 +42,9 @@ public final class ConstantPreparedStatementDataProvider implements IPreparedSta
     m_aValues = new ArrayList <Object> ();
   }
 
-  public ConstantPreparedStatementDataProvider (@Nonnull final Collection <?> aValues)
+  public ConstantPreparedStatementDataProvider (@Nonnull final Iterable <?> aValues)
   {
-    m_aValues = new ArrayList <Object> (aValues);
+    m_aValues = ContainerHelper.newList (aValues);
   }
 
   public ConstantPreparedStatementDataProvider (@Nonnull @Nonempty final Object... aValues)
