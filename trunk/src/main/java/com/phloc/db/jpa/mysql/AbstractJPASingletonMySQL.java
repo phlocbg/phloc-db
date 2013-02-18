@@ -17,7 +17,7 @@
  */
 package com.phloc.db.jpa.mysql;
 
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.Map;
 
 import javax.annotation.Nonnull;
@@ -39,9 +39,10 @@ import com.phloc.db.jpa.AbstractJPASingleton;
  */
 public abstract class AbstractJPASingletonMySQL extends AbstractJPASingleton
 {
+  /** Default JDBC URL prefix */
   public static final String JDBC_URL_PREFIX_MYSQL = "jdbc:mysql:";
   private static final Logger s_aLogger = LoggerFactory.getLogger (AbstractJPASingleton.class);
-  private static final Map <EMySQLConnectionProperty, String> s_aDefaultConnectionProperties = new HashMap <EMySQLConnectionProperty, String> ();
+  private static final Map <EMySQLConnectionProperty, String> s_aDefaultConnectionProperties = new EnumMap <EMySQLConnectionProperty, String> (EMySQLConnectionProperty.class);
 
   /**
    * Build the final connection string from the base JDBC URL and an optional
@@ -86,7 +87,7 @@ public abstract class AbstractJPASingletonMySQL extends AbstractJPASingleton
     return aSB.insert (0, sJdbcURL).toString ();
   }
 
-  /**
+  /*
    * Constructor. Never initialize manually!
    */
   protected AbstractJPASingletonMySQL (@Nonnull @Nonempty final String sJdbcURL,
@@ -97,7 +98,7 @@ public abstract class AbstractJPASingletonMySQL extends AbstractJPASingleton
     this (sJdbcURL, null, sUser, sPassword, sPersistenceUnitName, null);
   }
 
-  /**
+  /*
    * Constructor. Never initialize manually!
    */
   protected AbstractJPASingletonMySQL (@Nonnull @Nonempty final String sJdbcURL,
@@ -109,7 +110,7 @@ public abstract class AbstractJPASingletonMySQL extends AbstractJPASingleton
     this (sJdbcURL, aConnectionProperties, sUser, sPassword, sPersistenceUnitName, null);
   }
 
-  /**
+  /*
    * Constructor. Never initialize manually!
    */
   protected AbstractJPASingletonMySQL (@Nonnull @Nonempty final String sJdbcURL,

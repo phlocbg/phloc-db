@@ -60,7 +60,7 @@ public abstract class AbstractJPASingleton extends GlobalSingleton implements IE
   private EntityManagerFactory m_aFactory;
   private EntityManager m_aEntityManager;
 
-  /**
+  /*
    * Constructor. Never initialize manually!
    */
   protected AbstractJPASingleton (@Nonnull @Nonempty final String sJdbcDriver,
@@ -165,6 +165,9 @@ public abstract class AbstractJPASingleton extends GlobalSingleton implements IE
 
   /**
    * Called when the global scope is destroyed (upon servlet context shutdown)
+   * 
+   * @throws Exception
+   *         if closing fails
    */
   @Override
   protected final void onDestroy () throws Exception

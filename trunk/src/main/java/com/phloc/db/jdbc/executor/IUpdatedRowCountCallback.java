@@ -26,6 +26,7 @@ import com.phloc.commons.CGlobal;
  */
 public interface IUpdatedRowCountCallback
 {
+  /** Default value for uninitialized row count */
   int NOT_INITIALIZED = CGlobal.ILLEGAL_UINT;
 
   /**

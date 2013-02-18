@@ -40,6 +40,7 @@ import com.phloc.db.jpa.AbstractJPASingleton;
  */
 public abstract class AbstractJPASingletonH2 extends AbstractJPASingleton
 {
+  /** Default JDBC URL prefix */
   public static final String JDBC_URL_PREFIX_H2 = "jdbc:h2:";
   private static final Logger s_aLogger = LoggerFactory.getLogger (AbstractJPASingleton.class);
   private static final Map <String, String> s_aDefaultConnectionProperties = new HashMap <String, String> ();
@@ -79,7 +80,7 @@ public abstract class AbstractJPASingletonH2 extends AbstractJPASingleton
     return aSB.toString ();
   }
 
-  /**
+  /*
    * Constructor. Never initialize manually!
    */
   protected AbstractJPASingletonH2 (@Nonnull @Nonempty final String sJdbcURL,
@@ -90,7 +91,7 @@ public abstract class AbstractJPASingletonH2 extends AbstractJPASingleton
     this (sJdbcURL, null, sUser, sPassword, sPersistenceUnitName, null);
   }
 
-  /**
+  /*
    * Constructor. Never initialize manually!
    */
   protected AbstractJPASingletonH2 (@Nonnull @Nonempty final String sJdbcURL,

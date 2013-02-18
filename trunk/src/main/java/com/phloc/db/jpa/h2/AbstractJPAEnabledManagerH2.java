@@ -40,7 +40,9 @@ public abstract class AbstractJPAEnabledManagerH2 extends AbstractJPAEnabledMana
     SERIALIZABLE (1),
     READ_UNCOMMITED (0);
 
+    /** Default lock mode: read committed */
     public static final ELockMode DEFAULT = READ_COMMITTED;
+
     private int m_nValue;
 
     private ELockMode (final int i)
@@ -60,7 +62,9 @@ public abstract class AbstractJPAEnabledManagerH2 extends AbstractJPAEnabledMana
     LOG (1),
     LOG_AND_SYNC (2);
 
+    /** Default log mode: log and sync */
     public static final ELog DEFAULT = LOG_AND_SYNC;
+
     private int m_nValue;
 
     private ELog (final int i)
@@ -74,7 +78,7 @@ public abstract class AbstractJPAEnabledManagerH2 extends AbstractJPAEnabledMana
     }
   }
 
-  private static final Logger s_aLogger = LoggerFactory.getLogger (AbstractJPAEnabledManager.class);
+  static final Logger s_aLogger = LoggerFactory.getLogger (AbstractJPAEnabledManager.class);
 
   protected AbstractJPAEnabledManagerH2 ()
   {}
