@@ -24,6 +24,7 @@ import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 
 import com.phloc.commons.annotations.Nonempty;
+import com.phloc.commons.annotations.ReturnsMutableCopy;
 import com.phloc.commons.collections.ArrayHelper;
 import com.phloc.commons.collections.ContainerHelper;
 
@@ -35,7 +36,7 @@ import com.phloc.commons.collections.ContainerHelper;
  */
 public final class ConstantPreparedStatementDataProvider implements IPreparedStatementDataProvider
 {
-  private List <Object> m_aValues = new ArrayList <Object> ();
+  private final List <Object> m_aValues;
 
   public ConstantPreparedStatementDataProvider ()
   {
@@ -68,8 +69,9 @@ public final class ConstantPreparedStatementDataProvider implements IPreparedSta
   }
 
   @Nonnull
+  @ReturnsMutableCopy
   public List <Object> getObjectValues ()
   {
-    return m_aValues;
+    return ContainerHelper.newList (m_aValues);
   }
 }
