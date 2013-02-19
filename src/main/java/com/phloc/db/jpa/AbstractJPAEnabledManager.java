@@ -269,6 +269,7 @@ public abstract class AbstractJPAEnabledManager
                                                 final boolean bAllowNestedTransactions,
                                                 @Nonnull final Runnable aRunnable)
   {
+    final StopWatch aSWOverall = new StopWatch (true);
     final EntityTransaction aTransaction = aEntityMgr.getTransaction ();
     final boolean bTransactionRequired = !bAllowNestedTransactions || !aTransaction.isActive ();
     if (bTransactionRequired)
@@ -276,7 +277,7 @@ public abstract class AbstractJPAEnabledManager
       s_aStatsCounterTransactions.increment ();
       aTransaction.begin ();
     }
-    final StopWatch aSW = new StopWatch (true);
+    final StopWatch aSWCallback = new StopWatch (true);
     try
     {
       // Execute whatever you want to do
@@ -285,14 +286,14 @@ public abstract class AbstractJPAEnabledManager
       if (bTransactionRequired)
         aTransaction.commit ();
       s_aStatsCounterSuccess.increment ();
-      s_aStatsTimerExecutionSuccess.addTime (aSW.stopAndGetMillis ());
+      s_aStatsTimerExecutionSuccess.addTime (aSWCallback.stopAndGetMillis ());
       return ESuccess.SUCCESS;
     }
     catch (final Throwable t)
     {
-      s_aLogger.error ("Failed to perform something in a transaction!", t);
+      s_aLogger.error ("Failed to perform something in a transaction for callback " + aRunnable, t);
       s_aStatsCounterError.increment ();
-      s_aStatsTimerExecutionError.addTime (aSW.stopAndGetMillis ());
+      s_aStatsTimerExecutionError.addTime (aSWCallback.stopAndGetMillis ());
       final IExceptionHandler <Throwable> aExceptionHandler = getCustomExceptionHandler ();
       if (aExceptionHandler != null)
         try
@@ -301,7 +302,7 @@ public abstract class AbstractJPAEnabledManager
         }
         catch (final Throwable t2)
         {
-          s_aLogger.error ("Error in custom exception handler", t2);
+          s_aLogger.error ("Error in custom exception handler " + aExceptionHandler, t2);
         }
     }
     finally
@@ -311,13 +312,20 @@ public abstract class AbstractJPAEnabledManager
         {
           // We got an exception -> rollback
           aTransaction.rollback ();
-          s_aLogger.warn ("Rolled back transaction!");
+          s_aLogger.warn ("Rolled back transaction for callback " + aRunnable);
           s_aStatsCounterRollback.increment ();
         }
 
-      if (aSW.getMillis () > getDefaultExecutionWarnTime ())
-        onExecutionTimeExceeded ("Execution of something in transaction took too long: " + aRunnable.toString (),
-                                 aSW.getMillis ());
+      aSWOverall.stop ();
+      if (aSWCallback.getMillis () > getDefaultExecutionWarnTime ())
+        onExecutionTimeExceeded ("Callback: " +
+                                 aSWCallback.getMillis () +
+                                 "; overall: " +
+                                 aSWOverall.getMillis () +
+                                 "; transaction: " +
+                                 bTransactionRequired +
+                                 "; Execution of callback in transaction took too long: " +
+                                 aRunnable.toString (), aSWCallback.getMillis ());
     }
     return ESuccess.FAILURE;
   }
