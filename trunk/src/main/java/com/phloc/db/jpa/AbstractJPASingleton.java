@@ -35,7 +35,7 @@ import com.phloc.commons.annotations.Nonempty;
 import com.phloc.commons.string.StringHelper;
 import com.phloc.db.jpa.eclipselink.JPALogger;
 import com.phloc.db.jpa.eclipselink.JPASessionCustomizer;
-import com.phloc.scopes.nonweb.singleton.GlobalSingleton;
+import com.phloc.scopes.singleton.GlobalSingleton;
 
 /**
  * Ensure that the JPA manager is correctly handled upon AppSrv startup and
