@@ -17,7 +17,6 @@
  */
 package com.phloc.db.h2;
 
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.OutputStream;
 import java.io.PrintWriter;
@@ -217,8 +216,8 @@ public abstract class AbstractH2Connector extends AbstractConnector
     try
     {
       s_aLogger.info ("Dumping database '" + getDatabase () + "' to OutputStream");
-      final PrintWriter aPrintWriter = new PrintWriter (new BufferedWriter (StreamUtils.createWriter (aOS,
-                                                                                                      CCharset.CHARSET_UTF_8_OBJ)));
+      final PrintWriter aPrintWriter = new PrintWriter (StreamUtils.getBuffered (StreamUtils.createWriter (aOS,
+                                                                                                           CCharset.CHARSET_UTF_8_OBJ)));
       final DBExecutor aExecutor = new DBExecutor (this);
       final ESuccess ret = aExecutor.queryAll ("SCRIPT SIMPLE", new IResultSetRowCallback ()
       {
