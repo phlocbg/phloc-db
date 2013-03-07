@@ -33,6 +33,7 @@ import org.slf4j.LoggerFactory;
 import com.phloc.commons.annotations.Nonempty;
 import com.phloc.commons.charset.CCharset;
 import com.phloc.commons.io.file.FileUtils;
+import com.phloc.commons.io.streams.NonBlockingBufferedWriter;
 import com.phloc.commons.io.streams.StreamUtils;
 import com.phloc.commons.state.ESuccess;
 import com.phloc.db.jdbc.AbstractConnector;
@@ -216,8 +217,8 @@ public abstract class AbstractH2Connector extends AbstractConnector
     try
     {
       s_aLogger.info ("Dumping database '" + getDatabase () + "' to OutputStream");
-      final PrintWriter aPrintWriter = new PrintWriter (StreamUtils.getBuffered (StreamUtils.createWriter (aOS,
-                                                                                                           CCharset.CHARSET_UTF_8_OBJ)));
+      final PrintWriter aPrintWriter = new PrintWriter (new NonBlockingBufferedWriter (StreamUtils.createWriter (aOS,
+                                                                                                                 CCharset.CHARSET_UTF_8_OBJ)));
       final DBExecutor aExecutor = new DBExecutor (this);
       final ESuccess ret = aExecutor.queryAll ("SCRIPT SIMPLE", new IResultSetRowCallback ()
       {
