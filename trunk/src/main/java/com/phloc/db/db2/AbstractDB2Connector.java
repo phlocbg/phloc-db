@@ -15,7 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.phloc.db.mssql;
+package com.phloc.db.db2;
 
 import javax.annotation.Nonnull;
 
@@ -23,17 +23,17 @@ import com.phloc.commons.annotations.Nonempty;
 import com.phloc.db.jdbc.AbstractConnector;
 
 /**
- * Abstract DB connector for Microsoft SQL Server
+ * Abstract DB connector for DB2
  * 
  * @author philip
  */
-public abstract class AbstractMSSQLConnector extends AbstractConnector
+public abstract class AbstractDB2Connector extends AbstractConnector
 {
   /** Default JDBC URL prefix */
-  public static final String CONNECTION_PREFIX = "jdbc:sqlserver://";
-  protected static final String JDBC_DRIVER_CLASS = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
+  public static final String CONNECTION_PREFIX = "jdbc:db2://";
+  protected static final String JDBC_DRIVER_CLASS = "com.ibm.db2.jcc.DB2Driver";
 
-  public AbstractMSSQLConnector ()
+  public AbstractDB2Connector ()
   {}
 
   @Override
