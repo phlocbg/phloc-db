@@ -132,8 +132,8 @@ public abstract class AbstractJPASingleton extends GlobalSingleton implements IE
                                        aFactoryProps.toString () +
                                        "!");
 
-    // Wrap in a factory with a close listener
-    m_aFactory = new EntityManagerFactoryWithCloseListener (aFactory);
+    // Wrap in a factory with listener support
+    m_aFactory = new EntityManagerFactoryWithListener (aFactory);
     s_aLogger.info ("Created entity manager factory for persistence unit '" + sPersistenceUnitName + "'");
 
     // Consistency check after creation!

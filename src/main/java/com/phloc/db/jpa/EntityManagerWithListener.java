@@ -21,22 +21,22 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.persistence.EntityManager;
 
-public class EntityManagerWithCloseListener extends EntityManagerProxy
+public class EntityManagerWithListener extends EntityManagerProxy
 {
-  private IEntityManagerCloseListener m_aListener;
+  private IEntityManagerListener m_aListener;
 
-  public EntityManagerWithCloseListener (@Nonnull final EntityManager aEntityMgr)
+  public EntityManagerWithListener (@Nonnull final EntityManager aEntityMgr)
   {
     super (aEntityMgr);
   }
 
-  public void setCloseListener (@Nullable final IEntityManagerCloseListener aListener)
+  public void setCloseListener (@Nullable final IEntityManagerListener aListener)
   {
     m_aListener = aListener;
   }
 
   @Nullable
-  public IEntityManagerCloseListener getCloseListener ()
+  public IEntityManagerListener getListener ()
   {
     return m_aListener;
   }

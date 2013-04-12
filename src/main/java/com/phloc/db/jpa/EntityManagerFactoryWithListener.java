@@ -22,30 +22,37 @@ import java.util.Map;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.OverridingMethodsMustInvokeSuper;
+import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 
-public class EntityManagerFactoryWithCloseListener extends EntityManagerFactoryProxy implements IEntityManagerCloseListener
+/**
+ * A special {@link EntityManagerFactory} that creates {@link EntityManager}
+ * objects that are unique per thread.
+ * 
+ * @author philip
+ */
+public class EntityManagerFactoryWithListener extends EntityManagerFactoryProxy implements IEntityManagerListener
 {
-  private static final ThreadLocal <EntityManagerWithCloseListener> s_aTL = new ThreadLocal <EntityManagerWithCloseListener> ();
+  private static final ThreadLocal <EntityManagerWithListener> s_aTL = new ThreadLocal <EntityManagerWithListener> ();
 
-  public EntityManagerFactoryWithCloseListener (@Nonnull final EntityManagerFactory aEntityMgrFactory)
+  public EntityManagerFactoryWithListener (@Nonnull final EntityManagerFactory aEntityMgrFactory)
   {
     super (aEntityMgrFactory);
   }
 
   @Override
-  public EntityManagerWithCloseListener createEntityManager ()
+  public EntityManagerWithListener createEntityManager ()
   {
     return createEntityManager (null);
   }
 
   @Override
-  public EntityManagerWithCloseListener createEntityManager (@SuppressWarnings ("rawtypes") @Nullable final Map aProperties)
+  public EntityManagerWithListener createEntityManager (@SuppressWarnings ("rawtypes") @Nullable final Map aProperties)
   {
-    EntityManagerWithCloseListener aEntityMgr = s_aTL.get ();
+    EntityManagerWithListener aEntityMgr = s_aTL.get ();
     if (aEntityMgr == null)
     {
-      aEntityMgr = new EntityManagerWithCloseListener (super.createEntityManager (aProperties));
+      aEntityMgr = new EntityManagerWithListener (super.createEntityManager (aProperties));
       s_aTL.set (aEntityMgr);
       // Set special listener, so that the ThreadLocal is cleared after close
       aEntityMgr.setCloseListener (this);
