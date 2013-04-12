@@ -28,7 +28,7 @@ public class EntityManagerFactoryWithCloseListener extends EntityManagerFactoryP
 {
   private static final ThreadLocal <EntityManagerWithCloseListener> s_aTL = new ThreadLocal <EntityManagerWithCloseListener> ();
 
-  protected EntityManagerFactoryWithCloseListener (@Nonnull final EntityManagerFactory aEntityMgrFactory)
+  public EntityManagerFactoryWithCloseListener (@Nonnull final EntityManagerFactory aEntityMgrFactory)
   {
     super (aEntityMgrFactory);
   }

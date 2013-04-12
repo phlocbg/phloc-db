@@ -124,13 +124,16 @@ public abstract class AbstractJPASingleton extends GlobalSingleton implements IE
     m_sPersistenceUnitName = sPersistenceUnitName;
 
     // Create entity manager factory
-    m_aFactory = Persistence.createEntityManagerFactory (sPersistenceUnitName, aFactoryProps);
-    if (m_aFactory == null)
+    final EntityManagerFactory aFactory = Persistence.createEntityManagerFactory (sPersistenceUnitName, aFactoryProps);
+    if (aFactory == null)
       throw new IllegalStateException ("Failed to create entity manager factory for persistence unit '" +
                                        sPersistenceUnitName +
                                        "' with properties " +
                                        aFactoryProps.toString () +
                                        "!");
+
+    // Wrap in a factory with a close listener
+    m_aFactory = new EntityManagerFactoryWithCloseListener (aFactory);
     s_aLogger.info ("Created entity manager factory for persistence unit '" + sPersistenceUnitName + "'");
 
     // Consistency check after creation!
