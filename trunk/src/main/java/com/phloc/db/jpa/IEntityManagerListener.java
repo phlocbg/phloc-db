@@ -17,10 +17,15 @@
  */
 package com.phloc.db.jpa;
 
-public interface IEntityManagerCloseListener
+/**
+ * Base interface for EntityManager listeners.
+ * 
+ * @author helger
+ */
+public interface IEntityManagerListener
 {
   /**
-   * Called after an EntityManager was closed
+   * Called after an EntityManager was closed.
    */
   void onAfterEntityManagerClosed ();
 }
