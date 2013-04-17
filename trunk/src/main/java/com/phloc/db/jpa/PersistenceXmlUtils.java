@@ -66,8 +66,9 @@ public final class PersistenceXmlUtils
         final IMicroDocument aDoc = MicroReader.readMicroXML (new URLResource (u));
         if (aDoc == null || aDoc.getDocumentElement () == null)
           throw new IllegalStateException ("No XML file: " + u);
-        for (final IMicroElement ePU : aDoc.getDocumentElement ().getChildElements (sNamespaceURI, "persistence-unit"))
-          for (final IMicroElement eClass : ePU.getChildElements (sNamespaceURI, "class"))
+        for (final IMicroElement ePU : aDoc.getDocumentElement ().getAllChildElements (sNamespaceURI,
+                                                                                       "persistence-unit"))
+          for (final IMicroElement eClass : ePU.getAllChildElements (sNamespaceURI, "class"))
           {
             final String sClass = eClass.getTextContent ();
             if (StringHelper.hasNoTextAfterTrim (sClass))
