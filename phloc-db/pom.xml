@@ -25,8 +25,8 @@
      
   <scm>
     <url>http://code.google.com/p/phloc-db/source/browse/</url>
-    <connection>scm:svn:http://phloc-db.googlecode.com/svn/trunk</connection>
-    <developerConnection>scm:svn:https://phloc-db.googlecode.com/svn/trunk</developerConnection>
+    <connection>scm:svn:http://phloc-db.googlecode.com/svn/trunk/phloc-db</connection>
+    <developerConnection>scm:svn:https://phloc-db.googlecode.com/svn/trunk/phloc-db</developerConnection>
   </scm>
 
   <organization>
