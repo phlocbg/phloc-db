@@ -36,7 +36,7 @@ import com.phloc.commons.state.ESuccess;
 /**
  * Small class for safe SQL-as-usual methods.
  * 
- * @author philip
+ * @author Philip Helger
  */
 @Immutable
 public final class JDBCUtils

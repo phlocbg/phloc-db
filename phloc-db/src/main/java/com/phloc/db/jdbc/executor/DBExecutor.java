@@ -55,7 +55,7 @@ import com.phloc.db.jdbc.JDBCUtils;
 /**
  * Simple wrapper around common JDBC functionality.
  * 
- * @author philip
+ * @author Philip Helger
  */
 @NotThreadSafe
 public class DBExecutor

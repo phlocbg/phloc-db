@@ -31,7 +31,7 @@ import javax.persistence.metamodel.Metamodel;
 /**
  * Proxy implementation of the {@link EntityManagerFactory} interface.
  * 
- * @author philip
+ * @author Philip Helger
  */
 public class EntityManagerFactoryProxy implements EntityManagerFactory
 {

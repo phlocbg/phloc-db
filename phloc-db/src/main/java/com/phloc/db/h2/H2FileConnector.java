@@ -37,7 +37,7 @@ import com.phloc.datetime.PDTFactory;
 /**
  * This class handles some of the specialities of the H2 database.
  * 
- * @author philip
+ * @author Philip Helger
  */
 public class H2FileConnector extends H2MemConnector
 {

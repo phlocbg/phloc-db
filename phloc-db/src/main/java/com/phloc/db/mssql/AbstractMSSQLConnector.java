@@ -25,7 +25,7 @@ import com.phloc.db.jdbc.AbstractConnector;
 /**
  * Abstract DB connector for Microsoft SQL Server
  * 
- * @author philip
+ * @author Philip Helger
  */
 public abstract class AbstractMSSQLConnector extends AbstractConnector
 {

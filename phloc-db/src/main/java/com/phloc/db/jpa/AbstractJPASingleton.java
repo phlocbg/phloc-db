@@ -42,7 +42,7 @@ import com.phloc.scopes.singleton.GlobalSingleton;
  * shutdown.<br>
  * Must be public to be instantiated via reflection.
  * 
- * @author philip
+ * @author Philip Helger
  */
 @SuppressWarnings ("deprecation")
 public abstract class AbstractJPASingleton extends GlobalSingleton implements IEntityManagerProvider

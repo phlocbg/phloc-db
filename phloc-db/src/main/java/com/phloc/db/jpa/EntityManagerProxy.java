@@ -37,7 +37,7 @@ import javax.persistence.metamodel.Metamodel;
 /**
  * Proxy implementation of the {@link EntityManager} interface.
  * 
- * @author philip
+ * @author Philip Helger
  */
 @SuppressWarnings ("rawtypes")
 public class EntityManagerProxy implements EntityManager

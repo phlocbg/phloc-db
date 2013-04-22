@@ -36,7 +36,7 @@ import com.phloc.db.jpa.AbstractJPASingleton;
 /**
  * JPA Singleton specific for H2 database.
  * 
- * @author philip
+ * @author Philip Helger
  */
 public abstract class AbstractJPASingletonH2 extends AbstractJPASingleton
 {

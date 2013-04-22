@@ -42,7 +42,7 @@ import com.phloc.commons.string.ToStringGenerator;
 /**
  * Represents a single DB query result row.
  * 
- * @author philip
+ * @author Philip Helger
  */
 @Nonnull
 public final class DBResultRow implements ICloneable <DBResultRow>

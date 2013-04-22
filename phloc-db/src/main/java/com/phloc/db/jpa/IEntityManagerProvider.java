@@ -23,7 +23,7 @@ import javax.persistence.EntityManager;
 /**
  * Indirection interface for retrieving JPA {@link EntityManager}.
  * 
- * @author philip
+ * @author Philip Helger
  */
 public interface IEntityManagerProvider
 {

@@ -22,7 +22,7 @@ import java.util.List;
 /**
  * This callback is used to retrieve generated keys upon insertion.
  * 
- * @author philip
+ * @author Philip Helger
  */
 public interface IGeneratedValuesCallback
 {

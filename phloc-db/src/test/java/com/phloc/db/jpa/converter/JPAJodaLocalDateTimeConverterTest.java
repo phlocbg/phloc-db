@@ -30,7 +30,7 @@ import com.phloc.datetime.PDTFactory;
 /**
  * Test class for class {@link JPAJodaLocalDateTimeConverter}.
  * 
- * @author philip
+ * @author Philip Helger
  */
 public final class JPAJodaLocalDateTimeConverterTest {
   @Test

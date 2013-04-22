@@ -25,7 +25,7 @@ import javax.annotation.Nonnull;
  * Special implementation of the {@link IGeneratedValuesCallback} especially for
  * retrieving a single created ID.
  * 
- * @author philip
+ * @author Philip Helger
  */
 public class GetSingleGeneratedKeyCallback implements IGeneratedValuesCallback
 {

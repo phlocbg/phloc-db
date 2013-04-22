@@ -31,7 +31,7 @@ import com.phloc.commons.CGlobal;
  * <code>eclipselink.session.customizer</code><br>
  * Should have a public no-argument ctor
  * 
- * @author philip
+ * @author Philip Helger
  */
 @Deprecated
 public final class JPASessionCustomizer implements SessionCustomizer

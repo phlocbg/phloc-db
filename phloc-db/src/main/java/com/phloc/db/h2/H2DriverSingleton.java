@@ -29,7 +29,7 @@ import com.phloc.scopes.singleton.GlobalSingleton;
  * A wrapper around the H2 driver, that gets automatically deregistered, when
  * the global scope is closed.
  * 
- * @author philip
+ * @author Philip Helger
  */
 public final class H2DriverSingleton extends GlobalSingleton
 {

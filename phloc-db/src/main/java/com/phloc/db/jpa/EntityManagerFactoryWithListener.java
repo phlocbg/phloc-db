@@ -29,7 +29,7 @@ import javax.persistence.EntityManagerFactory;
  * A special {@link EntityManagerFactory} that creates {@link EntityManager}
  * objects that are unique per thread.
  * 
- * @author philip
+ * @author Philip Helger
  */
 public class EntityManagerFactoryWithListener extends EntityManagerFactoryProxy implements IEntityManagerListener
 {

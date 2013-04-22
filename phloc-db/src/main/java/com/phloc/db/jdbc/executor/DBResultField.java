@@ -39,7 +39,7 @@ import com.phloc.db.jdbc.JDBCUtils;
 /**
  * Represents a single DB query result value within a result row.
  * 
- * @author philip
+ * @author Philip Helger
  */
 @Nonnull
 public final class DBResultField
