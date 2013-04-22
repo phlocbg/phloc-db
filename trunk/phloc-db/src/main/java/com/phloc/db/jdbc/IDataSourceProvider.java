@@ -22,7 +22,7 @@ import javax.sql.DataSource;
 /**
  * A simple provider interface for {@link DataSource} objects.
  * 
- * @author philip
+ * @author Philip Helger
  */
 public interface IDataSourceProvider
 {

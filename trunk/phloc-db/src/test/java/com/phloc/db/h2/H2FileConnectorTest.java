@@ -22,7 +22,7 @@ import org.junit.Test;
 /**
  * Test class for class {@link H2FileConnector}.
  * 
- * @author philip
+ * @author Philip Helger
  */
 public final class H2FileConnectorTest
 {

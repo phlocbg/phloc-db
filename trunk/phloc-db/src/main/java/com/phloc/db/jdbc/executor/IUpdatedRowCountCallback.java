@@ -22,7 +22,7 @@ import com.phloc.commons.CGlobal;
 /**
  * This callback is used to retrieve generated keys upon insertion.
  * 
- * @author philip
+ * @author Philip Helger
  */
 public interface IUpdatedRowCountCallback
 {

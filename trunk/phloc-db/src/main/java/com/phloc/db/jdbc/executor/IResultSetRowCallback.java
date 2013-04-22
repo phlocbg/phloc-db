@@ -23,7 +23,7 @@ import com.phloc.commons.callback.INonThrowingRunnableWithParameter;
  * A simple callback that can be executed for each row in a
  * {@link java.sql.ResultSet}.
  * 
- * @author philip
+ * @author Philip Helger
  */
 public interface IResultSetRowCallback extends INonThrowingRunnableWithParameter <DBResultRow>
 {

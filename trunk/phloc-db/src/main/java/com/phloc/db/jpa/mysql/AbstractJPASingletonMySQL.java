@@ -35,7 +35,7 @@ import com.phloc.db.jpa.AbstractJPASingleton;
 /**
  * JPA Singleton specific for MySQL database.
  * 
- * @author philip
+ * @author Philip Helger
  */
 public abstract class AbstractJPASingletonMySQL extends AbstractJPASingleton
 {

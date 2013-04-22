@@ -26,7 +26,7 @@ import org.slf4j.LoggerFactory;
 /**
  * A logging H2 event listener.
  *
- * @author philip
+ * @author Philip Helger
  */
 public class H2EventListener implements DatabaseEventListener
 {

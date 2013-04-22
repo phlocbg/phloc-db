@@ -32,7 +32,7 @@ import com.phloc.commons.collections.ContainerHelper;
  * A simple implementation of the {@link IPreparedStatementDataProvider} that
  * takes a list of objects and returns theses objects as they are.
  * 
- * @author philip
+ * @author Philip Helger
  */
 public final class ConstantPreparedStatementDataProvider implements IPreparedStatementDataProvider
 {

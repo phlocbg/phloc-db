@@ -24,7 +24,7 @@ import javax.annotation.Nonnull;
  * Callback interface to be used to notify interested parties when a statement
  * takes too long. Is used in {@link AbstractJPAEnabledManager}.
  * 
- * @author philip
+ * @author Philip Helger
  */
 public interface IJPAExecutionTimeExceededHandler
 {

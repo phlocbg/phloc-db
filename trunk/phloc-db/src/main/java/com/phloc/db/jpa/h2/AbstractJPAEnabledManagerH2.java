@@ -29,7 +29,7 @@ import com.phloc.db.jpa.AbstractJPAEnabledManager;
 /**
  * Special H2 version of {@link AbstractJPAEnabledManager}
  * 
- * @author philip
+ * @author Philip Helger
  */
 @ThreadSafe
 public abstract class AbstractJPAEnabledManagerH2 extends AbstractJPAEnabledManager

@@ -51,7 +51,7 @@ import com.phloc.commons.timing.StopWatch;
  * is usually retrieved from a subclass of
  * {@link com.phloc.db.jpa.AbstractJPASingleton}.
  * 
- * @author philip
+ * @author Philip Helger
  */
 @ThreadSafe
 public abstract class AbstractJPAEnabledManager

@@ -29,7 +29,7 @@ import com.phloc.commons.version.Version;
  * "http://dev.mysql.com/doc/refman/5.0/en/connector-j-reference-configuration-properties.html"
  * >Source</a>
  * 
- * @author philip
+ * @author Philip Helger
  */
 @CodingStyleguideUnaware
 public enum EMySQLConnectionProperty

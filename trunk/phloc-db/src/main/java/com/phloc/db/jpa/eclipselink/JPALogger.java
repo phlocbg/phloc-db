@@ -33,7 +33,7 @@ import com.phloc.commons.string.StringHelper;
  * A logging adapter that can be hooked into JPA and forwards all logging
  * requests to phloc logging.
  * 
- * @author philip
+ * @author Philip Helger
  */
 public final class JPALogger extends AbstractSessionLog
 {

@@ -27,7 +27,7 @@ import java.lang.annotation.Target;
  * Just to indicate that a method is present for JPA only. This method is not
  * meant for direct user access.
  * 
- * @author philip
+ * @author Philip Helger
  */
 @Retention (RetentionPolicy.CLASS)
 @Target ({ ElementType.METHOD, ElementType.CONSTRUCTOR })

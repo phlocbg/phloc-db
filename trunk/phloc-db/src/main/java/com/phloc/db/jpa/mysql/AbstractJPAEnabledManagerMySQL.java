@@ -24,7 +24,7 @@ import com.phloc.db.jpa.AbstractJPAEnabledManager;
 /**
  * Special MySQL version of {@link AbstractJPAEnabledManager}
  * 
- * @author philip
+ * @author Philip Helger
  */
 @ThreadSafe
 public abstract class AbstractJPAEnabledManagerMySQL extends AbstractJPAEnabledManager

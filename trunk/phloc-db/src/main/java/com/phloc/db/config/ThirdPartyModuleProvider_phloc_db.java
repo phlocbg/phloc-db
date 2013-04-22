@@ -30,7 +30,7 @@ import com.phloc.commons.version.Version;
  * Implement this SPI interface if your JAR file contains external third party
  * modules.
  * 
- * @author philip
+ * @author Philip Helger
  */
 @IsSPIImplementation
 public final class ThirdPartyModuleProvider_phloc_db implements IThirdPartyModuleProviderSPI
