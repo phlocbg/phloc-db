@@ -15,23 +15,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.phloc.db.h2;
+package com.phloc.db.jpa.callback;
 
-import org.junit.Test;
+import javax.annotation.Nonnegative;
+import javax.annotation.Nonnull;
+
+import com.phloc.db.jpa.AbstractJPAEnabledManager;
 
 /**
- * Test class for class {@link H2FileConnector}.
+ * Callback interface to be used to notify interested parties when a statement
+ * takes too long. Is used in {@link AbstractJPAEnabledManager}.
  * 
  * @author Philip Helger
  */
-public final class H2FileConnectorTest
+public interface IJPAExecutionTimeExceededHandler
 {
-  @Test
-  public void testAll ()
-  {
-    final H2FileConnector h2c = new H2FileConnector (".", "test", "sa", "");
-    h2c.close ();
-    // Close again
-    h2c.close ();
-  }
+  /**
+   * Called when the execution time was exceeded
+   * 
+   * @param sMsg
+   *        The message to locate the source
+   * @param nExecutionMillis
+   *        The milliseconds the execution took
+   */
+  void onExecutionTimeExceeded (@Nonnull String sMsg, @Nonnegative long nExecutionMillis);
 }

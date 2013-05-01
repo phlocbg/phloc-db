@@ -1,4 +1,4 @@
-package com.phloc.db.utils;
+package com.phloc.db.jpa.utils;
 
 import javax.annotation.Nonnull;
 

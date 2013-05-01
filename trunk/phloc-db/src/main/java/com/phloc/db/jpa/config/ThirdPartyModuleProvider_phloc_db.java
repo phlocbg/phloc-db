@@ -15,7 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.phloc.db.config;
+package com.phloc.db.jpa.config;
 
 import javax.annotation.Nullable;
 
@@ -35,26 +35,13 @@ import com.phloc.commons.version.Version;
 @IsSPIImplementation
 public final class ThirdPartyModuleProvider_phloc_db implements IThirdPartyModuleProviderSPI
 {
-  /** Apache commons-pool */
-  public static final IThirdPartyModule COMMONS_POOL = new ThirdPartyModule ("Apache Commons Pool",
-                                                                             "Apache",
-                                                                             ELicense.APACHE2,
-                                                                             new Version (1, 6, 0),
-                                                                             "http://commons.apache.org/pool/",
-                                                                             true);
-  /** Apache commons-dbcp */
-  public static final IThirdPartyModule COMMONS_DBCP = new ThirdPartyModule ("Apache Commons DBCP",
-                                                                             "Apache",
-                                                                             ELicense.APACHE2,
-                                                                             new Version (1, 4, 0),
-                                                                             "http://commons.apache.org/dbcp/",
-                                                                             true);
   /** H2 database */
   public static final IThirdPartyModule H2 = new ThirdPartyModule ("H2 Database Engine",
                                                                    "Eclipse Foundation",
                                                                    ELicense.EPL10,
                                                                    new Version (1, 3, 171),
-                                                                   "http://www.h2database.com/");
+                                                                   "http://www.h2database.com/",
+                                                                   true);
   /** MySQL connector */
   public static final IThirdPartyModule MYSQL = new ThirdPartyModule ("MySQL Connector/J",
                                                                       "Oracle",
@@ -72,6 +59,6 @@ public final class ThirdPartyModuleProvider_phloc_db implements IThirdPartyModul
   @Nullable
   public IThirdPartyModule [] getAllThirdPartyModules ()
   {
-    return new IThirdPartyModule [] { COMMONS_POOL, COMMONS_DBCP, H2, MYSQL, ECLIPSE_LINK };
+    return new IThirdPartyModule [] { H2, MYSQL, ECLIPSE_LINK };
   }
 }

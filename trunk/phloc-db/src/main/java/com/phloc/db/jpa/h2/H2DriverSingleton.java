@@ -15,7 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.phloc.db.h2;
+package com.phloc.db.jpa.h2;
 
 import javax.annotation.Nonnull;
 

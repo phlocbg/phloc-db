@@ -30,7 +30,6 @@ import org.slf4j.LoggerFactory;
 import com.phloc.commons.annotations.Nonempty;
 import com.phloc.commons.collections.ContainerHelper;
 import com.phloc.commons.string.StringHelper;
-import com.phloc.db.h2.H2DriverSingleton;
 import com.phloc.db.jpa.AbstractJPASingleton;
 
 /**
