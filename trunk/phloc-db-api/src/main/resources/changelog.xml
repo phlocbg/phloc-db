@@ -19,11 +19,11 @@
 
 -->
 <changelog xmlns="http://www.phloc.com/ns/changelog/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://www.phloc.com/ns/changelog/1.0 schemas/changelog-1.0.xsd" version="1.0" component="phloc-db-jdbc">
+  xsi:schemaLocation="http://www.phloc.com/ns/changelog/1.0 schemas/changelog-1.0.xsd" version="1.0" component="phloc-db-api">
   <release date="2013-05-01" version="1.0.0" />
   <entry date="2013-05-01" category="api" action="add">
     <change>
-      <text locale="en">Initially extracted parts from phloc-db</text>
+      <text locale="en">Initially extracted parts from phloc-db and phloc-db-jdbc</text>
     </change>
   </entry>
   <!-- changelog started -->
