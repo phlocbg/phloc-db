@@ -30,6 +30,7 @@ import org.slf4j.LoggerFactory;
 import com.phloc.commons.annotations.Nonempty;
 import com.phloc.commons.collections.ContainerHelper;
 import com.phloc.commons.string.StringHelper;
+import com.phloc.db.api.CJDBC_H2;
 import com.phloc.db.jpa.AbstractEntityManagerFactorySingleton;
 
 /**
@@ -39,8 +40,6 @@ import com.phloc.db.jpa.AbstractEntityManagerFactorySingleton;
  */
 public abstract class AbstractEntityManagerFactorySingletonH2 extends AbstractEntityManagerFactorySingleton
 {
-  /** Default JDBC URL prefix */
-  public static final String JDBC_URL_PREFIX_H2 = "jdbc:h2:";
   private static final Logger s_aLogger = LoggerFactory.getLogger (AbstractEntityManagerFactorySingleton.class);
   private static final Map <String, String> s_aDefaultConnectionProperties = new HashMap <String, String> ();
 
@@ -64,7 +63,7 @@ public abstract class AbstractEntityManagerFactorySingletonH2 extends AbstractEn
   {
     if (StringHelper.hasNoText (sJdbcURL))
       throw new IllegalArgumentException ("JDBC URL may not be empty!");
-    if (!sJdbcURL.startsWith (JDBC_URL_PREFIX_H2))
+    if (!sJdbcURL.startsWith (CJDBC_H2.CONNECTION_PREFIX))
       s_aLogger.error ("The JDBC URL '" + sJdbcURL + "' does not seem to be a H2 connection string!");
 
     // Build connection properties from default values and the optional ones

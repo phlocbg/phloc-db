@@ -30,6 +30,7 @@ import org.slf4j.LoggerFactory;
 import com.phloc.commons.annotations.Nonempty;
 import com.phloc.commons.collections.ContainerHelper;
 import com.phloc.commons.string.StringHelper;
+import com.phloc.db.api.CJDBC_MySQL;
 import com.phloc.db.jpa.AbstractEntityManagerFactorySingleton;
 
 /**
@@ -39,8 +40,6 @@ import com.phloc.db.jpa.AbstractEntityManagerFactorySingleton;
  */
 public abstract class AbstractEntityManagerFactorySingletonMySQL extends AbstractEntityManagerFactorySingleton
 {
-  /** Default JDBC URL prefix */
-  public static final String JDBC_URL_PREFIX_MYSQL = "jdbc:mysql:";
   private static final Logger s_aLogger = LoggerFactory.getLogger (AbstractEntityManagerFactorySingleton.class);
   private static final Map <EMySQLConnectionProperty, String> s_aDefaultConnectionProperties = new EnumMap <EMySQLConnectionProperty, String> (EMySQLConnectionProperty.class);
 
@@ -64,7 +63,7 @@ public abstract class AbstractEntityManagerFactorySingletonMySQL extends Abstrac
   {
     if (StringHelper.hasNoText (sJdbcURL))
       throw new IllegalArgumentException ("JDBC URL may not be empty!");
-    if (!sJdbcURL.startsWith (JDBC_URL_PREFIX_MYSQL))
+    if (!sJdbcURL.startsWith (CJDBC_MySQL.CONNECTION_PREFIX))
       s_aLogger.error ("The JDBC URL '" + sJdbcURL + "' does not seem to be a MySQL connection string!");
 
     // FIMXE does this fit for MySQL DBs?

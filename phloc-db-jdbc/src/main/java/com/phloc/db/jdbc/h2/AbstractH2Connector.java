@@ -36,6 +36,7 @@ import com.phloc.commons.io.file.FileUtils;
 import com.phloc.commons.io.streams.NonBlockingBufferedWriter;
 import com.phloc.commons.io.streams.StreamUtils;
 import com.phloc.commons.state.ESuccess;
+import com.phloc.db.api.CJDBC_H2;
 import com.phloc.db.jdbc.AbstractConnector;
 import com.phloc.db.jdbc.callback.IResultSetRowCallback;
 import com.phloc.db.jdbc.executor.DBExecutor;
@@ -49,8 +50,6 @@ public abstract class AbstractH2Connector extends AbstractConnector
   public static final int DEFAULT_TRACE_LEVEL_SYSOUT = 0;
   /** Default close on exit: true */
   public static final boolean DEFAULT_CLOSE_ON_EXIT = true;
-  protected static final String CONNECTION_PREFIX = "jdbc:h2:";
-  protected static final String JDBC_DRIVER_CLASS = "org.h2.Driver";
   private static final Logger s_aLogger = LoggerFactory.getLogger (AbstractH2Connector.class);
 
   private int m_nTraceLevelFile = DEFAULT_TRACE_LEVEL_FILE;
@@ -66,7 +65,7 @@ public abstract class AbstractH2Connector extends AbstractConnector
   @Nonempty
   protected final String getJDBCDriverClassName ()
   {
-    return JDBC_DRIVER_CLASS;
+    return CJDBC_H2.DEFAULT_JDBC_DRIVER_CLASS;
   }
 
   public final int getTraceLevelFile ()
@@ -178,7 +177,7 @@ public abstract class AbstractH2Connector extends AbstractConnector
   @Nonnull
   public final String getConnectionUrl ()
   {
-    final StringBuilder ret = new StringBuilder (CONNECTION_PREFIX);
+    final StringBuilder ret = new StringBuilder (CJDBC_H2.CONNECTION_PREFIX);
     ret.append (getDatabase ());
     if (m_nTraceLevelFile != DEFAULT_TRACE_LEVEL_FILE)
       ret.append (";TRACE_LEVEL_FILE=").append (m_nTraceLevelFile);
