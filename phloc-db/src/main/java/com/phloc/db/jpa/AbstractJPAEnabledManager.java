@@ -44,8 +44,8 @@ import com.phloc.commons.stats.IStatisticsHandlerCounter;
 import com.phloc.commons.stats.IStatisticsHandlerTimer;
 import com.phloc.commons.stats.StatisticsManager;
 import com.phloc.commons.timing.StopWatch;
-import com.phloc.db.jpa.callback.IJPAExecutionTimeExceededHandler;
-import com.phloc.db.jpa.callback.LoggingJPAExecutionTimeExceededHandler;
+import com.phloc.db.jpa.callback.IExecutionTimeExceededHandler;
+import com.phloc.db.jpa.callback.LoggingExecutionTimeExceededHandler;
 import com.phloc.db.jpa.utils.AdapterCallableToCallableWithParam;
 import com.phloc.db.jpa.utils.AdapterRunnableToRunnableWithParam;
 
@@ -87,7 +87,7 @@ public abstract class AbstractJPAEnabledManager
   private static final ReadWriteLock s_aRWLock = new ReentrantReadWriteLock ();
   private static IExceptionHandler <Throwable> s_aExceptionHandler;
   private static final AtomicInteger s_aExecutionWarnTime = new AtomicInteger (DEFAULT_EXECUTION_WARN_TIME_MS);
-  private static IJPAExecutionTimeExceededHandler s_aExecutionTimeExceededHandler = new LoggingJPAExecutionTimeExceededHandler (true);
+  private static IExecutionTimeExceededHandler s_aExecutionTimeExceededHandler = new LoggingExecutionTimeExceededHandler (true);
 
   private final AtomicBoolean m_aSyncEntityMgr = new AtomicBoolean (DEFAULT_LOCK_ENTITY_MGR);
   private final AtomicBoolean m_aAllowNestedTransactions = new AtomicBoolean (DEFAULT_ALLOW_NESTED_TRANSACTIONS);
@@ -219,7 +219,7 @@ public abstract class AbstractJPAEnabledManager
     s_aExecutionWarnTime.set (nMillis);
   }
 
-  public static final void setExecutionTimeExceededHandler (@Nullable final IJPAExecutionTimeExceededHandler aExecutionTimeExceededHandler)
+  public static final void setExecutionTimeExceededHandler (@Nullable final IExecutionTimeExceededHandler aExecutionTimeExceededHandler)
   {
     s_aRWLock.writeLock ().lock ();
     try
@@ -238,7 +238,7 @@ public abstract class AbstractJPAEnabledManager
    * @return <code>null</code> if non is set
    */
   @Nullable
-  public static final IJPAExecutionTimeExceededHandler getExecutionTimeExceededHandler ()
+  public static final IExecutionTimeExceededHandler getExecutionTimeExceededHandler ()
   {
     s_aRWLock.readLock ().lock ();
     try
@@ -253,7 +253,7 @@ public abstract class AbstractJPAEnabledManager
 
   public static final void onExecutionTimeExceeded (@Nonnull final String sMsg, @Nonnegative final long nExecutionMillis)
   {
-    final IJPAExecutionTimeExceededHandler aHdl = getExecutionTimeExceededHandler ();
+    final IExecutionTimeExceededHandler aHdl = getExecutionTimeExceededHandler ();
     if (aHdl != null)
       try
       {

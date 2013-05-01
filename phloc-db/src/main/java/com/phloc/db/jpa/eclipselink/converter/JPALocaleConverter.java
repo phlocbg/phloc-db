@@ -15,9 +15,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.phloc.db.jpa.converter;
+package com.phloc.db.jpa.eclipselink.converter;
 
-import java.sql.Date;
+import java.util.Locale;
 
 import javax.annotation.concurrent.Immutable;
 
@@ -26,42 +26,40 @@ import org.eclipse.persistence.mappings.DatabaseMapping;
 import org.eclipse.persistence.mappings.converters.Converter;
 import org.eclipse.persistence.mappings.foundation.AbstractDirectMapping;
 import org.eclipse.persistence.sessions.Session;
-import org.joda.time.LocalDate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.phloc.commons.lang.CGStringHelper;
-import com.phloc.datetime.PDTFactory;
-import com.phloc.datetime.config.PDTConfig;
+import com.phloc.commons.locale.LocaleCache;
 
 @Immutable
-public final class JPAJodaLocalDateConverter implements Converter
+public final class JPALocaleConverter implements Converter
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (JPAJodaLocalDateConverter.class);
+  private static final Logger s_aLogger = LoggerFactory.getLogger (JPALocaleConverter.class);
 
-  public JPAJodaLocalDateConverter ()
+  public JPALocaleConverter ()
   {}
 
-  public Date convertObjectValueToDataValue (final Object aObjectValue, final Session session)
+  public String convertObjectValueToDataValue (final Object aObjectValue, final Session session)
   {
-    return aObjectValue == null ? null : new Date (PDTFactory.createDateTime ((LocalDate) aObjectValue).getMillis ());
+    return aObjectValue == null ? null : ((Locale) aObjectValue).toString ();
   }
 
-  public LocalDate convertDataValueToObjectValue (final Object aDataValue, final Session session)
+  public Locale convertDataValueToObjectValue (final Object aDataValue, final Session session)
   {
     if (aDataValue != null)
       try
       {
-        return new LocalDate (aDataValue, PDTConfig.getDefaultChronology ());
+        return LocaleCache.getLocale ((String) aDataValue);
       }
-      catch (final IllegalArgumentException ex)
+      catch (final Exception ex)
       {
         // failed to convert
         s_aLogger.warn ("Failed to convert '" +
                         aDataValue +
                         "' of type " +
                         CGStringHelper.getSafeClassName (aDataValue) +
-                        " to LocalDate!");
+                        "to Locale!");
       }
     return null;
   }
@@ -80,7 +78,7 @@ public final class JPAJodaLocalDateConverter implements Converter
       // Allow user to specify field type to override computed value. (i.e.
       // blob, nchar)
       if (aDirectMapping.getFieldClassification () == null)
-        aDirectMapping.setFieldClassification (ClassConstants.SQLDATE);
+        aDirectMapping.setFieldClassification (ClassConstants.STRING);
     }
   }
 }

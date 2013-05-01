@@ -15,32 +15,32 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.phloc.db.jpa.converter;
+package com.phloc.db.jpa.eclipselink.converter;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-import java.sql.Date;
+import java.util.Locale;
 
-import org.joda.time.LocalDate;
 import org.junit.Test;
 
-import com.phloc.datetime.PDTFactory;
+import com.phloc.commons.locale.LocaleCache;
+import com.phloc.db.jpa.eclipselink.converter.JPALocaleConverter;
 
 /**
- * Test class for class {@link JPAJodaLocalDateConverter}.
+ * Test class for class {@link JPALocaleConverter}.
  * 
  * @author Philip Helger
  */
-public final class JPAJodaLocalDateConverterTest
+public final class JPALocaleConverterTest
 {
   @Test
   public void testAll ()
   {
-    final LocalDate aNow = PDTFactory.getCurrentLocalDate ();
-    final JPAJodaLocalDateConverter aConverter = new JPAJodaLocalDateConverter ();
-    final Date aDataValue = aConverter.convertObjectValueToDataValue (aNow, null);
+    final Locale aLocale = LocaleCache.getLocale ("de_AT");
+    final JPALocaleConverter aConverter = new JPALocaleConverter ();
+    final String aDataValue = aConverter.convertObjectValueToDataValue (aLocale, null);
     assertNotNull (aDataValue);
-    assertEquals (aNow, aConverter.convertDataValueToObjectValue (aDataValue, null));
+    assertEquals (aLocale, aConverter.convertDataValueToObjectValue (aDataValue, null));
   }
 }
