@@ -31,7 +31,7 @@ public abstract class AbstractMSSQLConnector extends AbstractConnector
 {
   /** Default JDBC URL prefix */
   public static final String CONNECTION_PREFIX = "jdbc:sqlserver://";
-  protected static final String JDBC_DRIVER_CLASS = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
+  public static final String DEFAULT_JDBC_DRIVER_CLASS = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
 
   public AbstractMSSQLConnector ()
   {}
@@ -39,9 +39,9 @@ public abstract class AbstractMSSQLConnector extends AbstractConnector
   @Override
   @Nonnull
   @Nonempty
-  protected final String getJDBCDriverClassName ()
+  protected String getJDBCDriverClassName ()
   {
-    return JDBC_DRIVER_CLASS;
+    return DEFAULT_JDBC_DRIVER_CLASS;
   }
 
   @Override

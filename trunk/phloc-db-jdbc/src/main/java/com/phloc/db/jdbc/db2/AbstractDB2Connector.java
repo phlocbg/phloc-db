@@ -31,7 +31,7 @@ public abstract class AbstractDB2Connector extends AbstractConnector
 {
   /** Default JDBC URL prefix */
   public static final String CONNECTION_PREFIX = "jdbc:db2://";
-  protected static final String JDBC_DRIVER_CLASS = "com.ibm.db2.jcc.DB2Driver";
+  public static final String DEFAULT_JDBC_DRIVER_CLASS = "com.ibm.db2.jcc.DB2Driver";
 
   public AbstractDB2Connector ()
   {}
@@ -39,9 +39,9 @@ public abstract class AbstractDB2Connector extends AbstractConnector
   @Override
   @Nonnull
   @Nonempty
-  protected final String getJDBCDriverClassName ()
+  protected String getJDBCDriverClassName ()
   {
-    return JDBC_DRIVER_CLASS;
+    return DEFAULT_JDBC_DRIVER_CLASS;
   }
 
   @Override
