@@ -25,6 +25,9 @@ import javax.annotation.OverridingMethodsMustInvokeSuper;
 import javax.annotation.concurrent.ThreadSafe;
 import javax.persistence.EntityManager;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.phloc.commons.annotations.UsedViaReflection;
 import com.phloc.scopes.singleton.RequestSingleton;
 
@@ -36,6 +39,8 @@ import com.phloc.scopes.singleton.RequestSingleton;
 @ThreadSafe
 public abstract class AbstractEntityManagerSingleton extends RequestSingleton implements IEntityManagerProvider
 {
+  private static final Logger s_aLogger = LoggerFactory.getLogger (AbstractEntityManagerSingleton.class);
+
   protected final ReadWriteLock m_aRWLock = new ReentrantReadWriteLock ();
   private volatile EntityManager m_aEntityManager;
 
@@ -71,7 +76,12 @@ public abstract class AbstractEntityManagerSingleton extends RequestSingleton im
         if (ret == null)
         {
           ret = createEntityManager ();
+          if (ret == null)
+            throw new IllegalStateException ("Failed to create EntityManager!");
           m_aEntityManager = ret;
+
+          if (s_aLogger.isDebugEnabled ())
+            s_aLogger.debug ("EntityManager created");
         }
       }
       finally
@@ -93,8 +103,11 @@ public abstract class AbstractEntityManagerSingleton extends RequestSingleton im
       final EntityManager aEM = m_aEntityManager;
       if (aEM != null)
       {
-        aEM.clear ();
+        aEM.close ();
         m_aEntityManager = null;
+
+        if (s_aLogger.isDebugEnabled ())
+          s_aLogger.debug ("EntityManager destroyed");
       }
     }
     finally
