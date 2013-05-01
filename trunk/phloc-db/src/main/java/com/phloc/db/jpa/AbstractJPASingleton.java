@@ -22,6 +22,7 @@ import java.util.Map;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.OverridingMethodsMustInvokeSuper;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -32,6 +33,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.phloc.commons.annotations.Nonempty;
+import com.phloc.commons.annotations.OverrideOnDemand;
 import com.phloc.commons.string.StringHelper;
 import com.phloc.db.jpa.eclipselink.JPALogger;
 import com.phloc.db.jpa.eclipselink.JPASessionCustomizer;
@@ -57,8 +59,8 @@ public abstract class AbstractJPASingleton extends GlobalSingleton implements IE
   }
 
   private final String m_sPersistenceUnitName;
+  private final Map <String, Object> m_aFactoryProps;
   private EntityManagerFactory m_aFactory;
-  private EntityManager m_aEntityManager;
 
   /*
    * Constructor. Never initialize manually!
@@ -122,19 +124,43 @@ public abstract class AbstractJPASingleton extends GlobalSingleton implements IE
     }
 
     m_sPersistenceUnitName = sPersistenceUnitName;
+    m_aFactoryProps = aFactoryProps;
+  }
 
+  /**
+   * @return The persistence unit name. Neither <code>null</code> nor empty.
+   */
+  @Nonnull
+  @Nonempty
+  public final String getPersistenceUnitName ()
+  {
+    return m_sPersistenceUnitName;
+  }
+
+  @Nonnull
+  @OverrideOnDemand
+  protected EntityManagerFactory customizeEntityManagerFactory (@Nonnull final EntityManagerFactory aEMF)
+  {
+    return new EntityManagerFactoryWithListener (aEMF);
+  }
+
+  @Override
+  @OverridingMethodsMustInvokeSuper
+  protected void onAfterInstantiation ()
+  {
     // Create entity manager factory
-    final EntityManagerFactory aFactory = Persistence.createEntityManagerFactory (sPersistenceUnitName, aFactoryProps);
+    final EntityManagerFactory aFactory = Persistence.createEntityManagerFactory (m_sPersistenceUnitName,
+                                                                                  m_aFactoryProps);
     if (aFactory == null)
       throw new IllegalStateException ("Failed to create entity manager factory for persistence unit '" +
-                                       sPersistenceUnitName +
+                                       m_sPersistenceUnitName +
                                        "' with properties " +
-                                       aFactoryProps.toString () +
+                                       m_aFactoryProps.toString () +
                                        "!");
 
     // Wrap in a factory with listener support
-    m_aFactory = new EntityManagerFactoryWithListener (aFactory);
-    s_aLogger.info ("Created entity manager factory for persistence unit '" + sPersistenceUnitName + "'");
+    m_aFactory = customizeEntityManagerFactory (aFactory);
+    s_aLogger.info ("Created entity manager factory for persistence unit '" + m_sPersistenceUnitName + "'");
 
     // Consistency check after creation!
     final Map <String, Object> aRealProps = m_aFactory.getProperties ();
@@ -152,18 +178,20 @@ public abstract class AbstractJPASingleton extends GlobalSingleton implements IE
                                          aRealProps.toString ());
       }
     }
-
-    // Create entity manager
-    m_aEntityManager = m_aFactory.createEntityManager (null);
-    if (m_aEntityManager == null)
-      throw new IllegalStateException ("Failed to create entity manager from factory " + m_aFactory + "!");
-    s_aLogger.info ("Created entity manager for persistence unit '" + m_sPersistenceUnitName + "'");
   }
 
+  /**
+   * @return Create a new entity manager.
+   */
   @Nonnull
-  public final EntityManager getEntityManager ()
+  public final EntityManager createEntityManager ()
   {
-    return m_aEntityManager;
+    // Create entity manager
+    final EntityManager aEntityManager = m_aFactory.createEntityManager (null);
+    if (aEntityManager == null)
+      throw new IllegalStateException ("Failed to create entity manager from factory " + m_aFactory + "!");
+    s_aLogger.info ("Created entity manager for persistence unit '" + m_sPersistenceUnitName + "'");
+    return aEntityManager;
   }
 
   /**
@@ -173,21 +201,9 @@ public abstract class AbstractJPASingleton extends GlobalSingleton implements IE
    *         if closing fails
    */
   @Override
-  protected final void onDestroy () throws Exception
+  @OverridingMethodsMustInvokeSuper
+  protected void onDestroy () throws Exception
   {
-    // Destroy entity manager
-    if (m_aEntityManager != null)
-    {
-      if (m_aEntityManager.isOpen ())
-      {
-        // Clear cache
-        m_aEntityManager.clear ();
-        // Close
-        m_aEntityManager.close ();
-      }
-      m_aEntityManager = null;
-    }
-
     // Destroy factory
     if (m_aFactory != null)
     {
