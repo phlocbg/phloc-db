@@ -20,5 +20,10 @@
 -->
 <changelog xmlns="http://www.phloc.com/ns/changelog/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://www.phloc.com/ns/changelog/1.0 schemas/changelog-1.0.xsd" version="1.0" component="phloc-db-jdbc">
+  <entry date="2013-05-01" category="api" action="add">
+    <change>
+      <text locale="en">Initially extracted parts from phloc-db</text>
+    </change>
+  </entry>
   <!-- changelog started -->
 </changelog>

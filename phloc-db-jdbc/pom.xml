@@ -13,7 +13,6 @@
   <name>phloc-db-jdbc</name>
   <description>phloc basic JDBC stuff</description>
   <url>http://repo.phloc.com/apidocs/phloc-db-jdbc/${project.version}</url>
- 
   
   <licenses>
     <license>
