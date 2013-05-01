@@ -31,6 +31,7 @@ import com.phloc.commons.annotations.Nonempty;
 import com.phloc.commons.collections.ContainerHelper;
 import com.phloc.commons.string.StringHelper;
 import com.phloc.db.api.CJDBC_MySQL;
+import com.phloc.db.api.mysql.EMySQLConnectionProperty;
 import com.phloc.db.jpa.AbstractEntityManagerFactorySingleton;
 
 /**

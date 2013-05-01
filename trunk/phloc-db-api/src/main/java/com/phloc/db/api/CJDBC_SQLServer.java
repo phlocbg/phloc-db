@@ -14,7 +14,7 @@ public final class CJDBC_SQLServer
 {
   /** Default JDBC URL prefix */
   public static final String CONNECTION_PREFIX = "jdbc:sqlserver://";
-  public static final String DEFAULT_JDBC_DRIVER_CLASS = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
+  public static final String DEFAULT_JDBC_DRIVER_CLASS_NAME = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
 
   @PresentForCodeCoverage
   @SuppressWarnings ("unused")

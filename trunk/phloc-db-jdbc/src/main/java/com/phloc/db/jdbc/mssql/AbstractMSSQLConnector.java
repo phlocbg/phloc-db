@@ -38,7 +38,7 @@ public abstract class AbstractMSSQLConnector extends AbstractConnector
   @Nonempty
   protected String getJDBCDriverClassName ()
   {
-    return CJDBC_SQLServer.DEFAULT_JDBC_DRIVER_CLASS;
+    return CJDBC_SQLServer.DEFAULT_JDBC_DRIVER_CLASS_NAME;
   }
 
   @Override

@@ -1,4 +1,4 @@
-package com.phloc.db.jpa.h2;
+package com.phloc.db.api.h2;
 
 public enum EH2Log
 {

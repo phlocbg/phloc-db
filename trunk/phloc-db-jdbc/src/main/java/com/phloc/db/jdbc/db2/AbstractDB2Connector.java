@@ -38,7 +38,7 @@ public abstract class AbstractDB2Connector extends AbstractConnector
   @Nonempty
   protected String getJDBCDriverClassName ()
   {
-    return CJDBC_DB2.DEFAULT_JDBC_DRIVER_CLASS;
+    return CJDBC_DB2.DEFAULT_JDBC_DRIVER_CLASS_NAME;
   }
 
   @Override

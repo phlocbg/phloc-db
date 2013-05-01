@@ -37,6 +37,7 @@ import com.phloc.commons.io.streams.NonBlockingBufferedWriter;
 import com.phloc.commons.io.streams.StreamUtils;
 import com.phloc.commons.state.ESuccess;
 import com.phloc.db.api.CJDBC_H2;
+import com.phloc.db.api.h2.H2EventListener;
 import com.phloc.db.jdbc.AbstractConnector;
 import com.phloc.db.jdbc.callback.IResultSetRowCallback;
 import com.phloc.db.jdbc.executor.DBExecutor;
@@ -65,7 +66,7 @@ public abstract class AbstractH2Connector extends AbstractConnector
   @Nonempty
   protected final String getJDBCDriverClassName ()
   {
-    return CJDBC_H2.DEFAULT_JDBC_DRIVER_CLASS;
+    return CJDBC_H2.DEFAULT_JDBC_DRIVER_CLASS_NAME;
   }
 
   public final int getTraceLevelFile ()

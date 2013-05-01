@@ -26,6 +26,8 @@ import org.slf4j.LoggerFactory;
 
 import com.phloc.commons.annotations.Nonempty;
 import com.phloc.commons.callback.IThrowingRunnableWithParameter;
+import com.phloc.db.api.h2.EH2LockMode;
+import com.phloc.db.api.h2.EH2Log;
 import com.phloc.db.jpa.IEntityManagerProvider;
 import com.phloc.db.jpa.JPAEnabledManager;
 
