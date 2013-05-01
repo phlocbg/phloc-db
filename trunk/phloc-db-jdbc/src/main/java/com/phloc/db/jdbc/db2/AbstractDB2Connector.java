@@ -20,6 +20,7 @@ package com.phloc.db.jdbc.db2;
 import javax.annotation.Nonnull;
 
 import com.phloc.commons.annotations.Nonempty;
+import com.phloc.db.api.CJDBC_DB2;
 import com.phloc.db.jdbc.AbstractConnector;
 
 /**
@@ -29,10 +30,6 @@ import com.phloc.db.jdbc.AbstractConnector;
  */
 public abstract class AbstractDB2Connector extends AbstractConnector
 {
-  /** Default JDBC URL prefix */
-  public static final String CONNECTION_PREFIX = "jdbc:db2://";
-  public static final String DEFAULT_JDBC_DRIVER_CLASS = "com.ibm.db2.jcc.DB2Driver";
-
   public AbstractDB2Connector ()
   {}
 
@@ -41,14 +38,14 @@ public abstract class AbstractDB2Connector extends AbstractConnector
   @Nonempty
   protected String getJDBCDriverClassName ()
   {
-    return DEFAULT_JDBC_DRIVER_CLASS;
+    return CJDBC_DB2.DEFAULT_JDBC_DRIVER_CLASS;
   }
 
   @Override
   @Nonnull
   public final String getConnectionUrl ()
   {
-    final StringBuilder ret = new StringBuilder (CONNECTION_PREFIX);
+    final StringBuilder ret = new StringBuilder (CJDBC_DB2.CONNECTION_PREFIX);
     ret.append (getDatabase ());
     return ret.toString ();
   }

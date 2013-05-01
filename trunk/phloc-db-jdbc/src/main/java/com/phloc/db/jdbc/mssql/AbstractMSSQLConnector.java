@@ -20,6 +20,7 @@ package com.phloc.db.jdbc.mssql;
 import javax.annotation.Nonnull;
 
 import com.phloc.commons.annotations.Nonempty;
+import com.phloc.db.api.CJDBC_SQLServer;
 import com.phloc.db.jdbc.AbstractConnector;
 
 /**
@@ -29,10 +30,6 @@ import com.phloc.db.jdbc.AbstractConnector;
  */
 public abstract class AbstractMSSQLConnector extends AbstractConnector
 {
-  /** Default JDBC URL prefix */
-  public static final String CONNECTION_PREFIX = "jdbc:sqlserver://";
-  public static final String DEFAULT_JDBC_DRIVER_CLASS = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
-
   public AbstractMSSQLConnector ()
   {}
 
@@ -41,14 +38,14 @@ public abstract class AbstractMSSQLConnector extends AbstractConnector
   @Nonempty
   protected String getJDBCDriverClassName ()
   {
-    return DEFAULT_JDBC_DRIVER_CLASS;
+    return CJDBC_SQLServer.DEFAULT_JDBC_DRIVER_CLASS;
   }
 
   @Override
   @Nonnull
   public final String getConnectionUrl ()
   {
-    final StringBuilder ret = new StringBuilder (CONNECTION_PREFIX);
+    final StringBuilder ret = new StringBuilder (CJDBC_SQLServer.CONNECTION_PREFIX);
     ret.append (getDatabase ());
     return ret.toString ();
   }

@@ -37,50 +37,6 @@ import com.phloc.db.jpa.JPAEnabledManager;
 @ThreadSafe
 public class JPAEnabledManagerH2 extends JPAEnabledManager
 {
-  public static enum ELockMode
-  {
-    READ_COMMITTED (3),
-    SERIALIZABLE (1),
-    READ_UNCOMMITED (0);
-
-    /** Default lock mode: read committed */
-    public static final ELockMode DEFAULT = READ_COMMITTED;
-
-    private int m_nValue;
-
-    private ELockMode (final int i)
-    {
-      m_nValue = i;
-    }
-
-    public int getValue ()
-    {
-      return m_nValue;
-    }
-  }
-
-  public static enum ELog
-  {
-    DISABLE (0),
-    LOG (1),
-    LOG_AND_SYNC (2);
-
-    /** Default log mode: log and sync */
-    public static final ELog DEFAULT = LOG_AND_SYNC;
-
-    private int m_nValue;
-
-    private ELog (final int i)
-    {
-      m_nValue = i;
-    }
-
-    public int getValue ()
-    {
-      return m_nValue;
-    }
-  }
-
   static final Logger s_aLogger = LoggerFactory.getLogger (JPAEnabledManager.class);
 
   public JPAEnabledManagerH2 (@Nonnull final IEntityManagerProvider aEntityManagerProvider)
@@ -112,12 +68,12 @@ public class JPAEnabledManagerH2 extends JPAEnabledManager
     _executeH2Native ("ANALYZE");
   }
 
-  public final void setH2LockMode (@Nonnull final ELockMode eLockMode)
+  public final void setH2LockMode (@Nonnull final EH2LockMode eLockMode)
   {
     _executeH2Native ("SET LOCK_MODE=" + eLockMode.getValue ());
   }
 
-  public final void setH2Log (@Nonnull final ELog eLog)
+  public final void setH2Log (@Nonnull final EH2Log eLog)
   {
     _executeH2Native ("SET LOG=" + eLog.getValue ());
   }

@@ -13,7 +13,6 @@
   <name>phloc-db</name>
   <description>phloc basic JDBC and SQL stuff</description>
   <url>http://repo.phloc.com/apidocs/phloc-db/${project.version}</url>
- 
   
   <licenses>
     <license>
@@ -120,6 +119,11 @@
       <groupId>com.phloc</groupId>
       <artifactId>phloc-datetime</artifactId>
       <version>3.0.5</version>
+    </dependency>
+    <dependency>
+      <groupId>com.phloc</groupId>
+      <artifactId>phloc-db-api</artifactId>
+      <version>1.0.0-SNAPSHOT</version>
     </dependency>
     
     <dependency>
