@@ -33,7 +33,7 @@ import com.phloc.commons.version.Version;
  * @author Philip Helger
  */
 @IsSPIImplementation
-public final class ThirdPartyModuleProvider_phloc_db implements IThirdPartyModuleProviderSPI
+public final class ThirdPartyModuleProvider_phloc_db_jdbc implements IThirdPartyModuleProviderSPI
 {
   /** Apache commons-pool */
   public static final IThirdPartyModule COMMONS_POOL = new ThirdPartyModule ("Apache Commons Pool",
