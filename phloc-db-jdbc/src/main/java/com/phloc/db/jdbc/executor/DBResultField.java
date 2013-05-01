@@ -34,6 +34,7 @@ import com.phloc.commons.annotations.Nonempty;
 import com.phloc.commons.string.StringHelper;
 import com.phloc.commons.string.ToStringGenerator;
 import com.phloc.commons.typeconvert.TypeConverter;
+import com.phloc.commons.typeconvert.TypeConverterException;
 import com.phloc.db.jdbc.JDBCUtils;
 
 /**
@@ -90,24 +91,24 @@ public final class DBResultField
   }
 
   @Nullable
-  public String getAsString ()
+  public String getAsString () throws TypeConverterException
   {
     return TypeConverter.convertIfNecessary (m_aValue, String.class);
   }
 
   @Nullable
-  public BigDecimal getAsBigDecimal ()
+  public BigDecimal getAsBigDecimal () throws TypeConverterException
   {
     return TypeConverter.convertIfNecessary (m_aValue, BigDecimal.class);
   }
 
   @Nullable
-  public BigInteger getAsBigInteger ()
+  public BigInteger getAsBigInteger () throws TypeConverterException
   {
     return TypeConverter.convertIfNecessary (m_aValue, BigInteger.class);
   }
 
-  public boolean getAsBoolean ()
+  public boolean getAsBoolean () throws TypeConverterException
   {
     return TypeConverter.convertToBoolean (m_aValue);
   }
@@ -117,7 +118,7 @@ public final class DBResultField
     return m_aValue == null ? bDefault : getAsBoolean ();
   }
 
-  public byte getAsByte ()
+  public byte getAsByte () throws TypeConverterException
   {
     return TypeConverter.convertToByte (m_aValue);
   }
@@ -127,7 +128,7 @@ public final class DBResultField
     return m_aValue == null ? nDefault : getAsByte ();
   }
 
-  public char getAsChar ()
+  public char getAsChar () throws TypeConverterException
   {
     return TypeConverter.convertToChar (m_aValue);
   }
@@ -137,7 +138,7 @@ public final class DBResultField
     return m_aValue == null ? cDefault : getAsChar ();
   }
 
-  public double getAsDouble ()
+  public double getAsDouble () throws TypeConverterException
   {
     return TypeConverter.convertToDouble (m_aValue);
   }
@@ -147,7 +148,7 @@ public final class DBResultField
     return m_aValue == null ? dDefault : getAsDouble ();
   }
 
-  public float getAsFloat ()
+  public float getAsFloat () throws TypeConverterException
   {
     return TypeConverter.convertToFloat (m_aValue);
   }
@@ -157,7 +158,7 @@ public final class DBResultField
     return m_aValue == null ? fDefault : getAsFloat ();
   }
 
-  public int getAsInt ()
+  public int getAsInt () throws TypeConverterException
   {
     return TypeConverter.convertToInt (m_aValue);
   }
@@ -167,7 +168,7 @@ public final class DBResultField
     return m_aValue == null ? nDefault : getAsInt ();
   }
 
-  public long getAsLong ()
+  public long getAsLong () throws TypeConverterException
   {
     return TypeConverter.convertToLong (m_aValue);
   }
@@ -177,7 +178,7 @@ public final class DBResultField
     return m_aValue == null ? nDefault : getAsLong ();
   }
 
-  public short getAsShort ()
+  public short getAsShort () throws TypeConverterException
   {
     return TypeConverter.convertToShort (m_aValue);
   }
@@ -188,19 +189,19 @@ public final class DBResultField
   }
 
   @Nullable
-  public Boolean getAsBooleanObj ()
+  public Boolean getAsBooleanObj () throws TypeConverterException
   {
     return TypeConverter.convertIfNecessary (m_aValue, Boolean.class);
   }
 
   @Nullable
-  public Byte getAsByteObj ()
+  public Byte getAsByteObj () throws TypeConverterException
   {
     return TypeConverter.convertIfNecessary (m_aValue, Byte.class);
   }
 
   @Nullable
-  public Character getAsCharObj ()
+  public Character getAsCharObj () throws TypeConverterException
   {
     return TypeConverter.convertIfNecessary (m_aValue, Character.class);
   }
@@ -212,67 +213,67 @@ public final class DBResultField
   }
 
   @Nullable
-  public Float getAsFloatObj ()
+  public Float getAsFloatObj () throws TypeConverterException
   {
     return TypeConverter.convertIfNecessary (m_aValue, Float.class);
   }
 
   @Nullable
-  public Integer getAsIntObj ()
+  public Integer getAsIntObj () throws TypeConverterException
   {
     return TypeConverter.convertIfNecessary (m_aValue, Integer.class);
   }
 
   @Nullable
-  public Long getAsLongObj ()
+  public Long getAsLongObj () throws TypeConverterException
   {
     return TypeConverter.convertIfNecessary (m_aValue, Long.class);
   }
 
   @Nullable
-  public Short getAsShortObj ()
+  public Short getAsShortObj () throws TypeConverterException
   {
     return TypeConverter.convertIfNecessary (m_aValue, Short.class);
   }
 
   @Nullable
-  public Blob getAsBlob ()
+  public Blob getAsBlob () throws ClassCastException
   {
     return (Blob) m_aValue;
   }
 
   @Nullable
-  public Clob getAsClob ()
+  public Clob getAsClob () throws ClassCastException
   {
     return (Clob) m_aValue;
   }
 
   @Nullable
-  public Date getAsDate ()
+  public Date getAsDate () throws ClassCastException
   {
     return (Date) m_aValue;
   }
 
   @Nullable
-  public NClob getAsNClob ()
+  public NClob getAsNClob () throws ClassCastException
   {
     return (NClob) m_aValue;
   }
 
   @Nullable
-  public RowId getAsRowId ()
+  public RowId getAsRowId () throws ClassCastException
   {
     return (RowId) m_aValue;
   }
 
   @Nullable
-  public Time getAsTime ()
+  public Time getAsTime () throws ClassCastException
   {
     return (Time) m_aValue;
   }
 
   @Nullable
-  public Timestamp getAsTimestamp ()
+  public Timestamp getAsTimestamp () throws ClassCastException
   {
     return (Timestamp) m_aValue;
   }

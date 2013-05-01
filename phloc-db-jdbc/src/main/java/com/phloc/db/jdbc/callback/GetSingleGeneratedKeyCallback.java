@@ -22,6 +22,8 @@ import java.util.List;
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.NotThreadSafe;
 
+import com.phloc.commons.string.ToStringGenerator;
+
 /**
  * Special implementation of the {@link IGeneratedKeysCallback} especially for
  * retrieving a single created ID.
@@ -55,5 +57,11 @@ public class GetSingleGeneratedKeyCallback implements IGeneratedKeysCallback
     if (m_aGeneratedKey == null)
       throw new IllegalStateException ("No generated key was determined!");
     return m_aGeneratedKey;
+  }
+
+  @Override
+  public String toString ()
+  {
+    return new ToStringGenerator (this).append ("generatedKey", m_aGeneratedKey).toString ();
   }
 }

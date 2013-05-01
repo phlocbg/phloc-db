@@ -19,6 +19,8 @@ package com.phloc.db.jdbc.callback;
 
 import javax.annotation.concurrent.NotThreadSafe;
 
+import com.phloc.commons.string.ToStringGenerator;
+
 /**
  * Default implementation of {@link IUpdatedRowCountCallback}.
  * 
@@ -40,5 +42,11 @@ public class UpdatedRowCountCallback implements IUpdatedRowCountCallback
   public int getUpdatedRowCount ()
   {
     return m_nUpdatedRowCount;
+  }
+
+  @Override
+  public String toString ()
+  {
+    return new ToStringGenerator (this).append ("updatedRowCount", m_nUpdatedRowCount).toString ();
   }
 }

@@ -15,19 +15,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.phloc.db.jdbc.executor;
+package com.phloc.db.jdbc.callback;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import com.phloc.commons.annotations.Nonempty;
 import com.phloc.commons.annotations.ReturnsMutableCopy;
 import com.phloc.commons.collections.ArrayHelper;
 import com.phloc.commons.collections.ContainerHelper;
-import com.phloc.db.jdbc.callback.IPreparedStatementDataProvider;
+import com.phloc.commons.string.ToStringGenerator;
 
 /**
  * A simple implementation of the {@link IPreparedStatementDataProvider} that
@@ -57,7 +58,7 @@ public final class ConstantPreparedStatementDataProvider implements IPreparedSta
   }
 
   @Nonnull
-  public ConstantPreparedStatementDataProvider addValue (final Object aValue)
+  public ConstantPreparedStatementDataProvider addValue (@Nullable final Object aValue)
   {
     m_aValues.add (aValue);
     return this;
@@ -74,5 +75,11 @@ public final class ConstantPreparedStatementDataProvider implements IPreparedSta
   public List <Object> getObjectValues ()
   {
     return ContainerHelper.newList (m_aValues);
+  }
+
+  @Override
+  public String toString ()
+  {
+    return new ToStringGenerator (this).append ("values", m_aValues).toString ();
   }
 }

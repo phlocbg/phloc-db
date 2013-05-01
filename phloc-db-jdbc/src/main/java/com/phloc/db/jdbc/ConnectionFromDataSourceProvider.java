@@ -27,6 +27,8 @@ import javax.sql.DataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.phloc.commons.string.ToStringGenerator;
+
 /**
  * Implementation of {@link IConnectionProvider} that creates a connection from
  * an {@link IDataSourceProvider}.
@@ -68,5 +70,11 @@ public class ConnectionFromDataSourceProvider implements IConnectionProvider
   public boolean shouldCloseConnection ()
   {
     return true;
+  }
+
+  @Override
+  public String toString ()
+  {
+    return new ToStringGenerator (this).append ("dataSource", m_aDS).toString ();
   }
 }

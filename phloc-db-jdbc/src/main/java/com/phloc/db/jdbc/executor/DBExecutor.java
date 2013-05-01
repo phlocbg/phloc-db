@@ -47,6 +47,7 @@ import com.phloc.commons.collections.ContainerHelper;
 import com.phloc.commons.collections.pair.IReadonlyPair;
 import com.phloc.commons.collections.pair.ReadonlyPair;
 import com.phloc.commons.state.ESuccess;
+import com.phloc.commons.string.ToStringGenerator;
 import com.phloc.db.jdbc.ConnectionFromDataSourceProvider;
 import com.phloc.db.jdbc.IConnectionProvider;
 import com.phloc.db.jdbc.IDataSourceProvider;
@@ -85,7 +86,7 @@ public class DBExecutor
 
   private final ReadWriteLock m_aRWLock = new ReentrantReadWriteLock ();
   private final IConnectionProvider m_aConnectionProvider;
-  private IExceptionHandler <? super SQLException> m_aExHdl = new LoggingExceptionHandler ();
+  private IExceptionHandler <? super SQLException> m_aExceptionHdl = new LoggingExceptionHandler ();
 
   public DBExecutor (@Nonnull final IDataSourceProvider aDataSourceProvider)
   {
@@ -99,15 +100,15 @@ public class DBExecutor
     m_aConnectionProvider = aConnectionProvider;
   }
 
-  public void setSQLExceptionHandler (@Nonnull final IExceptionHandler <? super SQLException> aExHdl)
+  public void setSQLExceptionHandler (@Nonnull final IExceptionHandler <? super SQLException> aExceptionHdl)
   {
-    if (aExHdl == null)
+    if (aExceptionHdl == null)
       throw new NullPointerException ("exceptionHandler");
 
     m_aRWLock.writeLock ().lock ();
     try
     {
-      m_aExHdl = aExHdl;
+      m_aExceptionHdl = aExceptionHdl;
     }
     finally
     {
@@ -121,7 +122,7 @@ public class DBExecutor
     m_aRWLock.readLock ().lock ();
     try
     {
-      return m_aExHdl;
+      return m_aExceptionHdl;
     }
     finally
     {
@@ -510,5 +511,13 @@ public class DBExecutor
   {
     final DBResultRow aResult = querySingle (sSQL, aPSDP);
     return aResult == null ? CGlobal.ILLEGAL_UINT : ((Number) aResult.getValue (0)).intValue ();
+  }
+
+  @Override
+  public String toString ()
+  {
+    return new ToStringGenerator (this).append ("connectionProvider", m_aConnectionProvider)
+                                       .append ("exceptionHandler", m_aExceptionHdl)
+                                       .toString ();
   }
 }
