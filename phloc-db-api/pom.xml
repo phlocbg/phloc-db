@@ -82,12 +82,30 @@
       <url>sftp://www.phloc.com/var/www/html-repo/maven2</url>
     </repository>
   </distributionManagement>
+
+  <properties>
+    <h2.version>1.3.171</h2.version>
+    <mysql.version>5.1.24</mysql.version>
+  </properties>
   
   <dependencies>
     <dependency>
       <groupId>com.phloc</groupId>
       <artifactId>phloc-commons</artifactId>
       <version>4.0.4</version>
+    </dependency>
+    
+    <dependency>
+      <groupId>com.h2database</groupId>
+      <artifactId>h2</artifactId>
+      <version>${h2.version}</version>
+      <optional>true</optional>
+    </dependency>
+    <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+      <version>${mysql.version}</version>
+      <optional>true</optional>
     </dependency>
     
     <dependency>

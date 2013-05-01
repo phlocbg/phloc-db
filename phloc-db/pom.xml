@@ -159,8 +159,6 @@
       <version>3.3.1.v201206041142</version>
     </dependency>
 
-    <!-- Manually exclude this dependency if you want to use a different DB system.
-         This is the central place for the H2 version number to use! -->
     <dependency>
       <groupId>com.h2database</groupId>
       <artifactId>h2</artifactId>

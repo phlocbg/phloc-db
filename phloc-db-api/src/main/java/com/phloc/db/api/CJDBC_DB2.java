@@ -14,7 +14,7 @@ public final class CJDBC_DB2
 {
   /** Default JDBC URL prefix */
   public static final String CONNECTION_PREFIX = "jdbc:db2://";
-  public static final String DEFAULT_JDBC_DRIVER_CLASS = "com.ibm.db2.jcc.DB2Driver";
+  public static final String DEFAULT_JDBC_DRIVER_CLASS_NAME = "com.ibm.db2.jcc.DB2Driver";
 
   @PresentForCodeCoverage
   @SuppressWarnings ("unused")

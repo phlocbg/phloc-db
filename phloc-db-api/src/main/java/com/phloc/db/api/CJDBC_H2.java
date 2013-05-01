@@ -14,7 +14,7 @@ public final class CJDBC_H2
 {
   /** Default JDBC URL prefix */
   public static final String CONNECTION_PREFIX = "jdbc:h2:";
-  public static final String DEFAULT_JDBC_DRIVER_CLASS = "org.h2.Driver";
+  public static final String DEFAULT_JDBC_DRIVER_CLASS_NAME = "org.h2.Driver";
 
   @PresentForCodeCoverage
   @SuppressWarnings ("unused")
