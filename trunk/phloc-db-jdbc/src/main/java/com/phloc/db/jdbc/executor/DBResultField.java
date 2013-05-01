@@ -35,7 +35,7 @@ import com.phloc.commons.string.StringHelper;
 import com.phloc.commons.string.ToStringGenerator;
 import com.phloc.commons.typeconvert.TypeConverter;
 import com.phloc.commons.typeconvert.TypeConverterException;
-import com.phloc.db.jdbc.JDBCUtils;
+import com.phloc.db.api.jdbc.JDBCHelper;
 
 /**
  * Represents a single DB query result value within a result row.
@@ -78,7 +78,7 @@ public final class DBResultField
   @Nullable
   public String getColumnTypeName ()
   {
-    return JDBCUtils.getJDBCTypeName (m_nColumnType);
+    return JDBCHelper.getJDBCTypeName (m_nColumnType);
   }
 
   /**
