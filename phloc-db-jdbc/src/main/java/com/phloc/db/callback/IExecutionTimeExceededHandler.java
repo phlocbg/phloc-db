@@ -26,7 +26,7 @@ import javax.annotation.Nonnull;
  * 
  * @author Philip Helger
  */
-public interface IJPAExecutionTimeExceededHandler
+public interface IExecutionTimeExceededHandler
 {
   /**
    * Called when the execution time was exceeded

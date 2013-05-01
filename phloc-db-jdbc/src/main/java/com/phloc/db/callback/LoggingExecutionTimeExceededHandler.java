@@ -25,7 +25,7 @@ import org.slf4j.LoggerFactory;
 
 import com.phloc.commons.string.ToStringGenerator;
 
-public class LoggingExecutionTimeExceededHandler implements IJPAExecutionTimeExceededHandler
+public class LoggingExecutionTimeExceededHandler implements IExecutionTimeExceededHandler
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (LoggingExecutionTimeExceededHandler.class);
 
