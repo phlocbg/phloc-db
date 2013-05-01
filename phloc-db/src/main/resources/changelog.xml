@@ -20,6 +20,11 @@
 -->
 <changelog xmlns="http://www.phloc.com/ns/changelog/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://www.phloc.com/ns/changelog/1.0 schemas/changelog-1.0.xsd" version="1.0" component="phloc-db">
+  <entry date="2013-05-01" category="tech" action="update">
+    <change>
+      <text locale="en">Using phloc-db-api 1.0.0</text>
+    </change>
+  </entry>
   <entry date="2013-05-01" category="api" action="change" incompatible="true">
     <change>
       <text locale="en">Changed all package names so that they start with com.phloc.db.jpa</text>
