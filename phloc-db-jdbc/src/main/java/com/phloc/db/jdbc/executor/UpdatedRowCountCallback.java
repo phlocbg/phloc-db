@@ -17,6 +17,14 @@
  */
 package com.phloc.db.jdbc.executor;
 
+import javax.annotation.concurrent.NotThreadSafe;
+
+/**
+ * Default implementation of {@link IUpdatedRowCountCallback}.
+ * 
+ * @author Philip Helger
+ */
+@NotThreadSafe
 public class UpdatedRowCountCallback implements IUpdatedRowCountCallback
 {
   private int m_nUpdatedRowCount = NOT_INITIALIZED;
@@ -24,7 +32,7 @@ public class UpdatedRowCountCallback implements IUpdatedRowCountCallback
   public UpdatedRowCountCallback ()
   {}
 
-  public void onSetUpdatedRowCount (final int nUpdatedRowCount)
+  public void setUpdatedRowCount (final int nUpdatedRowCount)
   {
     m_nUpdatedRowCount = nUpdatedRowCount;
   }

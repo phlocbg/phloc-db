@@ -24,6 +24,7 @@ import java.util.concurrent.locks.ReentrantLock;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.concurrent.ThreadSafe;
 import javax.sql.DataSource;
 
 import org.apache.commons.dbcp.BasicDataSource;
@@ -31,7 +32,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.phloc.commons.annotations.Nonempty;
+import com.phloc.commons.string.ToStringGenerator;
 
+/**
+ * Abstract implementation of {@link IDataSourceProvider} based on
+ * {@link BasicDataSource} implementation.
+ * 
+ * @author Philip Helger
+ */
+@ThreadSafe
 public abstract class AbstractConnector implements IDataSourceProvider, Closeable
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (AbstractConnector.class);
@@ -125,5 +134,11 @@ public abstract class AbstractConnector implements IDataSourceProvider, Closeabl
     {
       m_aLock.unlock ();
     }
+  }
+
+  @Override
+  public String toString ()
+  {
+    return new ToStringGenerator (this).append ("dataSource", m_aDataSource).toString ();
   }
 }

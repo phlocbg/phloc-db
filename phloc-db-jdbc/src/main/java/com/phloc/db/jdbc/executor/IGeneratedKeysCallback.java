@@ -19,19 +19,21 @@ package com.phloc.db.jdbc.executor;
 
 import java.util.List;
 
+import javax.annotation.Nonnull;
+
 /**
  * This callback is used to retrieve generated keys upon insertion.
  * 
  * @author Philip Helger
  */
-public interface IGeneratedValuesCallback
+public interface IGeneratedKeysCallback
 {
   /**
    * Get all generated keys.
    * 
-   * @param aGeneratedValues
+   * @param aGeneratedKeys
    *        The first list represents all rows, whereas the nested lists
    *        represents all columns containing the different values.
    */
-  void onGeneratedKey (List <List <Object>> aGeneratedValues);
+  void onGeneratedKeys (@Nonnull List <List <Object>> aGeneratedKeys);
 }

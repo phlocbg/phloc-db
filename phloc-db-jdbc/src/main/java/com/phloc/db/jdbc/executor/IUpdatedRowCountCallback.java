@@ -17,6 +17,8 @@
  */
 package com.phloc.db.jdbc.executor;
 
+import javax.annotation.CheckForSigned;
+
 import com.phloc.commons.CGlobal;
 
 /**
@@ -30,16 +32,17 @@ public interface IUpdatedRowCountCallback
   int NOT_INITIALIZED = CGlobal.ILLEGAL_UINT;
 
   /**
+   * @return The number of updated rows or {@link #NOT_INITIALIZED} if
+   *         {@link #setUpdatedRowCount(int)} was never called.
+   */
+  @CheckForSigned
+  int getUpdatedRowCount ();
+
+  /**
    * Notify on the updated row count update.
    * 
    * @param nUpdatedRowCount
    *        The number of updated rows (e.g. on update or delete)
    */
-  void onSetUpdatedRowCount (int nUpdatedRowCount);
-
-  /**
-   * @return The number of updated rows or {@link #NOT_INITIALIZED} if
-   *         {@link #onSetUpdatedRowCount(int)} was never called.
-   */
-  int getUpdatedRowCount ();
+  void setUpdatedRowCount (int nUpdatedRowCount);
 }
