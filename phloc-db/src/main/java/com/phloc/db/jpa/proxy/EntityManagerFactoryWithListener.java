@@ -15,7 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.phloc.db.jpa;
+package com.phloc.db.jpa.proxy;
 
 import java.util.Map;
 
@@ -24,6 +24,7 @@ import javax.annotation.Nullable;
 import javax.annotation.OverridingMethodsMustInvokeSuper;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+
 
 /**
  * A special {@link EntityManagerFactory} that creates {@link EntityManager}

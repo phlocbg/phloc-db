@@ -87,7 +87,7 @@ public abstract class AbstractJPAEnabledManagerH2 extends AbstractJPAEnabledMana
 
   protected final boolean isTableExisting (@Nonnull final String sTableName)
   {
-    final EntityManager aEM = createEntityManager ();
+    final EntityManager aEM = getEntityManager ();
     try
     {
       return getSelectCountResultObj (aEM.createQuery ("SELECT count(ID) FROM TABLES t WHERE t.TABLE_TYPE = 'TABLE' AND TABLE_NAME = :tablename",

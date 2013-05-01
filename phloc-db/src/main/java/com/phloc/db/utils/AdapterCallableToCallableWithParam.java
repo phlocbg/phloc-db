@@ -1,4 +1,4 @@
-package com.phloc.db.jpa;
+package com.phloc.db.utils;
 
 import java.util.concurrent.Callable;
 
