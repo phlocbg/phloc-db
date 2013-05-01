@@ -184,7 +184,7 @@ public abstract class AbstractJPASingleton extends GlobalSingleton implements IE
    * @return Create a new entity manager.
    */
   @Nonnull
-  public final EntityManager createEntityManager ()
+  public final EntityManager getEntityManager ()
   {
     // Create entity manager
     final EntityManager aEntityManager = m_aFactory.createEntityManager (null);

@@ -336,6 +336,12 @@ public abstract class AbstractJPAEnabledManager
   }
 
   @Nonnull
+  public final ESuccess doInTransaction (@Nonnull final Runnable aRunnable)
+  {
+    return doInTransaction (new AdapterRunnableToRunnableWithParam <EntityManager> (aRunnable));
+  }
+
+  @Nonnull
   public final ESuccess doInTransaction (@Nonnull final IThrowingRunnableWithParameter <EntityManager> aRunnable)
   {
     // Create entity manager
@@ -428,7 +434,7 @@ public abstract class AbstractJPAEnabledManager
   @Nonnull
   public final <T> SuccessWithValue <T> doInTransaction (@Nonnull final Callable <T> aCallable)
   {
-    return doInTransaction (AdapterCallableToCallableWithParam.create (aCallable));
+    return doInTransaction (new AdapterCallableToCallableWithParam <T, EntityManager> (aCallable));
   }
 
   @Nonnull
@@ -517,7 +523,7 @@ public abstract class AbstractJPAEnabledManager
     if (isUseTransactionsForSelect ())
     {
       // Use transactions for select statement!
-      return doInTransaction (AdapterCallableToCallableWithParam.create (aCallable));
+      return doInTransaction (new AdapterCallableToCallableWithParam <T, EntityManager> (aCallable));
     }
 
     // Ensure that only one transaction is active for all users!
