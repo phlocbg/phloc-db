@@ -19,8 +19,16 @@ package com.phloc.db.jdbc;
 
 import java.sql.Connection;
 
+import javax.annotation.Nullable;
+
+/**
+ * Simple {@link Connection} provider interface.
+ * 
+ * @author Philip Helger
+ */
 public interface IConnectionProvider
 {
+  @Nullable
   Connection getConnection ();
 
   boolean shouldCloseConnection ();

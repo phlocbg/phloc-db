@@ -21,14 +21,22 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.sql.DataSource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Implementation of {@link IConnectionProvider} that creates a connection from
+ * an {@link IDataSourceProvider}.
+ * 
+ * @author Philip Helger
+ */
 public class ConnectionFromDataSourceProvider implements IConnectionProvider
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (ConnectionFromDataSourceProvider.class);
+
   private final DataSource m_aDS;
 
   public ConnectionFromDataSourceProvider (@Nonnull final IDataSourceProvider aDSP)
@@ -37,21 +45,22 @@ public class ConnectionFromDataSourceProvider implements IConnectionProvider
       throw new NullPointerException ("dataSourceProvider");
     m_aDS = aDSP.getDataSource ();
     if (m_aDS == null)
-      throw new IllegalArgumentException ("Failed to create dataSource");
+      throw new IllegalArgumentException ("Failed to create dataSource from " + aDSP);
   }
 
+  @Nullable
   public Connection getConnection ()
   {
     try
     {
       final Connection ret = m_aDS.getConnection ();
       if (ret == null)
-        s_aLogger.warn ("Failed to get connection!");
+        s_aLogger.warn ("Failed to get connection from dataSource " + m_aDS + "!");
       return ret;
     }
     catch (final SQLException ex)
     {
-      s_aLogger.error ("no connection retrieved", ex);
+      s_aLogger.error ("No connection retrieved from dataSource " + m_aDS, ex);
       return null;
     }
   }

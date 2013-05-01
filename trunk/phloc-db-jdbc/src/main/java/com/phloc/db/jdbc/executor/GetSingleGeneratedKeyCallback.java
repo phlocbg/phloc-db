@@ -20,22 +20,27 @@ package com.phloc.db.jdbc.executor;
 import java.util.List;
 
 import javax.annotation.Nonnull;
+import javax.annotation.concurrent.NotThreadSafe;
 
 /**
- * Special implementation of the {@link IGeneratedValuesCallback} especially for
+ * Special implementation of the {@link IGeneratedKeysCallback} especially for
  * retrieving a single created ID.
  * 
  * @author Philip Helger
  */
-public class GetSingleGeneratedKeyCallback implements IGeneratedValuesCallback
+@NotThreadSafe
+public class GetSingleGeneratedKeyCallback implements IGeneratedKeysCallback
 {
   private Object m_aGeneratedKey;
 
   public GetSingleGeneratedKeyCallback ()
   {}
 
-  public void onGeneratedKey (@Nonnull final List <List <Object>> aGeneratedValues)
+  public void onGeneratedKeys (@Nonnull final List <List <Object>> aGeneratedValues)
   {
+    if (aGeneratedValues == null)
+      throw new NullPointerException ("generatedValues");
+
     if (aGeneratedValues.size () != 1)
       throw new IllegalArgumentException ("Found not exactly 1 generated value row!");
     final List <Object> aRow = aGeneratedValues.get (0);

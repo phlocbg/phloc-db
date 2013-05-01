@@ -163,7 +163,7 @@ public class DBExecutor
   }
 
   protected static void handleGeneratedKeys (@Nonnull final ResultSet aRS,
-                                             @Nonnull final IGeneratedValuesCallback aGeneratedValuesCB) throws SQLException
+                                             @Nonnull final IGeneratedKeysCallback aGeneratedKeysCB) throws SQLException
   {
     final int nCols = aRS.getMetaData ().getColumnCount ();
     final List <List <Object>> aValues = new ArrayList <List <Object>> ();
@@ -174,12 +174,12 @@ public class DBExecutor
         aRow.add (aRS.getObject (i));
       aValues.add (aRow);
     }
-    aGeneratedValuesCB.onGeneratedKey (aValues);
+    aGeneratedKeysCB.onGeneratedKeys (aValues);
   }
 
   @Nonnull
   protected final ESuccess withStatementDo (@Nonnull final IWithStatementCallback aCB,
-                                            @Nullable final IGeneratedValuesCallback aGeneratedValuesCB)
+                                            @Nullable final IGeneratedKeysCallback aGeneratedKeysCB)
   {
     return _withConnectionDo (new IWithConnectionCallback ()
     {
@@ -191,8 +191,8 @@ public class DBExecutor
           aStatement = aConnection.createStatement ();
           aCB.run (aStatement);
 
-          if (aGeneratedValuesCB != null)
-            handleGeneratedKeys (aStatement.getGeneratedKeys (), aGeneratedValuesCB);
+          if (aGeneratedKeysCB != null)
+            handleGeneratedKeys (aStatement.getGeneratedKeys (), aGeneratedKeysCB);
         }
         finally
         {
@@ -207,7 +207,7 @@ public class DBExecutor
                                                     @Nonnull final IPreparedStatementDataProvider aPSDP,
                                                     @Nonnull final IWithPreparedStatementCallback aPSCallback,
                                                     @Nullable final IUpdatedRowCountCallback aUpdatedRowCountCB,
-                                                    @Nullable final IGeneratedValuesCallback aGeneratedValuesCB)
+                                                    @Nullable final IGeneratedKeysCallback aGeneratedKeysCB)
   {
     return _withConnectionDo (new IWithConnectionCallback ()
     {
@@ -236,11 +236,11 @@ public class DBExecutor
 
           // Updated row count callback present?
           if (aUpdatedRowCountCB != null)
-            aUpdatedRowCountCB.onSetUpdatedRowCount (aPS.getUpdateCount ());
+            aUpdatedRowCountCB.setUpdatedRowCount (aPS.getUpdateCount ());
 
           // retrieve generated keys?
-          if (aGeneratedValuesCB != null)
-            handleGeneratedKeys (aPS.getGeneratedKeys (), aGeneratedValuesCB);
+          if (aGeneratedKeysCB != null)
+            handleGeneratedKeys (aPS.getGeneratedKeys (), aGeneratedKeysCB);
         }
         finally
         {
@@ -257,8 +257,7 @@ public class DBExecutor
   }
 
   @Nonnull
-  public ESuccess executeStatement (@Nonnull final String sSQL,
-                                    @Nullable final IGeneratedValuesCallback aGeneratedValuesCB)
+  public ESuccess executeStatement (@Nonnull final String sSQL, @Nullable final IGeneratedKeysCallback aGeneratedKeysCB)
   {
     return withStatementDo (new IWithStatementCallback ()
     {
@@ -268,7 +267,7 @@ public class DBExecutor
           s_aLogger.info ("Executing statement: " + sSQL);
         aStatement.execute (sSQL);
       }
-    }, aGeneratedValuesCB);
+    }, aGeneratedKeysCB);
   }
 
   @Nonnull
@@ -282,7 +281,7 @@ public class DBExecutor
   public ESuccess executePreparedStatement (@Nonnull final String sSQL,
                                             @Nonnull final IPreparedStatementDataProvider aPSDP,
                                             @Nullable final IUpdatedRowCountCallback aURWCC,
-                                            @Nullable final IGeneratedValuesCallback aGeneratedValuesCB)
+                                            @Nullable final IGeneratedKeysCallback aGeneratedKeysCB)
   {
     return withPreparedStatementDo (sSQL, aPSDP, new IWithPreparedStatementCallback ()
     {
@@ -290,7 +289,7 @@ public class DBExecutor
       {
         aPS.execute ();
       }
-    }, aURWCC, aGeneratedValuesCB);
+    }, aURWCC, aGeneratedKeysCB);
   }
 
   @Nullable
@@ -322,14 +321,14 @@ public class DBExecutor
    *        SQL to execute.
    * @param aPSDP
    *        The prepared statement provider.
-   * @param aGeneratedValuesCB
+   * @param aGeneratedKeysCB
    *        An optional callback to retrieve eventually generated values. May be
    *        <code>null</code>.
    * @return The number of modified/inserted rows.
    */
   public int insertOrUpdateOrDelete (@Nonnull final String sSQL,
                                      @Nonnull final IPreparedStatementDataProvider aPSDP,
-                                     @Nullable final IGeneratedValuesCallback aGeneratedValuesCB)
+                                     @Nullable final IGeneratedKeysCallback aGeneratedKeysCB)
   {
     // We need this wrapper because the anonymous inner class cannot change
     // variables in outer scope.
@@ -340,7 +339,7 @@ public class DBExecutor
       {
         aPS.execute ();
       }
-    }, aURCCB, aGeneratedValuesCB);
+    }, aURCCB, aGeneratedKeysCB);
     return aURCCB.getUpdatedRowCount ();
   }
 
