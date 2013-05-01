@@ -161,7 +161,7 @@
         <configuration>
           <instructions>
             <Export-Package>
-              com.phloc.db.*
+              com.phloc.db.jdbc.*
             </Export-Package>
           </instructions>
         </configuration>
