@@ -15,32 +15,34 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.phloc.db.jdbc.executor;
+package com.phloc.db.jdbc.callback;
 
-import java.util.List;
+import javax.annotation.CheckForSigned;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
+import com.phloc.commons.CGlobal;
 
 /**
- * Interface for objects that deliver content to pass parameters to a prepared
- * statement.
+ * This callback is used to retrieve generated keys upon insertion.
  * 
  * @author Philip Helger
  */
-public interface IPreparedStatementDataProvider
+public interface IUpdatedRowCountCallback
 {
-  /**
-   * @return The number of parameters provided by this instance.
-   */
-  @Nonnegative
-  int getValueCount ();
+  /** Default value for uninitialized row count */
+  int NOT_INITIALIZED = CGlobal.ILLEGAL_UINT;
 
   /**
-   * @return A non-<code>null</code>, unmodifiable list of values. The length of
-   *         the returned list must match the result of {@link #getValueCount()}
-   *         .
+   * @return The number of updated rows or {@link #NOT_INITIALIZED} if
+   *         {@link #setUpdatedRowCount(int)} was never called.
    */
-  @Nonnull
-  List <Object> getObjectValues ();
+  @CheckForSigned
+  int getUpdatedRowCount ();
+
+  /**
+   * Notify on the updated row count update.
+   * 
+   * @param nUpdatedRowCount
+   *        The number of updated rows (e.g. on update or delete)
+   */
+  void setUpdatedRowCount (int nUpdatedRowCount);
 }

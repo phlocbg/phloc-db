@@ -51,6 +51,12 @@ import com.phloc.db.jdbc.ConnectionFromDataSourceProvider;
 import com.phloc.db.jdbc.IConnectionProvider;
 import com.phloc.db.jdbc.IDataSourceProvider;
 import com.phloc.db.jdbc.JDBCUtils;
+import com.phloc.db.jdbc.callback.GetSingleGeneratedKeyCallback;
+import com.phloc.db.jdbc.callback.IGeneratedKeysCallback;
+import com.phloc.db.jdbc.callback.IPreparedStatementDataProvider;
+import com.phloc.db.jdbc.callback.IResultSetRowCallback;
+import com.phloc.db.jdbc.callback.IUpdatedRowCountCallback;
+import com.phloc.db.jdbc.callback.UpdatedRowCountCallback;
 
 /**
  * Simple wrapper around common JDBC functionality.
@@ -162,16 +168,16 @@ public class DBExecutor
     return ESuccess.SUCCESS;
   }
 
-  protected static void handleGeneratedKeys (@Nonnull final ResultSet aRS,
+  protected static void handleGeneratedKeys (@Nonnull final ResultSet aGeneratedKeysRS,
                                              @Nonnull final IGeneratedKeysCallback aGeneratedKeysCB) throws SQLException
   {
-    final int nCols = aRS.getMetaData ().getColumnCount ();
+    final int nCols = aGeneratedKeysRS.getMetaData ().getColumnCount ();
     final List <List <Object>> aValues = new ArrayList <List <Object>> ();
-    while (aRS.next ())
+    while (aGeneratedKeysRS.next ())
     {
       final List <Object> aRow = new ArrayList <Object> (nCols);
       for (int i = 1; i <= nCols; ++i)
-        aRow.add (aRS.getObject (i));
+        aRow.add (aGeneratedKeysRS.getObject (i));
       aValues.add (aRow);
     }
     aGeneratedKeysCB.onGeneratedKeys (aValues);

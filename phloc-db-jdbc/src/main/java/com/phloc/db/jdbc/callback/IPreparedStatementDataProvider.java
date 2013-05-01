@@ -15,30 +15,32 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.phloc.db.jdbc.executor;
+package com.phloc.db.jdbc.callback;
 
-import javax.annotation.concurrent.NotThreadSafe;
+import java.util.List;
+
+import javax.annotation.Nonnegative;
+import javax.annotation.Nonnull;
 
 /**
- * Default implementation of {@link IUpdatedRowCountCallback}.
+ * Interface for objects that deliver content to pass parameters to a prepared
+ * statement.
  * 
  * @author Philip Helger
  */
-@NotThreadSafe
-public class UpdatedRowCountCallback implements IUpdatedRowCountCallback
+public interface IPreparedStatementDataProvider
 {
-  private int m_nUpdatedRowCount = NOT_INITIALIZED;
+  /**
+   * @return The number of parameters provided by this instance.
+   */
+  @Nonnegative
+  int getValueCount ();
 
-  public UpdatedRowCountCallback ()
-  {}
-
-  public void setUpdatedRowCount (final int nUpdatedRowCount)
-  {
-    m_nUpdatedRowCount = nUpdatedRowCount;
-  }
-
-  public int getUpdatedRowCount ()
-  {
-    return m_nUpdatedRowCount;
-  }
+  /**
+   * @return A non-<code>null</code>, unmodifiable list of values. The length of
+   *         the returned list must match the result of {@link #getValueCount()}
+   *         .
+   */
+  @Nonnull
+  List <Object> getObjectValues ();
 }
