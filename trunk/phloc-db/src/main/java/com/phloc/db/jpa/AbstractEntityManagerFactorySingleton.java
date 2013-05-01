@@ -17,6 +17,7 @@
  */
 package com.phloc.db.jpa;
 
+import java.sql.Driver;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -65,29 +66,35 @@ public abstract class AbstractEntityManagerFactorySingleton extends GlobalSingle
   /*
    * Constructor. Never initialize manually!
    */
-  protected AbstractEntityManagerFactorySingleton (@Nonnull @Nonempty final String sJdbcDriver,
+  protected AbstractEntityManagerFactorySingleton (@Nonnull final Class <? extends Driver> aJdbcDriverClass,
                                                    @Nonnull @Nonempty final String sJdbcURL,
-                                                   @Nullable final String sUser,
+                                                   @Nullable final String sUserName,
                                                    @Nullable final String sPassword,
                                                    @Nonnull final Class <? extends DatabasePlatform> aPlatformClass,
                                                    @Nonnull @Nonempty final String sPersistenceUnitName,
-                                                   @Nullable final Map <String, Object> aAdditionalFactoryProps)
+                                                   @Nullable final Map <String, Object> aAdditionalFactoryProperties)
   {
-    if (StringHelper.hasNoText (sJdbcDriver))
-      throw new IllegalArgumentException ("JDBCDriver");
+    if (aJdbcDriverClass == null)
+      throw new NullPointerException ("JdbcDriverClass");
     if (StringHelper.hasNoText (sJdbcURL))
-      throw new IllegalArgumentException ("JDBC URL");
+      throw new IllegalArgumentException ("JdbcURL");
     if (aPlatformClass == null)
-      throw new NullPointerException ("platformClass");
+      throw new NullPointerException ("PlatformClass");
     if (StringHelper.hasNoText (sPersistenceUnitName))
-      throw new IllegalArgumentException ("persistenceUnitName");
+      throw new IllegalArgumentException ("PersistenceUnitName");
 
-    s_aLogger.info ("Using JDBC URL " + sJdbcURL + " with JDBC driver " + sJdbcDriver + " and user '" + sUser + "'");
+    s_aLogger.info ("Using JDBC URL " +
+                    sJdbcURL +
+                    " with JDBC driver " +
+                    aJdbcDriverClass +
+                    " and user '" +
+                    sUserName +
+                    "'");
 
     final Map <String, Object> aFactoryProps = new HashMap <String, Object> ();
-    aFactoryProps.put (PersistenceUnitProperties.JDBC_DRIVER, sJdbcDriver);
+    aFactoryProps.put (PersistenceUnitProperties.JDBC_DRIVER, aJdbcDriverClass.getName ());
     aFactoryProps.put (PersistenceUnitProperties.JDBC_URL, sJdbcURL);
-    aFactoryProps.put (PersistenceUnitProperties.JDBC_USER, sUser);
+    aFactoryProps.put (PersistenceUnitProperties.JDBC_USER, sUserName);
     aFactoryProps.put (PersistenceUnitProperties.JDBC_PASSWORD, sPassword);
 
     aFactoryProps.put (PersistenceUnitProperties.LOGGING_LOGGER, EclipseLinkLogger.class.getName ());
@@ -101,8 +108,8 @@ public abstract class AbstractEntityManagerFactorySingleton extends GlobalSingle
     // configurations are present
 
     // Add parameter properties
-    if (aAdditionalFactoryProps != null)
-      aFactoryProps.putAll (aAdditionalFactoryProps);
+    if (aAdditionalFactoryProperties != null)
+      aFactoryProps.putAll (aAdditionalFactoryProperties);
 
     // Consistency check if no explicit DDL generation mode is specified!
     if (aFactoryProps.containsKey (PersistenceUnitProperties.DDL_GENERATION) &&
