@@ -26,15 +26,16 @@ import org.slf4j.LoggerFactory;
 
 import com.phloc.commons.annotations.Nonempty;
 import com.phloc.commons.callback.IThrowingRunnableWithParameter;
-import com.phloc.db.jpa.AbstractJPAEnabledManager;
+import com.phloc.db.jpa.IEntityManagerProvider;
+import com.phloc.db.jpa.JPAEnabledManager;
 
 /**
- * Special H2 version of {@link AbstractJPAEnabledManager}
+ * Special H2 version of {@link JPAEnabledManager}
  * 
  * @author Philip Helger
  */
 @ThreadSafe
-public abstract class AbstractJPAEnabledManagerH2 extends AbstractJPAEnabledManager
+public class JPAEnabledManagerH2 extends JPAEnabledManager
 {
   public static enum ELockMode
   {
@@ -80,24 +81,18 @@ public abstract class AbstractJPAEnabledManagerH2 extends AbstractJPAEnabledMana
     }
   }
 
-  static final Logger s_aLogger = LoggerFactory.getLogger (AbstractJPAEnabledManager.class);
+  static final Logger s_aLogger = LoggerFactory.getLogger (JPAEnabledManager.class);
 
-  protected AbstractJPAEnabledManagerH2 ()
-  {}
+  public JPAEnabledManagerH2 (@Nonnull final IEntityManagerProvider aEntityManagerProvider)
+  {
+    super (aEntityManagerProvider);
+  }
 
   protected final boolean isTableExisting (@Nonnull final String sTableName)
   {
-    final EntityManager aEM = getEntityManager ();
-    try
-    {
-      return getSelectCountResultObj (aEM.createQuery ("SELECT count(ID) FROM TABLES t WHERE t.TABLE_TYPE = 'TABLE' AND TABLE_NAME = :tablename",
-                                                       Integer.class)
-                                         .setParameter ("tablename", sTableName)).intValue () > 0;
-    }
-    finally
-    {
-      aEM.close ();
-    }
+    return getSelectCountResultObj (getEntityManager ().createQuery ("SELECT count(ID) FROM TABLES t WHERE t.TABLE_TYPE = 'TABLE' AND TABLE_NAME = :tablename",
+                                                                     Integer.class)
+                                                       .setParameter ("tablename", sTableName)).intValue () > 0;
   }
 
   private void _executeH2Native (@Nonnull @Nonempty final String sNativeSQL)

@@ -17,18 +17,22 @@
  */
 package com.phloc.db.jpa.mysql;
 
+import javax.annotation.Nonnull;
 import javax.annotation.concurrent.ThreadSafe;
 
-import com.phloc.db.jpa.AbstractJPAEnabledManager;
+import com.phloc.db.jpa.IEntityManagerProvider;
+import com.phloc.db.jpa.JPAEnabledManager;
 
 /**
- * Special MySQL version of {@link AbstractJPAEnabledManager}
+ * Special MySQL version of {@link JPAEnabledManager}
  * 
  * @author Philip Helger
  */
 @ThreadSafe
-public abstract class AbstractJPAEnabledManagerMySQL extends AbstractJPAEnabledManager
+public class JPAEnabledManagerMySQL extends JPAEnabledManager
 {
-  protected AbstractJPAEnabledManagerMySQL ()
-  {}
+  public JPAEnabledManagerMySQL (@Nonnull final IEntityManagerProvider aEntityManagerProvider)
+  {
+    super (aEntityManagerProvider);
+  }
 }

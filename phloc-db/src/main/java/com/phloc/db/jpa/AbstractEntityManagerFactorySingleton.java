@@ -46,7 +46,6 @@ import com.phloc.scopes.singleton.GlobalSingleton;
  * 
  * @author Philip Helger
  */
-@SuppressWarnings ("deprecation")
 public abstract class AbstractEntityManagerFactorySingleton extends GlobalSingleton implements IEntityManagerProvider
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (AbstractEntityManagerFactorySingleton.class);
@@ -206,7 +205,7 @@ public abstract class AbstractEntityManagerFactorySingleton extends GlobalSingle
   }
 
   @Nonnull
-  public final EntityManager createEntityManager ()
+  public final EntityManager getEntityManager ()
   {
     // Create entity manager
     final EntityManager aEntityManager = m_aFactory.createEntityManager (null);

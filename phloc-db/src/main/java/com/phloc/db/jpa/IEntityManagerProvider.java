@@ -31,5 +31,5 @@ public interface IEntityManagerProvider
    * @return The JPA entity manager. May not be <code>null</code>.
    */
   @Nonnull
-  EntityManager createEntityManager ();
+  EntityManager getEntityManager ();
 }

@@ -20,11 +20,11 @@ package com.phloc.db.jpa.callback;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 
-import com.phloc.db.jpa.AbstractJPAEnabledManager;
+import com.phloc.db.jpa.JPAEnabledManager;
 
 /**
  * Callback interface to be used to notify interested parties when a statement
- * takes too long. Is used in {@link AbstractJPAEnabledManager}.
+ * takes too long. Is used in {@link JPAEnabledManager}.
  * 
  * @author Philip Helger
  */
