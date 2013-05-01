@@ -17,11 +17,14 @@
  */
 package com.phloc.db.jpa.h2;
 
+import java.sql.Driver;
+
 import javax.annotation.Nonnull;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.phloc.commons.annotations.Nonempty;
 import com.phloc.commons.annotations.UsedViaReflection;
 import com.phloc.scopes.singleton.GlobalSingleton;
 
@@ -43,15 +46,23 @@ public final class H2DriverSingleton extends GlobalSingleton
     org.h2.Driver.load ();
   }
 
+  @Nonnull
   public static H2DriverSingleton getInstance ()
   {
     return getGlobalSingleton (H2DriverSingleton.class);
   }
 
   @Nonnull
+  public Class <? extends Driver> getDriverClass ()
+  {
+    return org.h2.Driver.class;
+  }
+
+  @Nonnull
+  @Nonempty
   public String getDriverName ()
   {
-    return org.h2.Driver.class.getName ();
+    return getDriverClass ().getName ();
   }
 
   @Override
