@@ -19,11 +19,13 @@ package com.phloc.db.jpa.h2;
 
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.ThreadSafe;
+import javax.persistence.EntityManager;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.phloc.commons.annotations.Nonempty;
+import com.phloc.commons.callback.IThrowingRunnableWithParameter;
 import com.phloc.db.jpa.AbstractJPAEnabledManager;
 
 /**
@@ -85,19 +87,27 @@ public abstract class AbstractJPAEnabledManagerH2 extends AbstractJPAEnabledMana
 
   protected final boolean isTableExisting (@Nonnull final String sTableName)
   {
-    return getSelectCountResultObj (getEntityManager ().createQuery ("SELECT count(ID) FROM TABLES t WHERE t.TABLE_TYPE = 'TABLE' AND TABLE_NAME = :tablename",
-                                                                     Integer.class)
-                                                       .setParameter ("tablename", sTableName)).intValue () > 0;
+    final EntityManager aEM = createEntityManager ();
+    try
+    {
+      return getSelectCountResultObj (aEM.createQuery ("SELECT count(ID) FROM TABLES t WHERE t.TABLE_TYPE = 'TABLE' AND TABLE_NAME = :tablename",
+                                                       Integer.class)
+                                         .setParameter ("tablename", sTableName)).intValue () > 0;
+    }
+    finally
+    {
+      aEM.close ();
+    }
   }
 
   private void _executeH2Native (@Nonnull @Nonempty final String sNativeSQL)
   {
-    doInTransaction (new Runnable ()
+    doInTransaction (new IThrowingRunnableWithParameter <EntityManager> ()
     {
-      public void run ()
+      public void run (@Nonnull final EntityManager aEM)
       {
         s_aLogger.info ("Running H2 native command: " + sNativeSQL);
-        getEntityManager ().createNativeQuery (sNativeSQL).executeUpdate ();
+        aEM.createNativeQuery (sNativeSQL).executeUpdate ();
       }
     });
   }
