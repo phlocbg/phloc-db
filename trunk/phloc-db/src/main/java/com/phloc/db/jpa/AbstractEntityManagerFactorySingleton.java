@@ -34,10 +34,11 @@ import org.slf4j.LoggerFactory;
 
 import com.phloc.commons.annotations.Nonempty;
 import com.phloc.commons.annotations.OverrideOnDemand;
+import com.phloc.commons.annotations.ReturnsMutableCopy;
+import com.phloc.commons.collections.ContainerHelper;
 import com.phloc.commons.string.StringHelper;
 import com.phloc.db.jpa.eclipselink.EclipseLinkLogger;
 import com.phloc.db.jpa.eclipselink.EclipseLinkSessionCustomizer;
-import com.phloc.db.jpa.proxy.EntityManagerFactoryWithListener;
 import com.phloc.db.jpa.utils.PersistenceXmlUtils;
 import com.phloc.scopes.singleton.GlobalSingleton;
 
@@ -46,7 +47,7 @@ import com.phloc.scopes.singleton.GlobalSingleton;
  * 
  * @author Philip Helger
  */
-public abstract class AbstractEntityManagerFactorySingleton extends GlobalSingleton implements IEntityManagerProvider
+public abstract class AbstractEntityManagerFactorySingleton extends GlobalSingleton
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (AbstractEntityManagerFactorySingleton.class);
 
@@ -130,7 +131,7 @@ public abstract class AbstractEntityManagerFactorySingleton extends GlobalSingle
   @OverrideOnDemand
   protected EntityManagerFactory customizeEntityManagerFactory (@Nonnull final EntityManagerFactory aEMF)
   {
-    return new EntityManagerFactoryWithListener (aEMF);
+    return aEMF;
   }
 
   @Override
@@ -149,7 +150,7 @@ public abstract class AbstractEntityManagerFactorySingleton extends GlobalSingle
 
     // Wrap in a factory with listener support
     m_aFactory = customizeEntityManagerFactory (aFactory);
-    s_aLogger.info ("Created entity manager factory for persistence unit '" + m_sPersistenceUnitName + "'");
+    s_aLogger.info ("Created EntityManagerFactory for persistence unit '" + m_sPersistenceUnitName + "'");
 
     // Consistency check after creation!
     final Map <String, Object> aRealProps = m_aFactory.getProperties ();
@@ -191,7 +192,7 @@ public abstract class AbstractEntityManagerFactorySingleton extends GlobalSingle
       }
       m_aFactory = null;
     }
-    s_aLogger.info ("Closed JPAManager '" + m_sPersistenceUnitName + "'");
+    s_aLogger.info ("Closed EntityManagerFactory for persistence unit '" + m_sPersistenceUnitName + "'");
   }
 
   /**
@@ -204,13 +205,38 @@ public abstract class AbstractEntityManagerFactorySingleton extends GlobalSingle
     return m_sPersistenceUnitName;
   }
 
+  /**
+   * @return The EntityManagerFactory creation properties. Never
+   *         <code>null</code>.
+   */
   @Nonnull
-  public final EntityManager getEntityManager ()
+  @ReturnsMutableCopy
+  public final Map <String, Object> getAllFactoryProperties ()
+  {
+    return ContainerHelper.newMap (m_aFactoryProps);
+  }
+
+  @Nonnull
+  public final EntityManagerFactory getEntityManagerFactory ()
+  {
+    if (m_aFactory == null)
+      throw new IllegalStateException ("No EntityManagerFactory present!");
+    return m_aFactory;
+  }
+
+  @Nonnull
+  public final EntityManager createEntityManager ()
+  {
+    return createEntityManager (null);
+  }
+
+  @Nonnull
+  public EntityManager createEntityManager (@SuppressWarnings ("rawtypes") final Map aMap)
   {
     // Create entity manager
-    final EntityManager aEntityManager = m_aFactory.createEntityManager (null);
+    final EntityManager aEntityManager = m_aFactory.createEntityManager (aMap);
     if (aEntityManager == null)
-      throw new IllegalStateException ("Failed to create entity manager from factory " + m_aFactory + "!");
+      throw new IllegalStateException ("Failed to create EntityManager from factory " + m_aFactory + "!");
     return aEntityManager;
   }
 }

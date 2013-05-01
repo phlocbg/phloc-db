@@ -28,7 +28,7 @@ import javax.persistence.EntityManager;
 public interface IEntityManagerProvider
 {
   /**
-   * @return The JPA entity manager. May not be <code>null</code>.
+   * @return The JPA entity manager to use. May not be <code>null</code>.
    */
   @Nonnull
   EntityManager getEntityManager ();
