@@ -37,7 +37,7 @@ import com.phloc.db.jpa.AbstractEntityManagerFactorySingleton;
  * 
  * @author Philip Helger
  */
-public abstract class AbstractJPASingletonMySQL extends AbstractEntityManagerFactorySingleton
+public abstract class AbstractEntityManagerFactorySingletonMySQL extends AbstractEntityManagerFactorySingleton
 {
   /** Default JDBC URL prefix */
   public static final String JDBC_URL_PREFIX_MYSQL = "jdbc:mysql:";
@@ -90,7 +90,7 @@ public abstract class AbstractJPASingletonMySQL extends AbstractEntityManagerFac
   /*
    * Constructor. Never initialize manually!
    */
-  protected AbstractJPASingletonMySQL (@Nonnull @Nonempty final String sJdbcURL,
+  protected AbstractEntityManagerFactorySingletonMySQL (@Nonnull @Nonempty final String sJdbcURL,
                                        @Nullable final String sUser,
                                        @Nullable final String sPassword,
                                        @Nonnull @Nonempty final String sPersistenceUnitName)
@@ -101,7 +101,7 @@ public abstract class AbstractJPASingletonMySQL extends AbstractEntityManagerFac
   /*
    * Constructor. Never initialize manually!
    */
-  protected AbstractJPASingletonMySQL (@Nonnull @Nonempty final String sJdbcURL,
+  protected AbstractEntityManagerFactorySingletonMySQL (@Nonnull @Nonempty final String sJdbcURL,
                                        @Nullable final Map <EMySQLConnectionProperty, String> aConnectionProperties,
                                        @Nullable final String sUser,
                                        @Nullable final String sPassword,
@@ -113,7 +113,7 @@ public abstract class AbstractJPASingletonMySQL extends AbstractEntityManagerFac
   /*
    * Constructor. Never initialize manually!
    */
-  protected AbstractJPASingletonMySQL (@Nonnull @Nonempty final String sJdbcURL,
+  protected AbstractEntityManagerFactorySingletonMySQL (@Nonnull @Nonempty final String sJdbcURL,
                                        @Nullable final Map <EMySQLConnectionProperty, String> aConnectionProperties,
                                        @Nullable final String sUser,
                                        @Nullable final String sPassword,

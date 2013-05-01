@@ -33,7 +33,6 @@ import com.phloc.commons.CGlobal;
  * 
  * @author Philip Helger
  */
-@Deprecated
 public final class EclipseLinkSessionCustomizer implements SessionCustomizer
 {
   private static final AtomicInteger s_aLogLevel = new AtomicInteger (CGlobal.ILLEGAL_UINT);
@@ -41,6 +40,11 @@ public final class EclipseLinkSessionCustomizer implements SessionCustomizer
   public EclipseLinkSessionCustomizer ()
   {}
 
+  /**
+   * See {@link SessionLog} for the available log levels
+   * 
+   * @param nLogLevel
+   */
   public static void setGlobalLogLevel (final int nLogLevel)
   {
     if (nLogLevel >= SessionLog.ALL && nLogLevel <= SessionLog.OFF)

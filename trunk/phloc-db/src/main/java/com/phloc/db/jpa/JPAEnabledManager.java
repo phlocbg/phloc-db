@@ -60,7 +60,7 @@ import com.phloc.db.jpa.utils.AdapterRunnableToRunnableWithParam;
  * @author Philip Helger
  */
 @ThreadSafe
-public abstract class AbstractJPAEnabledManager
+public class JPAEnabledManager
 {
   /** By default the entity manager is locked */
   public static final boolean DEFAULT_SYNC_ENTITY_MGR = true;
@@ -70,18 +70,18 @@ public abstract class AbstractJPAEnabledManager
   public static final boolean DEFAULT_USE_TRANSACTIONS_FOR_SELECT = false;
 
   private static final int DEFAULT_EXECUTION_WARN_TIME_MS = 1000;
-  private static final Logger s_aLogger = LoggerFactory.getLogger (AbstractJPAEnabledManager.class);
-  private static final IStatisticsHandlerCounter s_aStatsCounterTransactions = StatisticsManager.getCounterHandler (AbstractJPAEnabledManager.class.getName () +
+  private static final Logger s_aLogger = LoggerFactory.getLogger (JPAEnabledManager.class);
+  private static final IStatisticsHandlerCounter s_aStatsCounterTransactions = StatisticsManager.getCounterHandler (JPAEnabledManager.class.getName () +
                                                                                                                     "$transactions");
-  private static final IStatisticsHandlerCounter s_aStatsCounterRollback = StatisticsManager.getCounterHandler (AbstractJPAEnabledManager.class.getName () +
+  private static final IStatisticsHandlerCounter s_aStatsCounterRollback = StatisticsManager.getCounterHandler (JPAEnabledManager.class.getName () +
                                                                                                                 "$rollback");
-  private static final IStatisticsHandlerCounter s_aStatsCounterSuccess = StatisticsManager.getCounterHandler (AbstractJPAEnabledManager.class.getName () +
+  private static final IStatisticsHandlerCounter s_aStatsCounterSuccess = StatisticsManager.getCounterHandler (JPAEnabledManager.class.getName () +
                                                                                                                "$success");
-  private static final IStatisticsHandlerCounter s_aStatsCounterError = StatisticsManager.getCounterHandler (AbstractJPAEnabledManager.class.getName () +
+  private static final IStatisticsHandlerCounter s_aStatsCounterError = StatisticsManager.getCounterHandler (JPAEnabledManager.class.getName () +
                                                                                                              "$error");
-  private static final IStatisticsHandlerTimer s_aStatsTimerExecutionSuccess = StatisticsManager.getTimerHandler (AbstractJPAEnabledManager.class.getName () +
+  private static final IStatisticsHandlerTimer s_aStatsTimerExecutionSuccess = StatisticsManager.getTimerHandler (JPAEnabledManager.class.getName () +
                                                                                                                   "$execSuccess");
-  private static final IStatisticsHandlerTimer s_aStatsTimerExecutionError = StatisticsManager.getTimerHandler (AbstractJPAEnabledManager.class.getName () +
+  private static final IStatisticsHandlerTimer s_aStatsTimerExecutionError = StatisticsManager.getTimerHandler (JPAEnabledManager.class.getName () +
                                                                                                                 "$execError");
 
   private static final ReadWriteLock s_aRWLock = new ReentrantReadWriteLock ();
@@ -89,12 +89,17 @@ public abstract class AbstractJPAEnabledManager
   private static final AtomicInteger s_aExecutionWarnTime = new AtomicInteger (DEFAULT_EXECUTION_WARN_TIME_MS);
   private static IExecutionTimeExceededHandler s_aExecutionTimeExceededHandler = new LoggingExecutionTimeExceededHandler (true);
 
+  private final IEntityManagerProvider m_aEntityManagerProvider;
   private final AtomicBoolean m_aSyncEntityMgr = new AtomicBoolean (DEFAULT_SYNC_ENTITY_MGR);
   private final AtomicBoolean m_aAllowNestedTransactions = new AtomicBoolean (DEFAULT_ALLOW_NESTED_TRANSACTIONS);
   private final AtomicBoolean m_aUseTransactionsForSelect = new AtomicBoolean (DEFAULT_USE_TRANSACTIONS_FOR_SELECT);
 
-  protected AbstractJPAEnabledManager ()
-  {}
+  public JPAEnabledManager (@Nonnull final IEntityManagerProvider aEntityManagerProvider)
+  {
+    if (aEntityManagerProvider == null)
+      throw new NullPointerException ("EntityManagerProvider");
+    m_aEntityManagerProvider = aEntityManagerProvider;
+  }
 
   public final boolean isSyncEntityMgr ()
   {
@@ -153,7 +158,10 @@ public abstract class AbstractJPAEnabledManager
    * @return Get the entity manager to be used. Must not be <code>null</code>.
    */
   @Nonnull
-  protected abstract EntityManager getEntityManager ();
+  protected final EntityManager getEntityManager ()
+  {
+    return m_aEntityManagerProvider.getEntityManager ();
+  }
 
   /**
    * Set a custom exception handler that is called in case performing some

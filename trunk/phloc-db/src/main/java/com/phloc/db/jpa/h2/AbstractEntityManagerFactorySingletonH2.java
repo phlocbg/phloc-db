@@ -37,7 +37,7 @@ import com.phloc.db.jpa.AbstractEntityManagerFactorySingleton;
  * 
  * @author Philip Helger
  */
-public abstract class AbstractJPASingletonH2 extends AbstractEntityManagerFactorySingleton
+public abstract class AbstractEntityManagerFactorySingletonH2 extends AbstractEntityManagerFactorySingleton
 {
   /** Default JDBC URL prefix */
   public static final String JDBC_URL_PREFIX_H2 = "jdbc:h2:";
@@ -82,7 +82,7 @@ public abstract class AbstractJPASingletonH2 extends AbstractEntityManagerFactor
   /*
    * Constructor. Never initialize manually!
    */
-  protected AbstractJPASingletonH2 (@Nonnull @Nonempty final String sJdbcURL,
+  protected AbstractEntityManagerFactorySingletonH2 (@Nonnull @Nonempty final String sJdbcURL,
                                     @Nullable final String sUser,
                                     @Nullable final String sPassword,
                                     @Nonnull @Nonempty final String sPersistenceUnitName)
@@ -93,7 +93,7 @@ public abstract class AbstractJPASingletonH2 extends AbstractEntityManagerFactor
   /*
    * Constructor. Never initialize manually!
    */
-  protected AbstractJPASingletonH2 (@Nonnull @Nonempty final String sJdbcURL,
+  protected AbstractEntityManagerFactorySingletonH2 (@Nonnull @Nonempty final String sJdbcURL,
                                     @Nullable final Map <String, String> aConnectionProperties,
                                     @Nullable final String sUser,
                                     @Nullable final String sPassword,
@@ -105,7 +105,7 @@ public abstract class AbstractJPASingletonH2 extends AbstractEntityManagerFactor
   /**
    * Constructor. Never initialize manually!
    */
-  protected AbstractJPASingletonH2 (@Nonnull @Nonempty final String sJdbcURL,
+  protected AbstractEntityManagerFactorySingletonH2 (@Nonnull @Nonempty final String sJdbcURL,
                                     @Nullable final Map <String, String> aConnectionProperties,
                                     @Nullable final String sUser,
                                     @Nullable final String sPassword,
