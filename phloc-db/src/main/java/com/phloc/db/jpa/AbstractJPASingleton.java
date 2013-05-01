@@ -38,6 +38,7 @@ import com.phloc.commons.string.StringHelper;
 import com.phloc.db.jpa.eclipselink.JPALogger;
 import com.phloc.db.jpa.eclipselink.JPASessionCustomizer;
 import com.phloc.db.jpa.proxy.EntityManagerFactoryWithListener;
+import com.phloc.db.jpa.utils.PersistenceXmlUtils;
 import com.phloc.scopes.singleton.GlobalSingleton;
 
 /**

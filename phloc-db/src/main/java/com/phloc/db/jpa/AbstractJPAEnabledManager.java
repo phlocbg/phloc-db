@@ -44,10 +44,10 @@ import com.phloc.commons.stats.IStatisticsHandlerCounter;
 import com.phloc.commons.stats.IStatisticsHandlerTimer;
 import com.phloc.commons.stats.StatisticsManager;
 import com.phloc.commons.timing.StopWatch;
-import com.phloc.db.callback.IJPAExecutionTimeExceededHandler;
-import com.phloc.db.callback.LoggingJPAExecutionTimeExceededHandler;
-import com.phloc.db.utils.AdapterCallableToCallableWithParam;
-import com.phloc.db.utils.AdapterRunnableToRunnableWithParam;
+import com.phloc.db.jpa.callback.IJPAExecutionTimeExceededHandler;
+import com.phloc.db.jpa.callback.LoggingJPAExecutionTimeExceededHandler;
+import com.phloc.db.jpa.utils.AdapterCallableToCallableWithParam;
+import com.phloc.db.jpa.utils.AdapterRunnableToRunnableWithParam;
 
 /**
  * Abstract base class for entity managers. Provides the
