@@ -35,6 +35,13 @@ import com.phloc.commons.version.Version;
 @IsSPIImplementation
 public final class ThirdPartyModuleProvider_phloc_db implements IThirdPartyModuleProviderSPI
 {
+  /** EclipseLink */
+  private static final IThirdPartyModule ECLIPSE_LINK = new ThirdPartyModule ("EclipseLink",
+                                                                              "Eclipse Foundation",
+                                                                              ELicense.EPL10,
+                                                                              new Version (2, 4, 1),
+                                                                              "http://www.eclipse.org/eclipselink/");
+
   /** H2 database */
   public static final IThirdPartyModule H2 = new ThirdPartyModule ("H2 Database Engine",
                                                                    "Eclipse Foundation",
@@ -49,16 +56,10 @@ public final class ThirdPartyModuleProvider_phloc_db implements IThirdPartyModul
                                                                       new Version (5, 1, 24),
                                                                       "http://www.mysql.com/",
                                                                       true);
-  /** EclipseLink */
-  private static final IThirdPartyModule ECLIPSE_LINK = new ThirdPartyModule ("EclipseLink",
-                                                                              "Eclipse Foundation",
-                                                                              ELicense.EPL10,
-                                                                              new Version (2, 4, 1),
-                                                                              "http://www.eclipse.org/eclipselink/");
 
   @Nullable
   public IThirdPartyModule [] getAllThirdPartyModules ()
   {
-    return new IThirdPartyModule [] { H2, MYSQL, ECLIPSE_LINK };
+    return new IThirdPartyModule [] { ECLIPSE_LINK, H2, MYSQL };
   }
 }

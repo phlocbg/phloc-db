@@ -25,13 +25,13 @@ import org.slf4j.LoggerFactory;
 
 import com.phloc.commons.string.ToStringGenerator;
 
-public class LoggingJPAExecutionTimeExceededHandler implements IJPAExecutionTimeExceededHandler
+public class LoggingExecutionTimeExceededHandler implements IExecutionTimeExceededHandler
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (LoggingJPAExecutionTimeExceededHandler.class);
+  private static final Logger s_aLogger = LoggerFactory.getLogger (LoggingExecutionTimeExceededHandler.class);
 
   private final boolean m_bEmitStackTrace;
 
-  public LoggingJPAExecutionTimeExceededHandler (final boolean bEmitStackTrace)
+  public LoggingExecutionTimeExceededHandler (final boolean bEmitStackTrace)
   {
     m_bEmitStackTrace = bEmitStackTrace;
   }

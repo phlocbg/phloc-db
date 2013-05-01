@@ -15,30 +15,33 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.phloc.db.jpa.converter;
+package com.phloc.db.jpa.eclipselink.converter;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-import java.sql.Timestamp;
+import java.sql.Time;
 
-import org.joda.time.LocalDateTime;
+import org.joda.time.LocalTime;
 import org.junit.Test;
 
 import com.phloc.datetime.PDTFactory;
+import com.phloc.db.jpa.eclipselink.converter.JPAJodaLocalTimeConverter;
 
 /**
- * Test class for class {@link JPAJodaLocalDateTimeConverter}.
+ * Test class for class {@link JPAJodaLocalTimeConverter}.
  * 
  * @author Philip Helger
  */
-public final class JPAJodaLocalDateTimeConverterTest {
+public final class JPAJodaLocalTimeConverterTest
+{
   @Test
-  public void testAll() {
-    final LocalDateTime aNow = PDTFactory.getCurrentLocalDateTime();
-    final JPAJodaLocalDateTimeConverter aConverter = new JPAJodaLocalDateTimeConverter();
-    final Timestamp aDataValue = aConverter.convertObjectValueToDataValue(aNow, null);
-    assertNotNull(aDataValue);
-    assertEquals(aNow, aConverter.convertDataValueToObjectValue(aDataValue, null));
+  public void testAll ()
+  {
+    final LocalTime aNow = PDTFactory.getCurrentLocalTime ();
+    final JPAJodaLocalTimeConverter aConverter = new JPAJodaLocalTimeConverter ();
+    final Time aDataValue = aConverter.convertObjectValueToDataValue (aNow, null);
+    assertNotNull (aDataValue);
+    assertEquals (aNow, aConverter.convertDataValueToObjectValue (aDataValue, null));
   }
 }

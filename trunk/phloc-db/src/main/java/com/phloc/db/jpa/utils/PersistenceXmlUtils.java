@@ -37,8 +37,10 @@ import com.phloc.commons.string.StringHelper;
 @Immutable
 public final class PersistenceXmlUtils
 {
-  /** The JPA consifuguration file relative to the classpath */
+  /** The JPA configuration file relative to the classpath */
   public static final String PATH_PERSISTENCE_XML = "META-INF/persistence.xml";
+  public static final String PERSISTENCE_NAMESPACE_URI = "http://java.sun.com/xml/ns/persistence";
+
   private static final Logger s_aLogger = LoggerFactory.getLogger (PersistenceXmlUtils.class);
 
   private PersistenceXmlUtils ()
@@ -56,23 +58,22 @@ public final class PersistenceXmlUtils
     // Check if all persistence.xml files contain valid classes!
     try
     {
-      final String sNamespaceURI = "http://java.sun.com/xml/ns/persistence";
       int nCount = 0;
-      final Enumeration <URL> e = ClassHelper.getDefaultClassLoader ().getResources (PATH_PERSISTENCE_XML);
-      while (e.hasMoreElements ())
+      final Enumeration <URL> aEnum = ClassHelper.getDefaultClassLoader ().getResources (PATH_PERSISTENCE_XML);
+      while (aEnum.hasMoreElements ())
       {
         nCount++;
-        final URL u = e.nextElement ();
-        final IMicroDocument aDoc = MicroReader.readMicroXML (new URLResource (u));
+        final URL aURL = aEnum.nextElement ();
+        final IMicroDocument aDoc = MicroReader.readMicroXML (new URLResource (aURL));
         if (aDoc == null || aDoc.getDocumentElement () == null)
-          throw new IllegalStateException ("No XML file: " + u);
-        for (final IMicroElement ePU : aDoc.getDocumentElement ().getAllChildElements (sNamespaceURI,
+          throw new IllegalStateException ("No XML file: " + aURL);
+        for (final IMicroElement ePU : aDoc.getDocumentElement ().getAllChildElements (PERSISTENCE_NAMESPACE_URI,
                                                                                        "persistence-unit"))
-          for (final IMicroElement eClass : ePU.getAllChildElements (sNamespaceURI, "class"))
+          for (final IMicroElement eClass : ePU.getAllChildElements (PERSISTENCE_NAMESPACE_URI, "class"))
           {
             final String sClass = eClass.getTextContent ();
             if (StringHelper.hasNoTextAfterTrim (sClass))
-              throw new IllegalStateException ("Persistence file " + u + ": class name is missing!");
+              throw new IllegalStateException ("Persistence file " + aURL + ": class name is missing!");
             GenericReflection.getClassFromName (sClass.trim ());
           }
       }

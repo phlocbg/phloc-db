@@ -15,9 +15,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.phloc.db.jpa.converter;
+package com.phloc.db.jpa.eclipselink.converter;
 
-import java.sql.Timestamp;
+import java.sql.Time;
 
 import javax.annotation.concurrent.Immutable;
 
@@ -26,31 +26,32 @@ import org.eclipse.persistence.mappings.DatabaseMapping;
 import org.eclipse.persistence.mappings.converters.Converter;
 import org.eclipse.persistence.mappings.foundation.AbstractDirectMapping;
 import org.eclipse.persistence.sessions.Session;
-import org.joda.time.Duration;
+import org.joda.time.LocalTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.phloc.commons.lang.CGStringHelper;
+import com.phloc.datetime.config.PDTConfig;
 
 @Immutable
-public final class JPAJodaDurationConverter implements Converter
+public final class JPAJodaLocalTimeConverter implements Converter
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (JPAJodaDurationConverter.class);
+  private static final Logger s_aLogger = LoggerFactory.getLogger (JPAJodaLocalTimeConverter.class);
 
-  public JPAJodaDurationConverter ()
+  public JPAJodaLocalTimeConverter ()
   {}
 
-  public Timestamp convertObjectValueToDataValue (final Object aObjectValue, final Session session)
+  public Time convertObjectValueToDataValue (final Object aObjectValue, final Session session)
   {
-    return aObjectValue == null ? null : new Timestamp (((Duration) aObjectValue).getMillis ());
+    return aObjectValue == null ? null : new Time (((LocalTime) aObjectValue).toDateTimeToday ().getMillis ());
   }
 
-  public Duration convertDataValueToObjectValue (final Object aDataValue, final Session session)
+  public LocalTime convertDataValueToObjectValue (final Object aDataValue, final Session session)
   {
     if (aDataValue != null)
       try
       {
-        return new Duration (((Timestamp) aDataValue).getTime ());
+        return new LocalTime (aDataValue, PDTConfig.getDefaultChronology ());
       }
       catch (final IllegalArgumentException ex)
       {
@@ -59,7 +60,7 @@ public final class JPAJodaDurationConverter implements Converter
                         aDataValue +
                         "' of type " +
                         CGStringHelper.getSafeClassName (aDataValue) +
-                        "to Duration!");
+                        "to LocalTime!");
       }
     return null;
   }
@@ -78,7 +79,7 @@ public final class JPAJodaDurationConverter implements Converter
       // Allow user to specify field type to override computed value. (i.e.
       // blob, nchar)
       if (aDirectMapping.getFieldClassification () == null)
-        aDirectMapping.setFieldClassification (ClassConstants.TIMESTAMP);
+        aDirectMapping.setFieldClassification (ClassConstants.TIME);
     }
   }
 }

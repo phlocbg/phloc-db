@@ -15,29 +15,32 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.phloc.db.jpa.converter;
+package com.phloc.db.jpa.eclipselink.converter;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-import java.sql.Timestamp;
+import java.sql.Date;
 
-import org.joda.time.Duration;
+import org.joda.time.LocalDate;
 import org.junit.Test;
 
+import com.phloc.datetime.PDTFactory;
+import com.phloc.db.jpa.eclipselink.converter.JPAJodaLocalDateConverter;
+
 /**
- * Test class for class {@link JPAJodaDurationConverter}.
+ * Test class for class {@link JPAJodaLocalDateConverter}.
  * 
  * @author Philip Helger
  */
-public final class JPAJodaDurationConverterTest
+public final class JPAJodaLocalDateConverterTest
 {
   @Test
   public void testAll ()
   {
-    final Duration aNow = Duration.standardMinutes (27);
-    final JPAJodaDurationConverter aConverter = new JPAJodaDurationConverter ();
-    final Timestamp aDataValue = aConverter.convertObjectValueToDataValue (aNow, null);
+    final LocalDate aNow = PDTFactory.getCurrentLocalDate ();
+    final JPAJodaLocalDateConverter aConverter = new JPAJodaLocalDateConverter ();
+    final Date aDataValue = aConverter.convertObjectValueToDataValue (aNow, null);
     assertNotNull (aDataValue);
     assertEquals (aNow, aConverter.convertDataValueToObjectValue (aDataValue, null));
   }
