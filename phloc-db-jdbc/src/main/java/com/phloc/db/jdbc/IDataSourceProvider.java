@@ -17,6 +17,7 @@
  */
 package com.phloc.db.jdbc;
 
+import javax.annotation.Nonnull;
 import javax.sql.DataSource;
 
 /**
@@ -33,5 +34,6 @@ public interface IDataSourceProvider
    * 
    * @return A non-<code>null</code> data source.
    */
+  @Nonnull
   DataSource getDataSource ();
 }
