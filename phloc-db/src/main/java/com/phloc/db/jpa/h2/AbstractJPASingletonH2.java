@@ -30,18 +30,18 @@ import org.slf4j.LoggerFactory;
 import com.phloc.commons.annotations.Nonempty;
 import com.phloc.commons.collections.ContainerHelper;
 import com.phloc.commons.string.StringHelper;
-import com.phloc.db.jpa.AbstractJPASingleton;
+import com.phloc.db.jpa.AbstractEntityManagerFactorySingleton;
 
 /**
  * JPA Singleton specific for H2 database.
  * 
  * @author Philip Helger
  */
-public abstract class AbstractJPASingletonH2 extends AbstractJPASingleton
+public abstract class AbstractJPASingletonH2 extends AbstractEntityManagerFactorySingleton
 {
   /** Default JDBC URL prefix */
   public static final String JDBC_URL_PREFIX_H2 = "jdbc:h2:";
-  private static final Logger s_aLogger = LoggerFactory.getLogger (AbstractJPASingleton.class);
+  private static final Logger s_aLogger = LoggerFactory.getLogger (AbstractEntityManagerFactorySingleton.class);
   private static final Map <String, String> s_aDefaultConnectionProperties = new HashMap <String, String> ();
 
   /**

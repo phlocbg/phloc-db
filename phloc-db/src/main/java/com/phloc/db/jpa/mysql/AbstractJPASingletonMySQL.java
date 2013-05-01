@@ -30,18 +30,18 @@ import org.slf4j.LoggerFactory;
 import com.phloc.commons.annotations.Nonempty;
 import com.phloc.commons.collections.ContainerHelper;
 import com.phloc.commons.string.StringHelper;
-import com.phloc.db.jpa.AbstractJPASingleton;
+import com.phloc.db.jpa.AbstractEntityManagerFactorySingleton;
 
 /**
  * JPA Singleton specific for MySQL database.
  * 
  * @author Philip Helger
  */
-public abstract class AbstractJPASingletonMySQL extends AbstractJPASingleton
+public abstract class AbstractJPASingletonMySQL extends AbstractEntityManagerFactorySingleton
 {
   /** Default JDBC URL prefix */
   public static final String JDBC_URL_PREFIX_MYSQL = "jdbc:mysql:";
-  private static final Logger s_aLogger = LoggerFactory.getLogger (AbstractJPASingleton.class);
+  private static final Logger s_aLogger = LoggerFactory.getLogger (AbstractEntityManagerFactorySingleton.class);
   private static final Map <EMySQLConnectionProperty, String> s_aDefaultConnectionProperties = new EnumMap <EMySQLConnectionProperty, String> (EMySQLConnectionProperty.class);
 
   /**

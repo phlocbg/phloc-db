@@ -35,9 +35,9 @@ import com.phloc.commons.string.StringHelper;
  * 
  * @author Philip Helger
  */
-public final class JPALogger extends AbstractSessionLog
+public final class EclipseLinkLogger extends AbstractSessionLog
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (JPALogger.class);
+  private static final Logger s_aLogger = LoggerFactory.getLogger (EclipseLinkLogger.class);
 
   @Override
   public void log (final SessionLogEntry aSessionLogEntry)
