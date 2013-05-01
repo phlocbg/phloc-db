@@ -15,28 +15,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.phloc.db.api;
+package com.phloc.db.jpa;
 
-import javax.annotation.concurrent.Immutable;
+import javax.annotation.Nonnull;
 
-import com.phloc.commons.annotations.PresentForCodeCoverage;
+import com.phloc.commons.callback.IThrowingRunnableWithParameter;
 
-/**
- * JDBC constants for Microsoft SQL Server
- * 
- * @author Philip Helger
- */
-@Immutable
-public final class CJDBC_SQLServer
+//FIXME replace with version from phloc-commons > 4.0.4
+final class AdapterRunnableToRunnableWithParam <PARAMTYPE> implements IThrowingRunnableWithParameter <PARAMTYPE>
 {
-  /** Default JDBC URL prefix */
-  public static final String CONNECTION_PREFIX = "jdbc:sqlserver://";
-  public static final String DEFAULT_JDBC_DRIVER_CLASS_NAME = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
+  private final Runnable m_aRunnable;
 
-  @PresentForCodeCoverage
-  @SuppressWarnings ("unused")
-  private static final CJDBC_SQLServer s_aInstance = new CJDBC_SQLServer ();
+  public AdapterRunnableToRunnableWithParam (@Nonnull final Runnable aRunnable)
+  {
+    if (aRunnable == null)
+      throw new NullPointerException ("Runnable");
+    m_aRunnable = aRunnable;
+  }
 
-  private CJDBC_SQLServer ()
-  {}
+  @Nonnull
+  public void run (@Nonnull final PARAMTYPE aParam) throws Exception
+  {
+    m_aRunnable.run ();
+  }
 }

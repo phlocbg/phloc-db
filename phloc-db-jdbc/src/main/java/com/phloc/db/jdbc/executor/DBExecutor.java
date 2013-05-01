@@ -48,10 +48,10 @@ import com.phloc.commons.collections.pair.IReadonlyPair;
 import com.phloc.commons.collections.pair.ReadonlyPair;
 import com.phloc.commons.state.ESuccess;
 import com.phloc.commons.string.ToStringGenerator;
+import com.phloc.db.api.jdbc.JDBCHelper;
 import com.phloc.db.jdbc.ConnectionFromDataSourceProvider;
 import com.phloc.db.jdbc.IConnectionProvider;
 import com.phloc.db.jdbc.IDataSourceProvider;
-import com.phloc.db.jdbc.JDBCUtils;
 import com.phloc.db.jdbc.callback.GetSingleGeneratedKeyCallback;
 import com.phloc.db.jdbc.callback.IGeneratedKeysCallback;
 import com.phloc.db.jdbc.callback.IPreparedStatementDataProvider;
@@ -144,7 +144,7 @@ public class DBExecutor
         throw new IllegalStateException ("Failed to get a connection");
 
       aCB.run (aConnection);
-      eCommited = JDBCUtils.commit (aConnection);
+      eCommited = JDBCHelper.commit (aConnection);
     }
     catch (final SQLException ex)
     {
@@ -161,10 +161,10 @@ public class DBExecutor
     finally
     {
       if (eCommited.isFailure ())
-        JDBCUtils.rollback (aConnection);
+        JDBCHelper.rollback (aConnection);
 
       if (m_aConnectionProvider.shouldCloseConnection ())
-        JDBCUtils.close (aConnection);
+        JDBCHelper.close (aConnection);
     }
     return ESuccess.SUCCESS;
   }
@@ -203,7 +203,7 @@ public class DBExecutor
         }
         finally
         {
-          JDBCUtils.close (aStatement);
+          JDBCHelper.close (aStatement);
         }
       }
     });
