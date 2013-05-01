@@ -15,9 +15,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.phloc.db.h2;
+package com.phloc.db.jdbc.h2;
 
 import org.junit.Test;
+
+import com.phloc.db.jdbc.h2.H2FileConnector;
 
 /**
  * Test class for class {@link H2FileConnector}.
