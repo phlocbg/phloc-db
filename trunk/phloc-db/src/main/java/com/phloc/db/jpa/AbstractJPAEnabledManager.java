@@ -55,7 +55,7 @@ import com.phloc.db.jpa.utils.AdapterRunnableToRunnableWithParam;
  * sanity methods. Implementing classes must override the
  * <code>protected abstract EntityManager getEntityManager ()</code> method that
  * is usually retrieved from a subclass of
- * {@link com.phloc.db.jpa.AbstractJPASingleton}.
+ * {@link com.phloc.db.jpa.AbstractEntityManagerFactorySingleton}.
  * 
  * @author Philip Helger
  */
@@ -63,7 +63,7 @@ import com.phloc.db.jpa.utils.AdapterRunnableToRunnableWithParam;
 public abstract class AbstractJPAEnabledManager
 {
   /** By default the entity manager is locked */
-  public static final boolean DEFAULT_LOCK_ENTITY_MGR = true;
+  public static final boolean DEFAULT_SYNC_ENTITY_MGR = true;
   /** By default nested transactions are not allowed */
   public static final boolean DEFAULT_ALLOW_NESTED_TRANSACTIONS = false;
   /** By default no transaction is used for select statements */
@@ -89,7 +89,7 @@ public abstract class AbstractJPAEnabledManager
   private static final AtomicInteger s_aExecutionWarnTime = new AtomicInteger (DEFAULT_EXECUTION_WARN_TIME_MS);
   private static IExecutionTimeExceededHandler s_aExecutionTimeExceededHandler = new LoggingExecutionTimeExceededHandler (true);
 
-  private final AtomicBoolean m_aSyncEntityMgr = new AtomicBoolean (DEFAULT_LOCK_ENTITY_MGR);
+  private final AtomicBoolean m_aSyncEntityMgr = new AtomicBoolean (DEFAULT_SYNC_ENTITY_MGR);
   private final AtomicBoolean m_aAllowNestedTransactions = new AtomicBoolean (DEFAULT_ALLOW_NESTED_TRANSACTIONS);
   private final AtomicBoolean m_aUseTransactionsForSelect = new AtomicBoolean (DEFAULT_USE_TRANSACTIONS_FOR_SELECT);
 

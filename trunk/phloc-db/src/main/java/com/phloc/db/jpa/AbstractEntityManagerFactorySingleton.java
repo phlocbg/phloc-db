@@ -35,23 +35,21 @@ import org.slf4j.LoggerFactory;
 import com.phloc.commons.annotations.Nonempty;
 import com.phloc.commons.annotations.OverrideOnDemand;
 import com.phloc.commons.string.StringHelper;
-import com.phloc.db.jpa.eclipselink.JPALogger;
-import com.phloc.db.jpa.eclipselink.JPASessionCustomizer;
+import com.phloc.db.jpa.eclipselink.EclipseLinkLogger;
+import com.phloc.db.jpa.eclipselink.EclipseLinkSessionCustomizer;
 import com.phloc.db.jpa.proxy.EntityManagerFactoryWithListener;
 import com.phloc.db.jpa.utils.PersistenceXmlUtils;
 import com.phloc.scopes.singleton.GlobalSingleton;
 
 /**
- * Ensure that the JPA manager is correctly handled upon AppSrv startup and
- * shutdown.<br>
- * Must be public to be instantiated via reflection.
+ * Abstract global singleton to handle a single persistence unit.
  * 
  * @author Philip Helger
  */
 @SuppressWarnings ("deprecation")
-public abstract class AbstractJPASingleton extends GlobalSingleton implements IEntityManagerProvider
+public abstract class AbstractEntityManagerFactorySingleton extends GlobalSingleton implements IEntityManagerProvider
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (AbstractJPASingleton.class);
+  private static final Logger s_aLogger = LoggerFactory.getLogger (AbstractEntityManagerFactorySingleton.class);
 
   static
   {
@@ -67,13 +65,13 @@ public abstract class AbstractJPASingleton extends GlobalSingleton implements IE
   /*
    * Constructor. Never initialize manually!
    */
-  protected AbstractJPASingleton (@Nonnull @Nonempty final String sJdbcDriver,
-                                  @Nonnull @Nonempty final String sJdbcURL,
-                                  @Nullable final String sUser,
-                                  @Nullable final String sPassword,
-                                  @Nonnull final Class <? extends DatabasePlatform> aPlatformClass,
-                                  @Nonnull @Nonempty final String sPersistenceUnitName,
-                                  @Nullable final Map <String, Object> aAdditionalFactoryProps)
+  protected AbstractEntityManagerFactorySingleton (@Nonnull @Nonempty final String sJdbcDriver,
+                                                   @Nonnull @Nonempty final String sJdbcURL,
+                                                   @Nullable final String sUser,
+                                                   @Nullable final String sPassword,
+                                                   @Nonnull final Class <? extends DatabasePlatform> aPlatformClass,
+                                                   @Nonnull @Nonempty final String sPersistenceUnitName,
+                                                   @Nullable final Map <String, Object> aAdditionalFactoryProps)
   {
     if (StringHelper.hasNoText (sJdbcDriver))
       throw new IllegalArgumentException ("JDBCDriver");
@@ -92,8 +90,8 @@ public abstract class AbstractJPASingleton extends GlobalSingleton implements IE
     aFactoryProps.put (PersistenceUnitProperties.JDBC_USER, sUser);
     aFactoryProps.put (PersistenceUnitProperties.JDBC_PASSWORD, sPassword);
 
-    aFactoryProps.put (PersistenceUnitProperties.LOGGING_LOGGER, JPALogger.class.getName ());
-    aFactoryProps.put (PersistenceUnitProperties.SESSION_CUSTOMIZER, JPASessionCustomizer.class.getName ());
+    aFactoryProps.put (PersistenceUnitProperties.LOGGING_LOGGER, EclipseLinkLogger.class.getName ());
+    aFactoryProps.put (PersistenceUnitProperties.SESSION_CUSTOMIZER, EclipseLinkSessionCustomizer.class.getName ());
     aFactoryProps.put (PersistenceUnitProperties.TARGET_DATABASE, aPlatformClass.getName ());
 
     // Not desired to have default values for

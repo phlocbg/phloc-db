@@ -34,11 +34,11 @@ import com.phloc.commons.CGlobal;
  * @author Philip Helger
  */
 @Deprecated
-public final class JPASessionCustomizer implements SessionCustomizer
+public final class EclipseLinkSessionCustomizer implements SessionCustomizer
 {
   private static final AtomicInteger s_aLogLevel = new AtomicInteger (CGlobal.ILLEGAL_UINT);
 
-  public JPASessionCustomizer ()
+  public EclipseLinkSessionCustomizer ()
   {}
 
   public static void setGlobalLogLevel (final int nLogLevel)
@@ -58,7 +58,7 @@ public final class JPASessionCustomizer implements SessionCustomizer
     if (nLogLevel != CGlobal.ILLEGAL_UINT)
     {
       // create a custom logger and assign it to the session
-      final SessionLog aCustomLogger = new JPALogger ();
+      final SessionLog aCustomLogger = new EclipseLinkLogger ();
       aCustomLogger.setLevel (nLogLevel);
       aSession.setSessionLog (aCustomLogger);
     }
