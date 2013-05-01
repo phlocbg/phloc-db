@@ -15,26 +15,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.phloc.db.jpa;
-
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
+package com.phloc.db.jpa.proxy;
 
 /**
- * Callback interface to be used to notify interested parties when a statement
- * takes too long. Is used in {@link AbstractJPAEnabledManager}.
+ * Base interface for EntityManager listeners.
  * 
- * @author Philip Helger
+ * @author helger
  */
-public interface IJPAExecutionTimeExceededHandler
+public interface IEntityManagerListener
 {
   /**
-   * Called when the execution time was exceeded
-   * 
-   * @param sMsg
-   *        The message to locate the source
-   * @param nExecutionMillis
-   *        The milliseconds the execution took
+   * Called after an EntityManager was closed.
    */
-  void onExecutionTimeExceeded (@Nonnull String sMsg, @Nonnegative long nExecutionMillis);
+  void onAfterEntityManagerClosed ();
 }

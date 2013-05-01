@@ -37,6 +37,7 @@ import com.phloc.commons.annotations.OverrideOnDemand;
 import com.phloc.commons.string.StringHelper;
 import com.phloc.db.jpa.eclipselink.JPALogger;
 import com.phloc.db.jpa.eclipselink.JPASessionCustomizer;
+import com.phloc.db.jpa.proxy.EntityManagerFactoryWithListener;
 import com.phloc.scopes.singleton.GlobalSingleton;
 
 /**
@@ -127,16 +128,6 @@ public abstract class AbstractJPASingleton extends GlobalSingleton implements IE
     m_aFactoryProps = aFactoryProps;
   }
 
-  /**
-   * @return The persistence unit name. Neither <code>null</code> nor empty.
-   */
-  @Nonnull
-  @Nonempty
-  public final String getPersistenceUnitName ()
-  {
-    return m_sPersistenceUnitName;
-  }
-
   @Nonnull
   @OverrideOnDemand
   protected EntityManagerFactory customizeEntityManagerFactory (@Nonnull final EntityManagerFactory aEMF)
@@ -181,20 +172,6 @@ public abstract class AbstractJPASingleton extends GlobalSingleton implements IE
   }
 
   /**
-   * @return Create a new entity manager.
-   */
-  @Nonnull
-  public final EntityManager getEntityManager ()
-  {
-    // Create entity manager
-    final EntityManager aEntityManager = m_aFactory.createEntityManager (null);
-    if (aEntityManager == null)
-      throw new IllegalStateException ("Failed to create entity manager from factory " + m_aFactory + "!");
-    s_aLogger.info ("Created entity manager for persistence unit '" + m_sPersistenceUnitName + "'");
-    return aEntityManager;
-  }
-
-  /**
    * Called when the global scope is destroyed (upon servlet context shutdown)
    * 
    * @throws Exception
@@ -217,5 +194,25 @@ public abstract class AbstractJPASingleton extends GlobalSingleton implements IE
       m_aFactory = null;
     }
     s_aLogger.info ("Closed JPAManager '" + m_sPersistenceUnitName + "'");
+  }
+
+  /**
+   * @return The persistence unit name. Neither <code>null</code> nor empty.
+   */
+  @Nonnull
+  @Nonempty
+  public final String getPersistenceUnitName ()
+  {
+    return m_sPersistenceUnitName;
+  }
+
+  @Nonnull
+  public final EntityManager createEntityManager ()
+  {
+    // Create entity manager
+    final EntityManager aEntityManager = m_aFactory.createEntityManager (null);
+    if (aEntityManager == null)
+      throw new IllegalStateException ("Failed to create entity manager from factory " + m_aFactory + "!");
+    return aEntityManager;
   }
 }

@@ -44,6 +44,10 @@ import com.phloc.commons.stats.IStatisticsHandlerCounter;
 import com.phloc.commons.stats.IStatisticsHandlerTimer;
 import com.phloc.commons.stats.StatisticsManager;
 import com.phloc.commons.timing.StopWatch;
+import com.phloc.db.callback.IJPAExecutionTimeExceededHandler;
+import com.phloc.db.callback.LoggingJPAExecutionTimeExceededHandler;
+import com.phloc.db.utils.AdapterCallableToCallableWithParam;
+import com.phloc.db.utils.AdapterRunnableToRunnableWithParam;
 
 /**
  * Abstract base class for entity managers. Provides the
@@ -146,10 +150,10 @@ public abstract class AbstractJPAEnabledManager
   }
 
   /**
-   * @return An entity manager to be used.
+   * @return Get the entity manager to be used. Must not be <code>null</code>.
    */
   @Nonnull
-  protected abstract EntityManager createEntityManager ();
+  protected abstract EntityManager getEntityManager ();
 
   /**
    * Set a custom exception handler that is called in case performing some
@@ -345,7 +349,7 @@ public abstract class AbstractJPAEnabledManager
   public final ESuccess doInTransaction (@Nonnull final IThrowingRunnableWithParameter <EntityManager> aRunnable)
   {
     // Create entity manager
-    final EntityManager aEntityMgr = createEntityManager ();
+    final EntityManager aEntityMgr = getEntityManager ();
     try
     {
       if (!isSyncEntityMgr ())
@@ -441,7 +445,7 @@ public abstract class AbstractJPAEnabledManager
   public final <T> SuccessWithValue <T> doInTransaction (@Nonnull final IThrowingCallableWithParameter <T, EntityManager> aCallable)
   {
     // Create entity manager
-    final EntityManager aEntityMgr = createEntityManager ();
+    final EntityManager aEntityMgr = getEntityManager ();
     try
     {
       if (!isSyncEntityMgr ())
@@ -527,7 +531,7 @@ public abstract class AbstractJPAEnabledManager
     }
 
     // Ensure that only one transaction is active for all users!
-    final EntityManager aEntityMgr = createEntityManager ();
+    final EntityManager aEntityMgr = getEntityManager ();
     try
     {
       if (!isSyncEntityMgr ())

@@ -15,7 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.phloc.db.jpa;
+package com.phloc.db.callback;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
