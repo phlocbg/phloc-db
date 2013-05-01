@@ -36,8 +36,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.phloc.commons.callback.IExceptionHandler;
-import com.phloc.commons.callback.IThrowingCallableWithParameter;
-import com.phloc.commons.callback.IThrowingRunnableWithParameter;
 import com.phloc.commons.state.ESuccess;
 import com.phloc.commons.state.impl.SuccessWithValue;
 import com.phloc.commons.stats.IStatisticsHandlerCounter;
@@ -48,12 +46,11 @@ import com.phloc.db.jpa.callback.IExecutionTimeExceededHandler;
 import com.phloc.db.jpa.callback.LoggingExecutionTimeExceededHandler;
 
 /**
- * Abstract base class for entity managers. Provides the
- * {@link #doInTransaction(IThrowingRunnableWithParameter)} method and other
- * sanity methods. Implementing classes must override the
- * <code>protected abstract EntityManager getEntityManager ()</code> method that
- * is usually retrieved from a subclass of
- * {@link com.phloc.db.jpa.AbstractEntityManagerFactorySingleton}.
+ * JPA enabled manager with transaction handling etc. The
+ * {@link IEntityManagerProvider} required in the constructor should be a
+ * request singleton that ensures one {@link EntityManager} per thread. The main
+ * {@link EntityManager} objects are usually create from a subclass of
+ * {@link AbstractEntityManagerFactorySingleton}.
  * 
  * @author Philip Helger
  */
@@ -82,7 +79,7 @@ public class JPAEnabledManager
   private static final IStatisticsHandlerTimer s_aStatsTimerExecutionError = StatisticsManager.getTimerHandler (JPAEnabledManager.class.getName () +
                                                                                                                 "$execError");
 
-  private static final ReadWriteLock s_aRWLock = new ReentrantReadWriteLock ();
+  protected static final ReadWriteLock s_aRWLock = new ReentrantReadWriteLock ();
   private static IExceptionHandler <Throwable> s_aExceptionHandler;
   private static final AtomicInteger s_aExecutionWarnTime = new AtomicInteger (DEFAULT_EXECUTION_WARN_TIME_MS);
   private static IExecutionTimeExceededHandler s_aExecutionTimeExceededHandler = new LoggingExecutionTimeExceededHandler (true);
@@ -274,7 +271,7 @@ public class JPAEnabledManager
 
   @Nonnull
   public static final ESuccess doInTransaction (@Nonnull @WillNotClose final EntityManager aEntityMgr,
-                                                @Nonnull final IThrowingRunnableWithParameter <EntityManager> aRunnable)
+                                                @Nonnull final Runnable aRunnable)
   {
     return doInTransaction (aEntityMgr, DEFAULT_ALLOW_NESTED_TRANSACTIONS, aRunnable);
   }
@@ -282,7 +279,7 @@ public class JPAEnabledManager
   @Nonnull
   public static final ESuccess doInTransaction (@Nonnull @WillNotClose final EntityManager aEntityMgr,
                                                 final boolean bAllowNestedTransactions,
-                                                @Nonnull final IThrowingRunnableWithParameter <EntityManager> aRunnable)
+                                                @Nonnull final Runnable aRunnable)
   {
     final StopWatch aSWOverall = new StopWatch (true);
     final EntityTransaction aTransaction = aEntityMgr.getTransaction ();
@@ -296,7 +293,7 @@ public class JPAEnabledManager
     try
     {
       // Execute whatever you want to do
-      aRunnable.run (aEntityMgr);
+      aRunnable.run ();
       // And if no exception was thrown, commit it
       if (bTransactionRequired)
         aTransaction.commit ();
@@ -348,38 +345,25 @@ public class JPAEnabledManager
   @Nonnull
   public final ESuccess doInTransaction (@Nonnull final Runnable aRunnable)
   {
-    return doInTransaction (new AdapterRunnableToRunnableWithParam <EntityManager> (aRunnable));
-  }
-
-  @Nonnull
-  public final ESuccess doInTransaction (@Nonnull final IThrowingRunnableWithParameter <EntityManager> aRunnable)
-  {
     // Create entity manager
     final EntityManager aEntityMgr = getEntityManager ();
-    try
+    if (!isSyncEntityMgr ())
     {
-      if (!isSyncEntityMgr ())
-      {
-        // No synchronization required
-        return doInTransaction (aEntityMgr, isAllowNestedTransactions (), aRunnable);
-      }
-
-      // Sync on the whole entity manager, to have a cross-manager
-      // synchronization!
-      synchronized (aEntityMgr)
-      {
-        return doInTransaction (aEntityMgr, isAllowNestedTransactions (), aRunnable);
-      }
+      // No synchronization required
+      return doInTransaction (aEntityMgr, isAllowNestedTransactions (), aRunnable);
     }
-    finally
+
+    // Sync on the whole entity manager, to have a cross-manager
+    // synchronization!
+    synchronized (aEntityMgr)
     {
-      aEntityMgr.close ();
+      return doInTransaction (aEntityMgr, isAllowNestedTransactions (), aRunnable);
     }
   }
 
   @Nonnull
   public static final <T> SuccessWithValue <T> doInTransaction (@Nonnull @WillNotClose final EntityManager aEntityMgr,
-                                                                @Nonnull final IThrowingCallableWithParameter <T, EntityManager> aCallable)
+                                                                @Nonnull final Callable <T> aCallable)
   {
     return doInTransaction (aEntityMgr, DEFAULT_ALLOW_NESTED_TRANSACTIONS, aCallable);
   }
@@ -387,7 +371,7 @@ public class JPAEnabledManager
   @Nonnull
   public static final <T> SuccessWithValue <T> doInTransaction (@Nonnull @WillNotClose final EntityManager aEntityMgr,
                                                                 final boolean bAllowNestedTransactions,
-                                                                @Nonnull final IThrowingCallableWithParameter <T, EntityManager> aCallable)
+                                                                @Nonnull final Callable <T> aCallable)
   {
     final EntityTransaction aTransaction = aEntityMgr.getTransaction ();
     final boolean bTransactionRequired = !bAllowNestedTransactions || !aTransaction.isActive ();
@@ -400,7 +384,7 @@ public class JPAEnabledManager
     try
     {
       // Execute whatever you want to do
-      final T ret = aCallable.call (aEntityMgr);
+      final T ret = aCallable.call ();
       // And if no exception was thrown, commit it
       if (bTransactionRequired)
         aTransaction.commit ();
@@ -444,33 +428,19 @@ public class JPAEnabledManager
   @Nonnull
   public final <T> SuccessWithValue <T> doInTransaction (@Nonnull final Callable <T> aCallable)
   {
-    return doInTransaction (new AdapterCallableToCallableWithParam <T, EntityManager> (aCallable));
-  }
-
-  @Nonnull
-  public final <T> SuccessWithValue <T> doInTransaction (@Nonnull final IThrowingCallableWithParameter <T, EntityManager> aCallable)
-  {
     // Create entity manager
     final EntityManager aEntityMgr = getEntityManager ();
-    try
+    if (!isSyncEntityMgr ())
     {
-      if (!isSyncEntityMgr ())
-      {
-        // No synchronization required
-        return doInTransaction (aEntityMgr, isAllowNestedTransactions (), aCallable);
-      }
-
-      // Sync on the whole entity manager, to have a cross-manager
-      // synchronization!
-      synchronized (aEntityMgr)
-      {
-        return doInTransaction (aEntityMgr, isAllowNestedTransactions (), aCallable);
-      }
+      // No synchronization required
+      return doInTransaction (aEntityMgr, isAllowNestedTransactions (), aCallable);
     }
-    finally
+
+    // Sync on the whole entity manager, to have a cross-manager
+    // synchronization!
+    synchronized (aEntityMgr)
     {
-      // and close it
-      aEntityMgr.close ();
+      return doInTransaction (aEntityMgr, isAllowNestedTransactions (), aCallable);
     }
   }
 
@@ -533,29 +503,22 @@ public class JPAEnabledManager
     if (isUseTransactionsForSelect ())
     {
       // Use transactions for select statement!
-      return doInTransaction (new AdapterCallableToCallableWithParam <T, EntityManager> (aCallable));
+      return doInTransaction (aCallable);
     }
 
     // Ensure that only one transaction is active for all users!
     final EntityManager aEntityMgr = getEntityManager ();
-    try
+    if (!isSyncEntityMgr ())
     {
-      if (!isSyncEntityMgr ())
-      {
-        // No synchronization required
-        return doSelectStatic (aCallable);
-      }
-
-      // Sync on the whole entity manager, to have a cross-manager
-      // synchronization!
-      synchronized (aEntityMgr)
-      {
-        return doSelectStatic (aCallable);
-      }
+      // No synchronization required
+      return doSelectStatic (aCallable);
     }
-    finally
+
+    // Sync on the whole entity manager, to have a cross-manager
+    // synchronization!
+    synchronized (aEntityMgr)
     {
-      aEntityMgr.close ();
+      return doSelectStatic (aCallable);
     }
   }
 

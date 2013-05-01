@@ -19,13 +19,11 @@ package com.phloc.db.jpa.h2;
 
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.ThreadSafe;
-import javax.persistence.EntityManager;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.phloc.commons.annotations.Nonempty;
-import com.phloc.commons.callback.IThrowingRunnableWithParameter;
 import com.phloc.db.api.h2.EH2LockMode;
 import com.phloc.db.api.h2.EH2Log;
 import com.phloc.db.jpa.IEntityManagerProvider;
@@ -55,12 +53,12 @@ public class JPAEnabledManagerH2 extends JPAEnabledManager
 
   private void _executeH2Native (@Nonnull @Nonempty final String sNativeSQL)
   {
-    doInTransaction (new IThrowingRunnableWithParameter <EntityManager> ()
+    doInTransaction (new Runnable ()
     {
-      public void run (@Nonnull final EntityManager aEM)
+      public void run ()
       {
         s_aLogger.info ("Running H2 native command: " + sNativeSQL);
-        aEM.createNativeQuery (sNativeSQL).executeUpdate ();
+        getEntityManager ().createNativeQuery (sNativeSQL).executeUpdate ();
       }
     });
   }
