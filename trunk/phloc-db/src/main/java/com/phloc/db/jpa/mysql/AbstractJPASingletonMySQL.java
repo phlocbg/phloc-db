@@ -91,9 +91,9 @@ public abstract class AbstractJPASingletonMySQL extends AbstractJPASingleton
    * Constructor. Never initialize manually!
    */
   protected AbstractJPASingletonMySQL (@Nonnull @Nonempty final String sJdbcURL,
-                                       final String sUser,
-                                       final String sPassword,
-                                       final String sPersistenceUnitName)
+                                       @Nullable final String sUser,
+                                       @Nullable final String sPassword,
+                                       @Nonnull @Nonempty final String sPersistenceUnitName)
   {
     this (sJdbcURL, null, sUser, sPassword, sPersistenceUnitName, null);
   }
@@ -103,9 +103,9 @@ public abstract class AbstractJPASingletonMySQL extends AbstractJPASingleton
    */
   protected AbstractJPASingletonMySQL (@Nonnull @Nonempty final String sJdbcURL,
                                        @Nullable final Map <EMySQLConnectionProperty, String> aConnectionProperties,
-                                       final String sUser,
-                                       final String sPassword,
-                                       final String sPersistenceUnitName)
+                                       @Nullable final String sUser,
+                                       @Nullable final String sPassword,
+                                       @Nonnull @Nonempty final String sPersistenceUnitName)
   {
     this (sJdbcURL, aConnectionProperties, sUser, sPassword, sPersistenceUnitName, null);
   }
@@ -115,9 +115,9 @@ public abstract class AbstractJPASingletonMySQL extends AbstractJPASingleton
    */
   protected AbstractJPASingletonMySQL (@Nonnull @Nonempty final String sJdbcURL,
                                        @Nullable final Map <EMySQLConnectionProperty, String> aConnectionProperties,
-                                       final String sUser,
-                                       final String sPassword,
-                                       final String sPersistenceUnitName,
+                                       @Nullable final String sUser,
+                                       @Nullable final String sPassword,
+                                       @Nonnull @Nonempty final String sPersistenceUnitName,
                                        @Nullable final Map <String, Object> aAdditionalFactoryProps)
   {
     super (com.mysql.jdbc.Driver.class.getName (),
