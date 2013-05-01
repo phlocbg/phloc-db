@@ -15,25 +15,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.phloc.db.jdbc.executor;
+package com.phloc.db.jdbc.callback;
 
-import java.util.List;
-
-import javax.annotation.Nonnull;
+import com.phloc.commons.callback.INonThrowingRunnableWithParameter;
+import com.phloc.db.jdbc.executor.DBResultRow;
 
 /**
- * This callback is used to retrieve generated keys upon insertion.
+ * A simple callback that can be executed for each row in a
+ * {@link java.sql.ResultSet}.
  * 
  * @author Philip Helger
  */
-public interface IGeneratedKeysCallback
+public interface IResultSetRowCallback extends INonThrowingRunnableWithParameter <DBResultRow>
 {
-  /**
-   * Get all generated keys.
-   * 
-   * @param aGeneratedKeys
-   *        The first list represents all rows, whereas the nested lists
-   *        represents all columns containing the different values.
-   */
-  void onGeneratedKeys (@Nonnull List <List <Object>> aGeneratedKeys);
+  /* empty */
 }

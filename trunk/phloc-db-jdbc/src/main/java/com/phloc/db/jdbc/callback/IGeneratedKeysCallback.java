@@ -15,34 +15,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.phloc.db.jdbc.executor;
+package com.phloc.db.jdbc.callback;
 
-import javax.annotation.CheckForSigned;
+import java.util.List;
 
-import com.phloc.commons.CGlobal;
+import javax.annotation.Nonnull;
 
 /**
  * This callback is used to retrieve generated keys upon insertion.
  * 
  * @author Philip Helger
  */
-public interface IUpdatedRowCountCallback
+public interface IGeneratedKeysCallback
 {
-  /** Default value for uninitialized row count */
-  int NOT_INITIALIZED = CGlobal.ILLEGAL_UINT;
-
   /**
-   * @return The number of updated rows or {@link #NOT_INITIALIZED} if
-   *         {@link #setUpdatedRowCount(int)} was never called.
-   */
-  @CheckForSigned
-  int getUpdatedRowCount ();
-
-  /**
-   * Notify on the updated row count update.
+   * Set all generated keys.
    * 
-   * @param nUpdatedRowCount
-   *        The number of updated rows (e.g. on update or delete)
+   * @param aGeneratedKeys
+   *        The first list represents all rows, whereas the nested lists
+   *        represents all columns containing the different values.
    */
-  void setUpdatedRowCount (int nUpdatedRowCount);
+  void onGeneratedKeys (@Nonnull List <List <Object>> aGeneratedKeys);
 }

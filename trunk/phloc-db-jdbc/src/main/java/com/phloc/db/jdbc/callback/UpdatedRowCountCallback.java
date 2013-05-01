@@ -15,17 +15,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.phloc.db.jdbc.executor;
+package com.phloc.db.jdbc.callback;
 
-import com.phloc.commons.callback.INonThrowingRunnableWithParameter;
+import javax.annotation.concurrent.NotThreadSafe;
 
 /**
- * A simple callback that can be executed for each row in a
- * {@link java.sql.ResultSet}.
+ * Default implementation of {@link IUpdatedRowCountCallback}.
  * 
  * @author Philip Helger
  */
-public interface IResultSetRowCallback extends INonThrowingRunnableWithParameter <DBResultRow>
+@NotThreadSafe
+public class UpdatedRowCountCallback implements IUpdatedRowCountCallback
 {
-  /* empty */
+  private int m_nUpdatedRowCount = NOT_INITIALIZED;
+
+  public UpdatedRowCountCallback ()
+  {}
+
+  public void setUpdatedRowCount (final int nUpdatedRowCount)
+  {
+    m_nUpdatedRowCount = nUpdatedRowCount;
+  }
+
+  public int getUpdatedRowCount ()
+  {
+    return m_nUpdatedRowCount;
+  }
 }

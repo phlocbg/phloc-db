@@ -37,9 +37,9 @@ import com.phloc.commons.io.streams.NonBlockingBufferedWriter;
 import com.phloc.commons.io.streams.StreamUtils;
 import com.phloc.commons.state.ESuccess;
 import com.phloc.db.jdbc.AbstractConnector;
+import com.phloc.db.jdbc.callback.IResultSetRowCallback;
 import com.phloc.db.jdbc.executor.DBExecutor;
 import com.phloc.db.jdbc.executor.DBResultRow;
-import com.phloc.db.jdbc.executor.IResultSetRowCallback;
 
 public abstract class AbstractH2Connector extends AbstractConnector
 {

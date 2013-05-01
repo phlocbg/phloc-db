@@ -27,6 +27,7 @@ import com.phloc.commons.annotations.Nonempty;
 import com.phloc.commons.annotations.ReturnsMutableCopy;
 import com.phloc.commons.collections.ArrayHelper;
 import com.phloc.commons.collections.ContainerHelper;
+import com.phloc.db.jdbc.callback.IPreparedStatementDataProvider;
 
 /**
  * A simple implementation of the {@link IPreparedStatementDataProvider} that
