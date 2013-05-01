@@ -1,11 +1,11 @@
 package com.phloc.db.jpa;
 
 import javax.annotation.Nonnull;
-import javax.persistence.EntityManager;
 
 import com.phloc.commons.callback.IThrowingRunnableWithParameter;
 
-public class AdapterRunnableToRunnableWithParam implements IThrowingRunnableWithParameter <EntityManager>
+//FIXME replace with version from phloc-commons > 4.0.4
+public final class AdapterRunnableToRunnableWithParam <PARAMTYPE> implements IThrowingRunnableWithParameter <PARAMTYPE>
 {
   private final Runnable m_aRunnable;
 
@@ -17,14 +17,8 @@ public class AdapterRunnableToRunnableWithParam implements IThrowingRunnableWith
   }
 
   @Nonnull
-  public void run (@Nonnull final EntityManager aParam) throws Exception
+  public void run (@Nonnull final PARAMTYPE aParam) throws Exception
   {
     m_aRunnable.run ();
-  }
-
-  @Nonnull
-  public static AdapterRunnableToRunnableWithParam create (@Nonnull final Runnable aRunnable)
-  {
-    return new AdapterRunnableToRunnableWithParam (aRunnable);
   }
 }
