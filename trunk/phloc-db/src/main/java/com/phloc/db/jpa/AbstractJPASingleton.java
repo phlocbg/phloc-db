@@ -157,7 +157,7 @@ public abstract class AbstractJPASingleton extends GlobalSingleton implements IE
     m_aEntityManager = m_aFactory.createEntityManager (null);
     if (m_aEntityManager == null)
       throw new IllegalStateException ("Failed to create entity manager from factory " + m_aFactory + "!");
-    s_aLogger.info ("Created entity manager for persistence unit '" + sPersistenceUnitName + "'");
+    s_aLogger.info ("Created entity manager for persistence unit '" + m_sPersistenceUnitName + "'");
   }
 
   @Nonnull
