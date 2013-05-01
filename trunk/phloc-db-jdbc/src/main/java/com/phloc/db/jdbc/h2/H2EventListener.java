@@ -23,9 +23,11 @@ import org.h2.api.DatabaseEventListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.phloc.commons.string.ToStringGenerator;
+
 /**
  * A logging H2 event listener.
- *
+ * 
  * @author Philip Helger
  */
 public class H2EventListener implements DatabaseEventListener
@@ -87,5 +89,11 @@ public class H2EventListener implements DatabaseEventListener
   public void closingDatabase ()
   {
     s_aLogger.info ("closingDatabase()");
+  }
+
+  @Override
+  public String toString ()
+  {
+    return new ToStringGenerator (this).toString ();
   }
 }

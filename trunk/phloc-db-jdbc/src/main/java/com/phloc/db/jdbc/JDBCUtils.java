@@ -121,11 +121,14 @@ public final class JDBCUtils
    * 
    * @param aClass
    *        The class to check. May not be <code>null</code>.
-   * @return {@link Types#NULL} if the type could not be determined.
+   * @return {@link Types#JAVA_OBJECT} if the type could not be determined.
    * @see "http://java.sun.com/j2se/1.4.2/docs/guide/jdbc/getstart/mapping.html"
    */
   public static int getJDBCTypeFromClass (@Nonnull final Class <?> aClass)
   {
+    if (aClass == null)
+      throw new NullPointerException ("class");
+
     if (!ClassHelper.isArrayClass (aClass))
     {
       // CHAR, VARCHAR or LONGVARCHAR
@@ -142,8 +145,14 @@ public final class JDBCUtils
       if (aClass.equals (Byte.class) || aClass.equals (byte.class))
         return Types.TINYINT;
 
-      if (aClass.equals (Short.class) || aClass.equals (long.class))
-        return Types.SMALLINT;
+      if (aClass.equals (Character.class) || aClass.equals (char.class))
+        return Types.CHAR;
+
+      if (aClass.equals (Double.class) || aClass.equals (double.class))
+        return Types.DOUBLE;
+
+      if (aClass.equals (Float.class) || aClass.equals (float.class))
+        return Types.REAL;
 
       if (aClass.equals (Integer.class) || aClass.equals (int.class))
         return Types.INTEGER;
@@ -151,11 +160,8 @@ public final class JDBCUtils
       if (aClass.equals (Long.class) || aClass.equals (long.class))
         return Types.BIGINT;
 
-      if (aClass.equals (Float.class) || aClass.equals (float.class))
-        return Types.REAL;
-
-      if (aClass.equals (Double.class) || aClass.equals (double.class))
-        return Types.DOUBLE;
+      if (aClass.equals (Short.class) || aClass.equals (short.class))
+        return Types.SMALLINT;
 
       if (aClass.equals (java.sql.Date.class))
         return Types.DATE;
@@ -182,7 +188,9 @@ public final class JDBCUtils
       if (aComponentType.equals (byte.class))
         return Types.VARBINARY;
     }
-    return Types.NULL;
+
+    s_aLogger.warn ("Failed to resolve JDBC type from class " + aClass.getName ());
+    return Types.JAVA_OBJECT;
   }
 
   @Nullable

@@ -325,6 +325,6 @@ public final class DBResultRow implements ICloneable <DBResultRow>
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("cols", m_aCols).toString ();
+    return new ToStringGenerator (this).append ("cols", m_aCols).append ("index", m_nIndex).toString ();
   }
 }
