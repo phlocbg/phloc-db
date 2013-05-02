@@ -35,8 +35,9 @@ import javax.persistence.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.phloc.commons.callback.AdapterRunnableToCallable;
 import com.phloc.commons.callback.IExceptionHandler;
-import com.phloc.commons.state.ESuccess;
+import com.phloc.commons.state.ISuccessIndicator;
 import com.phloc.commons.state.impl.SuccessWithValue;
 import com.phloc.commons.stats.IStatisticsHandlerCounter;
 import com.phloc.commons.stats.IStatisticsHandlerTimer;
@@ -291,60 +292,15 @@ public class JPAEnabledManager
   }
 
   @Nonnull
-  public static final ESuccess doInTransaction (@Nonnull @WillNotClose final EntityManager aEntityMgr,
-                                                final boolean bAllowNestedTransactions,
-                                                @Nonnull final Runnable aRunnable)
+  public static final ISuccessIndicator doInTransaction (@Nonnull @WillNotClose final EntityManager aEntityMgr,
+                                                         final boolean bAllowNestedTransactions,
+                                                         @Nonnull final Runnable aRunnable)
   {
-    final StopWatch aSW = new StopWatch (true);
-    final EntityTransaction aTransaction = aEntityMgr.getTransaction ();
-    final boolean bTransactionRequired = !bAllowNestedTransactions || !aTransaction.isActive ();
-    if (bTransactionRequired)
-    {
-      s_aStatsCounterTransactions.increment ();
-      aTransaction.begin ();
-    }
-    try
-    {
-      // Execute whatever you want to do
-      aRunnable.run ();
-      // And if no exception was thrown, commit it
-      if (bTransactionRequired)
-        aTransaction.commit ();
-      s_aStatsCounterSuccess.increment ();
-      s_aStatsTimerExecutionSuccess.addTime (aSW.stopAndGetMillis ());
-      return ESuccess.SUCCESS;
-    }
-    catch (final Throwable t)
-    {
-      s_aLogger.error ("Failed to perform something in a transaction for callback " + aRunnable, t);
-      s_aStatsCounterError.increment ();
-      s_aStatsTimerExecutionError.addTime (aSW.stopAndGetMillis ());
-      _invokeCustomExceptionHandler (t);
-    }
-    finally
-    {
-      if (bTransactionRequired)
-        if (aTransaction.isActive ())
-        {
-          // We got an exception -> rollback
-          aTransaction.rollback ();
-          s_aLogger.warn ("Rolled back transaction for runnable " + aRunnable);
-          s_aStatsCounterRollback.increment ();
-        }
-
-      if (aSW.getMillis () > getDefaultExecutionWarnTime ())
-        onExecutionTimeExceeded ("Callback: " +
-                                 aSW.getMillis () +
-                                 " ms; transaction: " +
-                                 bTransactionRequired +
-                                 "; Execution of runnable in transaction took too long: " +
-                                 aRunnable.toString (), aSW.getMillis ());
-    }
-    return ESuccess.FAILURE;
+    return doInTransaction (aEntityMgr, bAllowNestedTransactions, AdapterRunnableToCallable.createAdapter (aRunnable));
   }
 
   @Nonnull
-  public final ESuccess doInTransaction (@Nonnull final Runnable aRunnable)
+  public final ISuccessIndicator doInTransaction (@Nonnull final Runnable aRunnable)
   {
     // Create entity manager
     final EntityManager aEntityMgr = getEntityManager ();
@@ -506,7 +462,8 @@ public class JPAEnabledManager
 
   /**
    * Helper method to handle the execution of "SELECT COUNT(...) ..." SQL
-   * statements
+   * statements. To be invoked inside a {@link #doSelect(Callable)} or
+   * {@link #doSelectStatic(Callable)} method.
    * 
    * @param aQuery
    *        The SELECT COUNT query
@@ -521,7 +478,8 @@ public class JPAEnabledManager
 
   /**
    * Helper method to handle the execution of "SELECT COUNT(...) ..." SQL
-   * statements
+   * statements. To be invoked inside a {@link #doSelect(Callable)} or
+   * {@link #doSelectStatic(Callable)} method.
    * 
    * @param aQuery
    *        The SELECT COUNT query

@@ -43,8 +43,11 @@ public final class EclipseLinkLogger extends AbstractSessionLog
   public void log (final SessionLogEntry aSessionLogEntry)
   {
     final int nLogLevel = aSessionLogEntry.getLevel ();
+    if (!shouldLog (nLogLevel))
+      return;
+
     // JPA uses the System property for adding line breaks
-    final List <String> aMsgLines = StringHelper.getExploded (CGlobal.LINE_SEPARATOR, aSessionLogEntry.getMessage ());
+    final List <String> aMsgLines = StringHelper.getExploded (CGlobal.LINE_SEPARATOR, formatMessage (aSessionLogEntry));
     final int nMaxIndex = aMsgLines.size ();
     for (int i = 0; i < nMaxIndex; ++i)
     {
