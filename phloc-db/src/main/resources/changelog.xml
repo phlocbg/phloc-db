@@ -20,6 +20,7 @@
 -->
 <changelog xmlns="http://www.phloc.com/ns/changelog/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://www.phloc.com/ns/changelog/1.0 schemas/changelog-1.0.xsd" version="1.0" component="phloc-db">
+  <release date="2013-05-02" version="3.0.0-RC1" />
   <entry date="2013-05-01" category="tech" action="update">
     <change>
       <text locale="en">Using phloc-db-api 1.0.0</text>
