@@ -295,8 +295,7 @@ public class JPAEnabledManager
                                                 final boolean bAllowNestedTransactions,
                                                 @Nonnull final Runnable aRunnable)
   {
-    // Stop watch including transaction handling
-    final StopWatch aSWOverall = new StopWatch (true);
+    final StopWatch aSW = new StopWatch (true);
     final EntityTransaction aTransaction = aEntityMgr.getTransaction ();
     final boolean bTransactionRequired = !bAllowNestedTransactions || !aTransaction.isActive ();
     if (bTransactionRequired)
@@ -304,8 +303,6 @@ public class JPAEnabledManager
       s_aStatsCounterTransactions.increment ();
       aTransaction.begin ();
     }
-    // Stop watch for callback only
-    final StopWatch aSWCallback = new StopWatch (true);
     try
     {
       // Execute whatever you want to do
@@ -314,14 +311,14 @@ public class JPAEnabledManager
       if (bTransactionRequired)
         aTransaction.commit ();
       s_aStatsCounterSuccess.increment ();
-      s_aStatsTimerExecutionSuccess.addTime (aSWCallback.stopAndGetMillis ());
+      s_aStatsTimerExecutionSuccess.addTime (aSW.stopAndGetMillis ());
       return ESuccess.SUCCESS;
     }
     catch (final Throwable t)
     {
       s_aLogger.error ("Failed to perform something in a transaction for callback " + aRunnable, t);
       s_aStatsCounterError.increment ();
-      s_aStatsTimerExecutionError.addTime (aSWCallback.stopAndGetMillis ());
+      s_aStatsTimerExecutionError.addTime (aSW.stopAndGetMillis ());
       _invokeCustomExceptionHandler (t);
     }
     finally
@@ -335,16 +332,13 @@ public class JPAEnabledManager
           s_aStatsCounterRollback.increment ();
         }
 
-      aSWOverall.stop ();
-      if (aSWCallback.getMillis () > getDefaultExecutionWarnTime ())
+      if (aSW.getMillis () > getDefaultExecutionWarnTime ())
         onExecutionTimeExceeded ("Callback: " +
-                                 aSWCallback.getMillis () +
-                                 "; overall: " +
-                                 aSWOverall.getMillis () +
-                                 "; transaction: " +
+                                 aSW.getMillis () +
+                                 " ms; transaction: " +
                                  bTransactionRequired +
                                  "; Execution of runnable in transaction took too long: " +
-                                 aRunnable.toString (), aSWCallback.getMillis ());
+                                 aRunnable.toString (), aSW.getMillis ());
     }
     return ESuccess.FAILURE;
   }
@@ -373,8 +367,7 @@ public class JPAEnabledManager
                                                                 final boolean bAllowNestedTransactions,
                                                                 @Nonnull final Callable <T> aCallable)
   {
-    // Stop watch including transaction handling
-    final StopWatch aSWOverall = new StopWatch (true);
+    final StopWatch aSW = new StopWatch (true);
     final EntityTransaction aTransaction = aEntityMgr.getTransaction ();
     final boolean bTransactionRequired = !bAllowNestedTransactions || !aTransaction.isActive ();
     if (bTransactionRequired)
@@ -382,8 +375,6 @@ public class JPAEnabledManager
       s_aStatsCounterTransactions.increment ();
       aTransaction.begin ();
     }
-    // Stop watch for callback only
-    final StopWatch aSWCallback = new StopWatch (true);
     try
     {
       // Execute whatever you want to do
@@ -392,14 +383,14 @@ public class JPAEnabledManager
       if (bTransactionRequired)
         aTransaction.commit ();
       s_aStatsCounterSuccess.increment ();
-      s_aStatsTimerExecutionSuccess.addTime (aSWCallback.stopAndGetMillis ());
+      s_aStatsTimerExecutionSuccess.addTime (aSW.stopAndGetMillis ());
       return SuccessWithValue.createSuccess (ret);
     }
     catch (final Throwable t)
     {
       s_aLogger.error ("Failed to perform something in a transaction!", t);
       s_aStatsCounterError.increment ();
-      s_aStatsTimerExecutionError.addTime (aSWCallback.stopAndGetMillis ());
+      s_aStatsTimerExecutionError.addTime (aSW.stopAndGetMillis ());
       _invokeCustomExceptionHandler (t);
       return SuccessWithValue.<T> createFailure (null);
     }
@@ -414,16 +405,13 @@ public class JPAEnabledManager
           s_aStatsCounterRollback.increment ();
         }
 
-      aSWOverall.stop ();
-      if (aSWCallback.getMillis () > getDefaultExecutionWarnTime ())
+      if (aSW.getMillis () > getDefaultExecutionWarnTime ())
         onExecutionTimeExceeded ("Callback: " +
-                                 aSWCallback.getMillis () +
-                                 "; overall: " +
-                                 aSWOverall.getMillis () +
-                                 "; transaction: " +
+                                 aSW.getMillis () +
+                                 " ms; transaction: " +
                                  bTransactionRequired +
                                  "; Execution of callable in transaction took too long: " +
-                                 aCallable.toString (), aSWCallback.getMillis ());
+                                 aCallable.toString (), aSW.getMillis ());
     }
   }
 
