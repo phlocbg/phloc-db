@@ -85,11 +85,11 @@ public abstract class AbstractEntityManagerFactorySingletonH2 extends AbstractEn
                                                      @Nonnull @Nonempty final String sPersistenceUnitName,
                                                      @Nullable final Map <String, Object> aAdditionalFactoryProps)
   {
-    super (H2DriverSingleton.getInstance ().getDriverClass (),
+    super (H2DriverSingleton.getInstance ().getDriverClassName (),
            _buildJDBCString (sJdbcURL, aConnectionProperties),
            sUser,
            sPassword,
-           H2Platform.class,
+           H2Platform.class.getName (),
            sPersistenceUnitName,
            aAdditionalFactoryProps);
   }

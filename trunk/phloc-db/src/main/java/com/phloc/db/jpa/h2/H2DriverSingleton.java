@@ -60,7 +60,7 @@ public final class H2DriverSingleton extends GlobalSingleton
 
   @Nonnull
   @Nonempty
-  public String getDriverName ()
+  public String getDriverClassName ()
   {
     return getDriverClass ().getName ();
   }
