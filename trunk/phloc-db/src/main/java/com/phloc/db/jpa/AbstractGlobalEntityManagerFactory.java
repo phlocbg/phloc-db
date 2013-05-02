@@ -46,9 +46,9 @@ import com.phloc.scopes.singleton.GlobalSingleton;
  * 
  * @author Philip Helger
  */
-public abstract class AbstractEntityManagerFactorySingleton extends GlobalSingleton
+public abstract class AbstractGlobalEntityManagerFactory extends GlobalSingleton
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (AbstractEntityManagerFactorySingleton.class);
+  private static final Logger s_aLogger = LoggerFactory.getLogger (AbstractGlobalEntityManagerFactory.class);
 
   static
   {
@@ -84,7 +84,7 @@ public abstract class AbstractEntityManagerFactorySingleton extends GlobalSingle
    *        explicit parameters, so be careful. This map is applied after the
    *        special properties are set! May be <code>null</code>.
    */
-  protected AbstractEntityManagerFactorySingleton (@Nonnull @Nonempty final String sJdbcDriverClass,
+  protected AbstractGlobalEntityManagerFactory (@Nonnull @Nonempty final String sJdbcDriverClass,
                                                    @Nonnull @Nonempty final String sJdbcURL,
                                                    @Nullable final String sUserName,
                                                    @Nullable final String sPassword,

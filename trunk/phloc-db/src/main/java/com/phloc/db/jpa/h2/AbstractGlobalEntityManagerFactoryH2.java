@@ -28,14 +28,14 @@ import org.eclipse.persistence.platform.database.H2Platform;
 import com.phloc.commons.annotations.Nonempty;
 import com.phloc.commons.collections.ContainerHelper;
 import com.phloc.db.api.h2.H2Helper;
-import com.phloc.db.jpa.AbstractEntityManagerFactorySingleton;
+import com.phloc.db.jpa.AbstractGlobalEntityManagerFactory;
 
 /**
  * JPA Singleton specific for H2 database.
  * 
  * @author Philip Helger
  */
-public abstract class AbstractEntityManagerFactorySingletonH2 extends AbstractEntityManagerFactorySingleton
+public abstract class AbstractGlobalEntityManagerFactoryH2 extends AbstractGlobalEntityManagerFactory
 {
   private static final Map <String, String> s_aDefaultConnectionProperties = new HashMap <String, String> ();
 
@@ -55,7 +55,7 @@ public abstract class AbstractEntityManagerFactorySingletonH2 extends AbstractEn
   /*
    * Constructor. Never initialize manually!
    */
-  protected AbstractEntityManagerFactorySingletonH2 (@Nonnull @Nonempty final String sJdbcURL,
+  protected AbstractGlobalEntityManagerFactoryH2 (@Nonnull @Nonempty final String sJdbcURL,
                                                      @Nullable final String sUser,
                                                      @Nullable final String sPassword,
                                                      @Nonnull @Nonempty final String sPersistenceUnitName)
@@ -66,7 +66,7 @@ public abstract class AbstractEntityManagerFactorySingletonH2 extends AbstractEn
   /*
    * Constructor. Never initialize manually!
    */
-  protected AbstractEntityManagerFactorySingletonH2 (@Nonnull @Nonempty final String sJdbcURL,
+  protected AbstractGlobalEntityManagerFactoryH2 (@Nonnull @Nonempty final String sJdbcURL,
                                                      @Nullable final Map <String, String> aConnectionProperties,
                                                      @Nullable final String sUser,
                                                      @Nullable final String sPassword,
@@ -78,7 +78,7 @@ public abstract class AbstractEntityManagerFactorySingletonH2 extends AbstractEn
   /**
    * Constructor. Never initialize manually!
    */
-  protected AbstractEntityManagerFactorySingletonH2 (@Nonnull @Nonempty final String sJdbcURL,
+  protected AbstractGlobalEntityManagerFactoryH2 (@Nonnull @Nonempty final String sJdbcURL,
                                                      @Nullable final Map <String, String> aConnectionProperties,
                                                      @Nullable final String sUser,
                                                      @Nullable final String sPassword,
