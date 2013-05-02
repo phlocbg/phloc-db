@@ -200,6 +200,26 @@ public class JPAEnabledManager
   }
 
   /**
+   * Invoke the custom exception handler (if present)
+   * 
+   * @param t
+   *        The exception that occurred.
+   */
+  private static void _invokeCustomExceptionHandler (@Nonnull final Throwable t)
+  {
+    final IExceptionHandler <Throwable> aExceptionHandler = getCustomExceptionHandler ();
+    if (aExceptionHandler != null)
+      try
+      {
+        aExceptionHandler.onException (t);
+      }
+      catch (final Throwable t2)
+      {
+        s_aLogger.error ("Error in custom exception handler " + aExceptionHandler, t2);
+      }
+  }
+
+  /**
    * @return The milliseconds after which a warning is emitted, if an SQL
    *         statement takes longer to execute.
    */
@@ -302,16 +322,7 @@ public class JPAEnabledManager
       s_aLogger.error ("Failed to perform something in a transaction for callback " + aRunnable, t);
       s_aStatsCounterError.increment ();
       s_aStatsTimerExecutionError.addTime (aSWCallback.stopAndGetMillis ());
-      final IExceptionHandler <Throwable> aExceptionHandler = getCustomExceptionHandler ();
-      if (aExceptionHandler != null)
-        try
-        {
-          aExceptionHandler.onException (t);
-        }
-        catch (final Throwable t2)
-        {
-          s_aLogger.error ("Error in custom exception handler " + aExceptionHandler, t2);
-        }
+      _invokeCustomExceptionHandler (t);
     }
     finally
     {
@@ -320,7 +331,7 @@ public class JPAEnabledManager
         {
           // We got an exception -> rollback
           aTransaction.rollback ();
-          s_aLogger.warn ("Rolled back transaction for callback " + aRunnable);
+          s_aLogger.warn ("Rolled back transaction for runnable " + aRunnable);
           s_aStatsCounterRollback.increment ();
         }
 
@@ -389,16 +400,7 @@ public class JPAEnabledManager
       s_aLogger.error ("Failed to perform something in a transaction!", t);
       s_aStatsCounterError.increment ();
       s_aStatsTimerExecutionError.addTime (aSWCallback.stopAndGetMillis ());
-      final IExceptionHandler <Throwable> aExceptionHandler = getCustomExceptionHandler ();
-      if (aExceptionHandler != null)
-        try
-        {
-          aExceptionHandler.onException (t);
-        }
-        catch (final Throwable t2)
-        {
-          s_aLogger.error ("Error in custom exception handler", t2);
-        }
+      _invokeCustomExceptionHandler (t);
       return SuccessWithValue.<T> createFailure (null);
     }
     finally
@@ -408,7 +410,7 @@ public class JPAEnabledManager
         {
           // We got an exception -> rollback
           aTransaction.rollback ();
-          s_aLogger.warn ("Rolled back transaction!");
+          s_aLogger.warn ("Rolled back transaction for callable " + aCallable);
           s_aStatsCounterRollback.increment ();
         }
 
@@ -471,16 +473,7 @@ public class JPAEnabledManager
       s_aLogger.error ("Failed to select something in a transaction!", t);
       s_aStatsCounterError.increment ();
       s_aStatsTimerExecutionError.addTime (aSW.stopAndGetMillis ());
-      final IExceptionHandler <Throwable> aExceptionHandler = getCustomExceptionHandler ();
-      if (aExceptionHandler != null)
-        try
-        {
-          aExceptionHandler.onException (t);
-        }
-        catch (final Throwable t2)
-        {
-          s_aLogger.error ("Error in custom exception handler", t2);
-        }
+      _invokeCustomExceptionHandler (t);
       return SuccessWithValue.<T> createFailure (null);
     }
     finally
