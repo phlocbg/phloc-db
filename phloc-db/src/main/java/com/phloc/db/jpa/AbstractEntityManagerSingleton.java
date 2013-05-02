@@ -49,6 +49,11 @@ public abstract class AbstractEntityManagerSingleton extends RequestSingleton im
   public AbstractEntityManagerSingleton ()
   {}
 
+  /**
+   * Create a new {@link EntityManager} when required.
+   * 
+   * @return The created {@link EntityManager}.
+   */
   @Nonnull
   protected abstract EntityManager createEntityManager ();
 
@@ -68,6 +73,7 @@ public abstract class AbstractEntityManagerSingleton extends RequestSingleton im
 
     if (ret == null)
     {
+      // No EntityManager present for this request
       m_aRWLock.writeLock ().lock ();
       try
       {

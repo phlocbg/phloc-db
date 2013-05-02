@@ -152,6 +152,16 @@ public abstract class AbstractEntityManagerFactorySingleton extends GlobalSingle
     m_aFactoryProps = aFactoryProps;
   }
 
+  /**
+   * This method allows you to customize the created
+   * {@link EntityManagerFactory} in any way. By default it is returned as
+   * created.
+   * 
+   * @param aEMF
+   *        The original {@link EntityManagerFactory}. Never <code>null</code>.
+   * @return The final {@link EntityManagerFactory} to use. May not be
+   *         <code>null</code>.
+   */
   @Nonnull
   @OverrideOnDemand
   protected EntityManagerFactory customizeEntityManagerFactory (@Nonnull final EntityManagerFactory aEMF)
@@ -173,7 +183,7 @@ public abstract class AbstractEntityManagerFactorySingleton extends GlobalSingle
                                        m_aFactoryProps.toString () +
                                        "!");
 
-    // Wrap in a factory with listener support
+    // Customize on demand
     m_aFactory = customizeEntityManagerFactory (aFactory);
     s_aLogger.info ("Created EntityManagerFactory for persistence unit '" + m_sPersistenceUnitName + "'");
 
@@ -189,14 +199,17 @@ public abstract class AbstractEntityManagerFactorySingleton extends GlobalSingle
                                          sDDLGeneration +
                                          "' but no DDL generation mode is defined, which defaults to '" +
                                          PersistenceUnitProperties.DDL_DATABASE_GENERATION +
-                                         "'!!!\nEffective property are: " +
+                                         "' which can erase all your data. Please explicitly state a value for the property '" +
+                                         PersistenceUnitProperties.DDL_GENERATION_MODE +
+                                         "'!!!\nEffective properties are: " +
                                          aRealProps.toString ());
       }
     }
   }
 
   /**
-   * Called when the global scope is destroyed (upon servlet context shutdown)
+   * Called when the global scope is destroyed (e.g. upon servlet context
+   * shutdown)
    * 
    * @throws Exception
    *         if closing fails
@@ -241,6 +254,10 @@ public abstract class AbstractEntityManagerFactorySingleton extends GlobalSingle
     return ContainerHelper.newMap (m_aFactoryProps);
   }
 
+  /**
+   * @return The underlying {@link EntityManagerFactory}. Never
+   *         <code>null</code>.
+   */
   @Nonnull
   public final EntityManagerFactory getEntityManagerFactory ()
   {
@@ -249,19 +266,37 @@ public abstract class AbstractEntityManagerFactorySingleton extends GlobalSingle
     return m_aFactory;
   }
 
+  /**
+   * Create a new {@link EntityManager} with the default properties - usually
+   * this is suitable!
+   * 
+   * @return The created {@link EntityManager} and never <code>null</code>.
+   */
   @Nonnull
   public final EntityManager createEntityManager ()
   {
     return createEntityManager (null);
   }
 
+  /**
+   * Create a new {@link EntityManager} with custom properties!
+   * 
+   * @param aMap
+   *        The custom properties to use. May be <code>null</code> for no
+   *        properties.
+   * @return The created {@link EntityManager} and never <code>null</code>.
+   */
   @Nonnull
   public EntityManager createEntityManager (@SuppressWarnings ("rawtypes") final Map aMap)
   {
     // Create entity manager
     final EntityManager aEntityManager = m_aFactory.createEntityManager (aMap);
     if (aEntityManager == null)
-      throw new IllegalStateException ("Failed to create EntityManager from factory " + m_aFactory + "!");
+      throw new IllegalStateException ("Failed to create EntityManager from factory " +
+                                       m_aFactory +
+                                       " with parameters " +
+                                       aMap +
+                                       "!");
     return aEntityManager;
   }
 }

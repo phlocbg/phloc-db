@@ -34,6 +34,12 @@ import com.phloc.commons.microdom.IMicroElement;
 import com.phloc.commons.microdom.serialize.MicroReader;
 import com.phloc.commons.string.StringHelper;
 
+/**
+ * Utility class that scans all META-INF/persistence.xml files available, and
+ * checks if all referenced classes are available :)
+ * 
+ * @author Philip Helger
+ */
 @Immutable
 public final class PersistenceXmlUtils
 {
