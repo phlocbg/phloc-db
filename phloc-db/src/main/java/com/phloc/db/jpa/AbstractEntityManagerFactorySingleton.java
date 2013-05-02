@@ -17,7 +17,6 @@
  */
 package com.phloc.db.jpa;
 
-import java.sql.Driver;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -29,7 +28,6 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 import org.eclipse.persistence.config.PersistenceUnitProperties;
-import org.eclipse.persistence.platform.database.DatabasePlatform;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -63,22 +61,42 @@ public abstract class AbstractEntityManagerFactorySingleton extends GlobalSingle
   private final Map <String, Object> m_aFactoryProps;
   private EntityManagerFactory m_aFactory;
 
-  /*
-   * Constructor. Never initialize manually!
+  /**
+   * Constructor
+   * 
+   * @param sJdbcDriverClass
+   *        Name of the JDBC driver class. Must be a class implementing
+   *        java.sql.Driver.
+   * @param sJdbcURL
+   *        JDBC URL
+   * @param sUserName
+   *        User name to access the DB. May be <code>null</code>.
+   * @param sPassword
+   *        Password to access the DB. May be <code>null</code>.
+   * @param sPlatformClass
+   *        The EclipseLink platform name. May either be a fully qualified
+   *        class-name of a recognized abbreviation.
+   * @param sPersistenceUnitName
+   *        The name of the persistence unit as stated in the persistence.xml
+   * @param aAdditionalFactoryProperties
+   *        An optional Map with properties for {@link EntityManagerFactory}.
+   *        This can even be used to overwrite the settings specified as
+   *        explicit parameters, so be careful. This map is applied after the
+   *        special properties are set! May be <code>null</code>.
    */
-  protected AbstractEntityManagerFactorySingleton (@Nonnull final Class <? extends Driver> aJdbcDriverClass,
+  protected AbstractEntityManagerFactorySingleton (@Nonnull @Nonempty final String sJdbcDriverClass,
                                                    @Nonnull @Nonempty final String sJdbcURL,
                                                    @Nullable final String sUserName,
                                                    @Nullable final String sPassword,
-                                                   @Nonnull final Class <? extends DatabasePlatform> aPlatformClass,
+                                                   @Nonnull @Nonempty final String sPlatformClass,
                                                    @Nonnull @Nonempty final String sPersistenceUnitName,
                                                    @Nullable final Map <String, Object> aAdditionalFactoryProperties)
   {
-    if (aJdbcDriverClass == null)
+    if (StringHelper.hasNoText (sJdbcDriverClass))
       throw new NullPointerException ("JdbcDriverClass");
     if (StringHelper.hasNoText (sJdbcURL))
       throw new IllegalArgumentException ("JdbcURL");
-    if (aPlatformClass == null)
+    if (StringHelper.hasNoText (sPlatformClass))
       throw new NullPointerException ("PlatformClass");
     if (StringHelper.hasNoText (sPersistenceUnitName))
       throw new IllegalArgumentException ("PersistenceUnitName");
@@ -86,20 +104,20 @@ public abstract class AbstractEntityManagerFactorySingleton extends GlobalSingle
     s_aLogger.info ("Using JDBC URL " +
                     sJdbcURL +
                     " with JDBC driver " +
-                    aJdbcDriverClass +
+                    sJdbcDriverClass +
                     " and user '" +
                     sUserName +
                     "'");
 
     final Map <String, Object> aFactoryProps = new HashMap <String, Object> ();
-    aFactoryProps.put (PersistenceUnitProperties.JDBC_DRIVER, aJdbcDriverClass.getName ());
+    aFactoryProps.put (PersistenceUnitProperties.JDBC_DRIVER, sJdbcDriverClass);
     aFactoryProps.put (PersistenceUnitProperties.JDBC_URL, sJdbcURL);
     aFactoryProps.put (PersistenceUnitProperties.JDBC_USER, sUserName);
     aFactoryProps.put (PersistenceUnitProperties.JDBC_PASSWORD, sPassword);
 
     aFactoryProps.put (PersistenceUnitProperties.LOGGING_LOGGER, EclipseLinkLogger.class.getName ());
     aFactoryProps.put (PersistenceUnitProperties.SESSION_CUSTOMIZER, EclipseLinkSessionCustomizer.class.getName ());
-    aFactoryProps.put (PersistenceUnitProperties.TARGET_DATABASE, aPlatformClass.getName ());
+    aFactoryProps.put (PersistenceUnitProperties.TARGET_DATABASE, sPlatformClass);
 
     // Not desired to have default values for
     // PersistenceUnitProperties.DDL_GENERATION,

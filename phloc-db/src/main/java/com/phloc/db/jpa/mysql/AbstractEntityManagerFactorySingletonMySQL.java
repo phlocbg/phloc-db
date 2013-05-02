@@ -86,11 +86,11 @@ public abstract class AbstractEntityManagerFactorySingletonMySQL extends Abstrac
                                                         @Nonnull @Nonempty final String sPersistenceUnitName,
                                                         @Nullable final Map <String, Object> aAdditionalFactoryProperties)
   {
-    super (com.mysql.jdbc.Driver.class,
+    super (com.mysql.jdbc.Driver.class.getName (),
            _buildJDBCString (sJdbcURL, aConnectionProperties),
            sUserName,
            sPassword,
-           MySQLPlatform.class,
+           MySQLPlatform.class.getName (),
            sPersistenceUnitName,
            aAdditionalFactoryProperties);
   }
