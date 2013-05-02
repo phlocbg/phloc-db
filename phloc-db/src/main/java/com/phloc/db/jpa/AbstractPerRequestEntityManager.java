@@ -28,35 +28,48 @@ import javax.persistence.EntityManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.phloc.commons.annotations.IsLocked;
+import com.phloc.commons.annotations.IsLocked.ELockType;
 import com.phloc.commons.annotations.UsedViaReflection;
 import com.phloc.scopes.singleton.RequestSingleton;
 
 /**
- * Abstract request singleton to handle a single {@link EntityManager}.
+ * Abstract request singleton to handle a single {@link EntityManager}.<br>
+ * Note: this class does NOT implement {@link IEntityManagerProvider} by
+ * purpose, as this class should not be used as a direct callback parameter,
+ * because than only the object of this particular request is used.
  * 
  * @author Philip Helger
  */
 @ThreadSafe
-public abstract class AbstractEntityManagerSingleton extends RequestSingleton implements IEntityManagerProvider
+public abstract class AbstractPerRequestEntityManager extends RequestSingleton
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (AbstractEntityManagerSingleton.class);
+  private static final Logger s_aLogger = LoggerFactory.getLogger (AbstractPerRequestEntityManager.class);
 
   protected final ReadWriteLock m_aRWLock = new ReentrantReadWriteLock ();
   private volatile EntityManager m_aEntityManager;
+  private boolean m_bDestroyed = false;
 
   @Deprecated
   @UsedViaReflection
-  public AbstractEntityManagerSingleton ()
+  public AbstractPerRequestEntityManager ()
   {}
 
   /**
    * Create a new {@link EntityManager} when required.
    * 
-   * @return The created {@link EntityManager}.
+   * @return The created {@link EntityManager}. Never <code>null</code>.
    */
   @Nonnull
+  @IsLocked (ELockType.WRITE)
   protected abstract EntityManager createEntityManager ();
 
+  /**
+   * @return The {@link EntityManager} to be used in this request. If it is the
+   *         first request to an {@link EntityManager} in this request is
+   *         created via {@link #createEntityManager()}. Never <code>null</code>
+   *         .
+   */
   @Nonnull
   public EntityManager getEntityManager ()
   {
@@ -64,6 +77,8 @@ public abstract class AbstractEntityManagerSingleton extends RequestSingleton im
     m_aRWLock.readLock ().lock ();
     try
     {
+      if (m_bDestroyed)
+        throw new IllegalStateException ("This object was already destroyed and should not be re-used!");
       ret = m_aEntityManager;
     }
     finally
@@ -115,6 +130,7 @@ public abstract class AbstractEntityManagerSingleton extends RequestSingleton im
         if (s_aLogger.isDebugEnabled ())
           s_aLogger.debug ("EntityManager destroyed");
       }
+      m_bDestroyed = true;
     }
     finally
     {

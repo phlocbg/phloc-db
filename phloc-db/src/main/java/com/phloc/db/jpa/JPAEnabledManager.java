@@ -50,7 +50,7 @@ import com.phloc.db.jpa.callback.LoggingExecutionTimeExceededHandler;
  * {@link IEntityManagerProvider} required in the constructor should be a
  * request singleton that ensures one {@link EntityManager} per thread. The main
  * {@link EntityManager} objects are usually create from a subclass of
- * {@link AbstractEntityManagerFactorySingleton}.
+ * {@link AbstractGlobalEntityManagerFactory}.
  * 
  * @author Philip Helger
  */
@@ -272,13 +272,6 @@ public class JPAEnabledManager
 
   @Nonnull
   public static final ESuccess doInTransaction (@Nonnull @WillNotClose final EntityManager aEntityMgr,
-                                                @Nonnull final Runnable aRunnable)
-  {
-    return doInTransaction (aEntityMgr, DEFAULT_ALLOW_NESTED_TRANSACTIONS, aRunnable);
-  }
-
-  @Nonnull
-  public static final ESuccess doInTransaction (@Nonnull @WillNotClose final EntityManager aEntityMgr,
                                                 final boolean bAllowNestedTransactions,
                                                 @Nonnull final Runnable aRunnable)
   {
@@ -360,13 +353,6 @@ public class JPAEnabledManager
     {
       return doInTransaction (aEntityMgr, isAllowNestedTransactions (), aRunnable);
     }
-  }
-
-  @Nonnull
-  public static final <T> SuccessWithValue <T> doInTransaction (@Nonnull @WillNotClose final EntityManager aEntityMgr,
-                                                                @Nonnull final Callable <T> aCallable)
-  {
-    return doInTransaction (aEntityMgr, DEFAULT_ALLOW_NESTED_TRANSACTIONS, aCallable);
   }
 
   @Nonnull

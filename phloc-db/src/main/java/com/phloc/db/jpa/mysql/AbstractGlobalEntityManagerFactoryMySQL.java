@@ -29,14 +29,14 @@ import com.phloc.commons.annotations.Nonempty;
 import com.phloc.commons.collections.ContainerHelper;
 import com.phloc.db.api.mysql.EMySQLConnectionProperty;
 import com.phloc.db.api.mysql.MySQLHelper;
-import com.phloc.db.jpa.AbstractEntityManagerFactorySingleton;
+import com.phloc.db.jpa.AbstractGlobalEntityManagerFactory;
 
 /**
  * JPA Singleton specific for MySQL database.
  * 
  * @author Philip Helger
  */
-public abstract class AbstractEntityManagerFactorySingletonMySQL extends AbstractEntityManagerFactorySingleton
+public abstract class AbstractGlobalEntityManagerFactoryMySQL extends AbstractGlobalEntityManagerFactory
 {
   private static final Map <EMySQLConnectionProperty, String> s_aDefaultConnectionProperties = new EnumMap <EMySQLConnectionProperty, String> (EMySQLConnectionProperty.class);
 
@@ -56,7 +56,7 @@ public abstract class AbstractEntityManagerFactorySingletonMySQL extends Abstrac
   /*
    * Constructor. Never initialize manually!
    */
-  protected AbstractEntityManagerFactorySingletonMySQL (@Nonnull @Nonempty final String sJdbcURL,
+  protected AbstractGlobalEntityManagerFactoryMySQL (@Nonnull @Nonempty final String sJdbcURL,
                                                         @Nullable final String sUserName,
                                                         @Nullable final String sPassword,
                                                         @Nonnull @Nonempty final String sPersistenceUnitName)
@@ -67,7 +67,7 @@ public abstract class AbstractEntityManagerFactorySingletonMySQL extends Abstrac
   /*
    * Constructor. Never initialize manually!
    */
-  protected AbstractEntityManagerFactorySingletonMySQL (@Nonnull @Nonempty final String sJdbcURL,
+  protected AbstractGlobalEntityManagerFactoryMySQL (@Nonnull @Nonempty final String sJdbcURL,
                                                         @Nullable final Map <EMySQLConnectionProperty, String> aConnectionProperties,
                                                         @Nullable final String sUserName,
                                                         @Nullable final String sPassword,
@@ -79,7 +79,7 @@ public abstract class AbstractEntityManagerFactorySingletonMySQL extends Abstrac
   /*
    * Constructor. Never initialize manually!
    */
-  protected AbstractEntityManagerFactorySingletonMySQL (@Nonnull @Nonempty final String sJdbcURL,
+  protected AbstractGlobalEntityManagerFactoryMySQL (@Nonnull @Nonempty final String sJdbcURL,
                                                         @Nullable final Map <EMySQLConnectionProperty, String> aConnectionProperties,
                                                         @Nullable final String sUserName,
                                                         @Nullable final String sPassword,
