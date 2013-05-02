@@ -25,6 +25,11 @@ import org.slf4j.LoggerFactory;
 
 import com.phloc.commons.string.ToStringGenerator;
 
+/**
+ * A logging implementation of {@link IExecutionTimeExceededHandler}.
+ * 
+ * @author Philip Helger
+ */
 public class LoggingExecutionTimeExceededHandler implements IExecutionTimeExceededHandler
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (LoggingExecutionTimeExceededHandler.class);
@@ -34,6 +39,11 @@ public class LoggingExecutionTimeExceededHandler implements IExecutionTimeExceed
   public LoggingExecutionTimeExceededHandler (final boolean bEmitStackTrace)
   {
     m_bEmitStackTrace = bEmitStackTrace;
+  }
+
+  public boolean isEmitStackTrace ()
+  {
+    return m_bEmitStackTrace;
   }
 
   public void onExecutionTimeExceeded (@Nonnull final String sMsg, @Nonnegative final long nExecutionMillis)

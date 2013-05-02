@@ -57,14 +57,15 @@ import com.phloc.db.jpa.callback.LoggingExecutionTimeExceededHandler;
 @ThreadSafe
 public class JPAEnabledManager
 {
-  /** By default the entity manager is locked */
-  public static final boolean DEFAULT_SYNC_ENTITY_MGR = true;
+  /** By default the entity manager is not locked (changed in 3.0.0) */
+  public static final boolean DEFAULT_SYNC_ENTITY_MGR = false;
   /** By default nested transactions are not allowed */
   public static final boolean DEFAULT_ALLOW_NESTED_TRANSACTIONS = false;
   /** By default no transaction is used for select statements */
   public static final boolean DEFAULT_USE_TRANSACTIONS_FOR_SELECT = false;
+  /** The default execution time after which a warning is emitted */
+  public static final int DEFAULT_EXECUTION_WARN_TIME_MS = 1000;
 
-  private static final int DEFAULT_EXECUTION_WARN_TIME_MS = 1000;
   private static final Logger s_aLogger = LoggerFactory.getLogger (JPAEnabledManager.class);
   private static final IStatisticsHandlerCounter s_aStatsCounterTransactions = StatisticsManager.getCounterHandler (JPAEnabledManager.class.getName () +
                                                                                                                     "$transactions");
