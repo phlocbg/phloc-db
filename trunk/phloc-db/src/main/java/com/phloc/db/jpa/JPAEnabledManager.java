@@ -38,7 +38,6 @@ import org.slf4j.LoggerFactory;
 import com.phloc.commons.callback.AdapterRunnableToCallable;
 import com.phloc.commons.callback.IExceptionHandler;
 import com.phloc.commons.state.ISuccessIndicator;
-import com.phloc.commons.state.impl.SuccessWithValue;
 import com.phloc.commons.stats.IStatisticsHandlerCounter;
 import com.phloc.commons.stats.IStatisticsHandlerTimer;
 import com.phloc.commons.stats.StatisticsManager;
@@ -319,9 +318,9 @@ public class JPAEnabledManager
   }
 
   @Nonnull
-  public static final <T> SuccessWithValue <T> doInTransaction (@Nonnull @WillNotClose final EntityManager aEntityMgr,
-                                                                final boolean bAllowNestedTransactions,
-                                                                @Nonnull final Callable <T> aCallable)
+  public static final <T> JPAExecutionResult <T> doInTransaction (@Nonnull @WillNotClose final EntityManager aEntityMgr,
+                                                                  final boolean bAllowNestedTransactions,
+                                                                  @Nonnull final Callable <T> aCallable)
   {
     final StopWatch aSW = new StopWatch (true);
     final EntityTransaction aTransaction = aEntityMgr.getTransaction ();
@@ -340,7 +339,7 @@ public class JPAEnabledManager
         aTransaction.commit ();
       s_aStatsCounterSuccess.increment ();
       s_aStatsTimerExecutionSuccess.addTime (aSW.stopAndGetMillis ());
-      return SuccessWithValue.createSuccess (ret);
+      return JPAExecutionResult.createSuccess (ret);
     }
     catch (final Throwable t)
     {
@@ -348,7 +347,7 @@ public class JPAEnabledManager
       s_aStatsCounterError.increment ();
       s_aStatsTimerExecutionError.addTime (aSW.stopAndGetMillis ());
       _invokeCustomExceptionHandler (t);
-      return SuccessWithValue.<T> createFailure (null);
+      return JPAExecutionResult.<T> createFailure (t);
     }
     finally
     {
@@ -372,7 +371,7 @@ public class JPAEnabledManager
   }
 
   @Nonnull
-  public final <T> SuccessWithValue <T> doInTransaction (@Nonnull final Callable <T> aCallable)
+  public final <T> JPAExecutionResult <T> doInTransaction (@Nonnull final Callable <T> aCallable)
   {
     // Create entity manager
     final EntityManager aEntityMgr = getEntityManager ();
@@ -398,7 +397,7 @@ public class JPAEnabledManager
    * @return The return of the callable or <code>null</code> upon success
    */
   @Nonnull
-  public static final <T> SuccessWithValue <T> doSelectStatic (@Nonnull final Callable <T> aCallable)
+  public static final <T> JPAExecutionResult <T> doSelectStatic (@Nonnull final Callable <T> aCallable)
   {
     if (aCallable == null)
       throw new NullPointerException ("callable");
@@ -410,15 +409,15 @@ public class JPAEnabledManager
       final T ret = aCallable.call ();
       s_aStatsCounterSuccess.increment ();
       s_aStatsTimerExecutionSuccess.addTime (aSW.stopAndGetMillis ());
-      return SuccessWithValue.createSuccess (ret);
+      return JPAExecutionResult.createSuccess (ret);
     }
     catch (final Throwable t)
     {
-      s_aLogger.error ("Failed to select something in a transaction!", t);
+      s_aLogger.error ("Failed to select something!", t);
       s_aStatsCounterError.increment ();
       s_aStatsTimerExecutionError.addTime (aSW.stopAndGetMillis ());
       _invokeCustomExceptionHandler (t);
-      return SuccessWithValue.<T> createFailure (null);
+      return JPAExecutionResult.<T> createFailure (t);
     }
     finally
     {
@@ -436,7 +435,7 @@ public class JPAEnabledManager
    * @return A non-<code>null</code> result of the select.
    */
   @Nonnull
-  public final <T> SuccessWithValue <T> doSelect (@Nonnull final Callable <T> aCallable)
+  public final <T> JPAExecutionResult <T> doSelect (@Nonnull final Callable <T> aCallable)
   {
     if (isUseTransactionsForSelect ())
     {
