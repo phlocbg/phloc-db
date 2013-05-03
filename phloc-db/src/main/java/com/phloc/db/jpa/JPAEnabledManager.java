@@ -37,7 +37,6 @@ import org.slf4j.LoggerFactory;
 
 import com.phloc.commons.callback.AdapterRunnableToCallable;
 import com.phloc.commons.callback.IExceptionHandler;
-import com.phloc.commons.state.ISuccessIndicator;
 import com.phloc.commons.stats.IStatisticsHandlerCounter;
 import com.phloc.commons.stats.IStatisticsHandlerTimer;
 import com.phloc.commons.stats.StatisticsManager;
@@ -291,15 +290,15 @@ public class JPAEnabledManager
   }
 
   @Nonnull
-  public static final ISuccessIndicator doInTransaction (@Nonnull @WillNotClose final EntityManager aEntityMgr,
-                                                         final boolean bAllowNestedTransactions,
-                                                         @Nonnull final Runnable aRunnable)
+  public static final JPAExecutionResult <?> doInTransaction (@Nonnull @WillNotClose final EntityManager aEntityMgr,
+                                                              final boolean bAllowNestedTransactions,
+                                                              @Nonnull final Runnable aRunnable)
   {
     return doInTransaction (aEntityMgr, bAllowNestedTransactions, AdapterRunnableToCallable.createAdapter (aRunnable));
   }
 
   @Nonnull
-  public final ISuccessIndicator doInTransaction (@Nonnull final Runnable aRunnable)
+  public final JPAExecutionResult <?> doInTransaction (@Nonnull final Runnable aRunnable)
   {
     // Create entity manager
     final EntityManager aEntityMgr = getEntityManager ();
