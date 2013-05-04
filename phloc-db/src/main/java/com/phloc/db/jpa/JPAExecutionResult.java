@@ -3,6 +3,9 @@ package com.phloc.db.jpa;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import com.phloc.commons.equals.EqualsUtils;
+import com.phloc.commons.hash.HashCodeGenerator;
+import com.phloc.commons.lang.CGStringHelper;
 import com.phloc.commons.state.ESuccess;
 import com.phloc.commons.state.ISuccessIndicator;
 import com.phloc.commons.state.impl.SuccessWithValue;
@@ -49,6 +52,26 @@ public class JPAExecutionResult <DATATYPE> extends SuccessWithValue <DATATYPE>
   public boolean hasThrowable ()
   {
     return m_aThrowable != null;
+  }
+
+  @Override
+  public boolean equals (final Object o)
+  {
+    if (o == this)
+      return true;
+    if (!super.equals (o))
+      return false;
+    final JPAExecutionResult <?> rhs = (JPAExecutionResult <?>) o;
+    return EqualsUtils.equals (CGStringHelper.getSafeClassName (m_aThrowable),
+                               CGStringHelper.getSafeClassName (rhs.m_aThrowable));
+  }
+
+  @Override
+  public int hashCode ()
+  {
+    return HashCodeGenerator.getDerived (super.hashCode ())
+                            .append (CGStringHelper.getSafeClassName (m_aThrowable))
+                            .getHashCode ();
   }
 
   @Override
