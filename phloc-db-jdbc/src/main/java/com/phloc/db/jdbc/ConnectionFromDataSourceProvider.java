@@ -29,6 +29,8 @@ import org.slf4j.LoggerFactory;
 
 import com.phloc.commons.string.ToStringGenerator;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 /**
  * Implementation of {@link IConnectionProvider} that creates a connection from
  * an {@link IDataSourceProvider}.
@@ -41,6 +43,7 @@ public class ConnectionFromDataSourceProvider implements IConnectionProvider
 
   private final DataSource m_aDS;
 
+  @SuppressFBWarnings ("RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE")
   public ConnectionFromDataSourceProvider (@Nonnull final IDataSourceProvider aDSP)
   {
     if (aDSP == null)
