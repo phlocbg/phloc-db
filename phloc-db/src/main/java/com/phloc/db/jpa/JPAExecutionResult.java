@@ -38,6 +38,7 @@ public class JPAExecutionResult <DATATYPE> extends SuccessWithValue <DATATYPE>
 
   /**
    * @return The exception passed in the constructor. May be <code>null</code>.
+   * @see #hasThrowable()
    */
   @Nullable
   public Throwable getThrowable ()
@@ -48,10 +49,27 @@ public class JPAExecutionResult <DATATYPE> extends SuccessWithValue <DATATYPE>
   /**
    * @return <code>true</code> if an exception is present, <code>false</code> if
    *         not.
+   * @see #getThrowable()
    */
   public boolean hasThrowable ()
   {
     return m_aThrowable != null;
+  }
+
+  /**
+   * @return The supplied value.
+   * @throws Throwable
+   *         if a Throwable is present
+   * @see #get()
+   * @see #hasThrowable()
+   * @see #getThrowable()
+   */
+  @Nullable
+  public DATATYPE getOrThrow () throws Throwable
+  {
+    if (hasThrowable ())
+      throw getThrowable ();
+    return get ();
   }
 
   @Override
