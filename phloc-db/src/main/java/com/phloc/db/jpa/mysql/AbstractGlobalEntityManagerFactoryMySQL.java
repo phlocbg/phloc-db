@@ -57,9 +57,9 @@ public abstract class AbstractGlobalEntityManagerFactoryMySQL extends AbstractGl
    * Constructor. Never initialize manually!
    */
   protected AbstractGlobalEntityManagerFactoryMySQL (@Nonnull @Nonempty final String sJdbcURL,
-                                                        @Nullable final String sUserName,
-                                                        @Nullable final String sPassword,
-                                                        @Nonnull @Nonempty final String sPersistenceUnitName)
+                                                     @Nullable final String sUserName,
+                                                     @Nullable final String sPassword,
+                                                     @Nonnull @Nonempty final String sPersistenceUnitName)
   {
     this (sJdbcURL, null, sUserName, sPassword, sPersistenceUnitName, null);
   }
@@ -68,10 +68,10 @@ public abstract class AbstractGlobalEntityManagerFactoryMySQL extends AbstractGl
    * Constructor. Never initialize manually!
    */
   protected AbstractGlobalEntityManagerFactoryMySQL (@Nonnull @Nonempty final String sJdbcURL,
-                                                        @Nullable final Map <EMySQLConnectionProperty, String> aConnectionProperties,
-                                                        @Nullable final String sUserName,
-                                                        @Nullable final String sPassword,
-                                                        @Nonnull @Nonempty final String sPersistenceUnitName)
+                                                     @Nullable final Map <EMySQLConnectionProperty, String> aConnectionProperties,
+                                                     @Nullable final String sUserName,
+                                                     @Nullable final String sPassword,
+                                                     @Nonnull @Nonempty final String sPersistenceUnitName)
   {
     this (sJdbcURL, aConnectionProperties, sUserName, sPassword, sPersistenceUnitName, null);
   }
@@ -80,11 +80,11 @@ public abstract class AbstractGlobalEntityManagerFactoryMySQL extends AbstractGl
    * Constructor. Never initialize manually!
    */
   protected AbstractGlobalEntityManagerFactoryMySQL (@Nonnull @Nonempty final String sJdbcURL,
-                                                        @Nullable final Map <EMySQLConnectionProperty, String> aConnectionProperties,
-                                                        @Nullable final String sUserName,
-                                                        @Nullable final String sPassword,
-                                                        @Nonnull @Nonempty final String sPersistenceUnitName,
-                                                        @Nullable final Map <String, Object> aAdditionalFactoryProperties)
+                                                     @Nullable final Map <EMySQLConnectionProperty, String> aConnectionProperties,
+                                                     @Nullable final String sUserName,
+                                                     @Nullable final String sPassword,
+                                                     @Nonnull @Nonempty final String sPersistenceUnitName,
+                                                     @Nullable final Map <String, Object> aAdditionalFactoryProperties)
   {
     super (com.mysql.jdbc.Driver.class.getName (),
            _buildJDBCString (sJdbcURL, aConnectionProperties),
