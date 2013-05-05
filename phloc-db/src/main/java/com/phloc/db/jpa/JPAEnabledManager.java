@@ -35,8 +35,9 @@ import javax.persistence.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.phloc.commons.callback.AdapterRunnableToCallable;
+import com.phloc.commons.callback.AdapterThrowingRunnableToCallable;
 import com.phloc.commons.callback.IExceptionHandler;
+import com.phloc.commons.callback.IThrowingRunnable;
 import com.phloc.commons.stats.IStatisticsHandlerCounter;
 import com.phloc.commons.stats.IStatisticsHandlerTimer;
 import com.phloc.commons.stats.StatisticsManager;
@@ -292,13 +293,15 @@ public class JPAEnabledManager
   @Nonnull
   public static final JPAExecutionResult <?> doInTransaction (@Nonnull @WillNotClose final EntityManager aEntityMgr,
                                                               final boolean bAllowNestedTransactions,
-                                                              @Nonnull final Runnable aRunnable)
+                                                              @Nonnull final IThrowingRunnable aRunnable)
   {
-    return doInTransaction (aEntityMgr, bAllowNestedTransactions, AdapterRunnableToCallable.createAdapter (aRunnable));
+    return doInTransaction (aEntityMgr,
+                            bAllowNestedTransactions,
+                            AdapterThrowingRunnableToCallable.createAdapter (aRunnable));
   }
 
   @Nonnull
-  public final JPAExecutionResult <?> doInTransaction (@Nonnull final Runnable aRunnable)
+  public final JPAExecutionResult <?> doInTransaction (@Nonnull final IThrowingRunnable aRunnable)
   {
     // Create entity manager
     final EntityManager aEntityMgr = getEntityManager ();
@@ -314,6 +317,19 @@ public class JPAEnabledManager
     {
       return doInTransaction (aEntityMgr, isAllowNestedTransactions (), aRunnable);
     }
+  }
+
+  @Nonnull
+  public final JPAExecutionResult <?> doInTransaction (@Nonnull final Runnable aRunnable)
+  {
+    // TODO use AdapterRunnableToThrowingRunnable in phloc-commons > 4.0.5
+    return doInTransaction (new IThrowingRunnable ()
+    {
+      public void run () throws Exception
+      {
+        aRunnable.run ();
+      }
+    });
   }
 
   @Nonnull
