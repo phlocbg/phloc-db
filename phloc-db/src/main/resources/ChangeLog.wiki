@@ -2,6 +2,8 @@
 = Change log =
 <wiki:comment>This content is generated. Do not modify!</wiki:comment>
 <table border="1" cellspacing="0"><thead><tr><th>Date</th><th>Action</th><th>Category</th><th>Incompatible?</th><th>Description</th></tr></thead><tbody>
+<tr border="1"><td>5/5/13</td><td colspan="4">_Release *3.0.0*_</td></tr>
+<tr><td>5/5/13</td><td>change</td><td>tech</td><td></td><td>In case of an Exception the logging happens only if no custom exception handler is present</td></tr>
 <tr border="1"><td>5/5/13</td><td colspan="4">_Release *3.0.0.RC5*_</td></tr>
 <tr><td>5/5/13</td><td>update</td><td>api</td><td></td><td>Added support for IThrowingRunnable to JPAEnabledManager</td></tr>
 <tr><td>5/5/13</td><td>update</td><td>api</td><td></td><td>Extended API of JPAExecutionResult</td></tr>
