@@ -35,6 +35,7 @@ import javax.persistence.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.phloc.commons.callback.AdapterRunnableToCallable;
 import com.phloc.commons.callback.AdapterThrowingRunnableToCallable;
 import com.phloc.commons.callback.IExceptionHandler;
 import com.phloc.commons.callback.IThrowingRunnable;
@@ -293,6 +294,14 @@ public class JPAEnabledManager
       {
         s_aLogger.error ("Failed to invoke exceution time exceeded handler " + aHdl, t);
       }
+  }
+
+  @Nonnull
+  public static final JPAExecutionResult <?> doInTransaction (@Nonnull @WillNotClose final EntityManager aEntityMgr,
+                                                              final boolean bAllowNestedTransactions,
+                                                              @Nonnull final Runnable aRunnable)
+  {
+    return doInTransaction (aEntityMgr, bAllowNestedTransactions, AdapterRunnableToCallable.createAdapter (aRunnable));
   }
 
   @Nonnull
