@@ -208,14 +208,19 @@ public class JPAEnabledManager
   private static void _invokeCustomExceptionHandler (@Nonnull final Throwable t)
   {
     final IExceptionHandler <Throwable> aExceptionHandler = getCustomExceptionHandler ();
-    if (aExceptionHandler != null)
+    if (aExceptionHandler == null)
+    {
+      // By default: log something :)
+      s_aLogger.error ("Failed to perform something in a JPAEnabledManager!", t);
+    }
+    else
       try
       {
         aExceptionHandler.onException (t);
       }
       catch (final Throwable t2)
       {
-        s_aLogger.error ("Error in custom exception handler " + aExceptionHandler, t2);
+        s_aLogger.error ("Error in JPAEnabledManager custom exception handler " + aExceptionHandler, t2);
       }
   }
 
@@ -358,7 +363,6 @@ public class JPAEnabledManager
     }
     catch (final Throwable t)
     {
-      s_aLogger.error ("Failed to perform something in a transaction!", t);
       s_aStatsCounterError.increment ();
       s_aStatsTimerExecutionError.addTime (aSW.stopAndGetMillis ());
       _invokeCustomExceptionHandler (t);
@@ -428,7 +432,6 @@ public class JPAEnabledManager
     }
     catch (final Throwable t)
     {
-      s_aLogger.error ("Failed to select something!", t);
       s_aStatsCounterError.increment ();
       s_aStatsTimerExecutionError.addTime (aSW.stopAndGetMillis ());
       _invokeCustomExceptionHandler (t);
