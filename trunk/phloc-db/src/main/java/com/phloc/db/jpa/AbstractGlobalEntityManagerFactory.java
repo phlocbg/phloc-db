@@ -85,12 +85,12 @@ public abstract class AbstractGlobalEntityManagerFactory extends GlobalSingleton
    *        special properties are set! May be <code>null</code>.
    */
   protected AbstractGlobalEntityManagerFactory (@Nonnull @Nonempty final String sJdbcDriverClass,
-                                                   @Nonnull @Nonempty final String sJdbcURL,
-                                                   @Nullable final String sUserName,
-                                                   @Nullable final String sPassword,
-                                                   @Nonnull @Nonempty final String sPlatformClass,
-                                                   @Nonnull @Nonempty final String sPersistenceUnitName,
-                                                   @Nullable final Map <String, Object> aAdditionalFactoryProperties)
+                                                @Nonnull @Nonempty final String sJdbcURL,
+                                                @Nullable final String sUserName,
+                                                @Nullable final String sPassword,
+                                                @Nonnull @Nonempty final String sPlatformClass,
+                                                @Nonnull @Nonempty final String sPersistenceUnitName,
+                                                @Nullable final Map <String, Object> aAdditionalFactoryProperties)
   {
     if (StringHelper.hasNoText (sJdbcDriverClass))
       throw new NullPointerException ("JdbcDriverClass");

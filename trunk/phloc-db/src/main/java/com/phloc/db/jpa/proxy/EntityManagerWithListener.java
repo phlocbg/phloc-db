@@ -21,7 +21,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.persistence.EntityManager;
 
-
 public class EntityManagerWithListener extends EntityManagerProxy
 {
   private IEntityManagerListener m_aListener;

@@ -56,9 +56,9 @@ public abstract class AbstractGlobalEntityManagerFactoryH2 extends AbstractGloba
    * Constructor. Never initialize manually!
    */
   protected AbstractGlobalEntityManagerFactoryH2 (@Nonnull @Nonempty final String sJdbcURL,
-                                                     @Nullable final String sUser,
-                                                     @Nullable final String sPassword,
-                                                     @Nonnull @Nonempty final String sPersistenceUnitName)
+                                                  @Nullable final String sUser,
+                                                  @Nullable final String sPassword,
+                                                  @Nonnull @Nonempty final String sPersistenceUnitName)
   {
     this (sJdbcURL, null, sUser, sPassword, sPersistenceUnitName, null);
   }
@@ -67,10 +67,10 @@ public abstract class AbstractGlobalEntityManagerFactoryH2 extends AbstractGloba
    * Constructor. Never initialize manually!
    */
   protected AbstractGlobalEntityManagerFactoryH2 (@Nonnull @Nonempty final String sJdbcURL,
-                                                     @Nullable final Map <String, String> aConnectionProperties,
-                                                     @Nullable final String sUser,
-                                                     @Nullable final String sPassword,
-                                                     @Nonnull @Nonempty final String sPersistenceUnitName)
+                                                  @Nullable final Map <String, String> aConnectionProperties,
+                                                  @Nullable final String sUser,
+                                                  @Nullable final String sPassword,
+                                                  @Nonnull @Nonempty final String sPersistenceUnitName)
   {
     this (sJdbcURL, aConnectionProperties, sUser, sPassword, sPersistenceUnitName, null);
   }
@@ -79,11 +79,11 @@ public abstract class AbstractGlobalEntityManagerFactoryH2 extends AbstractGloba
    * Constructor. Never initialize manually!
    */
   protected AbstractGlobalEntityManagerFactoryH2 (@Nonnull @Nonempty final String sJdbcURL,
-                                                     @Nullable final Map <String, String> aConnectionProperties,
-                                                     @Nullable final String sUser,
-                                                     @Nullable final String sPassword,
-                                                     @Nonnull @Nonempty final String sPersistenceUnitName,
-                                                     @Nullable final Map <String, Object> aAdditionalFactoryProps)
+                                                  @Nullable final Map <String, String> aConnectionProperties,
+                                                  @Nullable final String sUser,
+                                                  @Nullable final String sPassword,
+                                                  @Nonnull @Nonempty final String sPersistenceUnitName,
+                                                  @Nullable final Map <String, Object> aAdditionalFactoryProps)
   {
     super (H2DriverSingleton.getInstance ().getDriverClassName (),
            _buildJDBCString (sJdbcURL, aConnectionProperties),

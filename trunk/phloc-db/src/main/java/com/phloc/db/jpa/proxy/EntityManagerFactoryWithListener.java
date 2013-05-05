@@ -25,7 +25,6 @@ import javax.annotation.OverridingMethodsMustInvokeSuper;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 
-
 /**
  * A special {@link EntityManagerFactory} that creates {@link EntityManager}
  * objects that are unique per thread.
