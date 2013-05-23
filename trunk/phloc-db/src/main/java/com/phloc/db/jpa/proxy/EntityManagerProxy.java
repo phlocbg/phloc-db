@@ -17,9 +17,11 @@
  */
 package com.phloc.db.jpa.proxy;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Nonnull;
+import javax.persistence.EntityGraph;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -39,7 +41,6 @@ import javax.persistence.metamodel.Metamodel;
  * 
  * @author Philip Helger
  */
-@SuppressWarnings ("rawtypes")
 public class EntityManagerProxy implements EntityManager
 {
   private final EntityManager m_aEntityMgr;
@@ -132,7 +133,7 @@ public class EntityManagerProxy implements EntityManager
     return m_aEntityMgr.createNativeQuery (string);
   }
 
-  public Query createNativeQuery (final String string, final Class aClass)
+  public Query createNativeQuery (final String string, @SuppressWarnings ("rawtypes") final Class aClass)
   {
     return m_aEntityMgr.createNativeQuery (string, aClass);
   }
@@ -230,12 +231,12 @@ public class EntityManagerProxy implements EntityManager
     return m_aEntityMgr.createQuery (criteriaQuery);
   }
 
-  public Query createQuery (final CriteriaUpdate updateQuery)
+  public Query createQuery (@SuppressWarnings ("rawtypes") final CriteriaUpdate updateQuery)
   {
     return m_aEntityMgr.createQuery (updateQuery);
   }
 
-  public Query createQuery (final CriteriaDelete deleteQuery)
+  public Query createQuery (@SuppressWarnings ("rawtypes") final CriteriaDelete deleteQuery)
   {
     return m_aEntityMgr.createQuery (deleteQuery);
   }
@@ -260,7 +261,8 @@ public class EntityManagerProxy implements EntityManager
     return m_aEntityMgr.createStoredProcedureQuery (procedureName);
   }
 
-  public StoredProcedureQuery createStoredProcedureQuery (final String procedureName, final Class... resultClasses)
+  public StoredProcedureQuery createStoredProcedureQuery (final String procedureName,
+                                                          @SuppressWarnings ("rawtypes") final Class... resultClasses)
   {
     return m_aEntityMgr.createStoredProcedureQuery (procedureName, resultClasses);
   }
@@ -293,5 +295,25 @@ public class EntityManagerProxy implements EntityManager
   public Metamodel getMetamodel ()
   {
     return m_aEntityMgr.getMetamodel ();
+  }
+
+  public <T> EntityGraph <T> createEntityGraph (final Class <T> rootType)
+  {
+    return m_aEntityMgr.createEntityGraph (rootType);
+  }
+
+  public EntityGraph <?> createEntityGraph (final String graphName)
+  {
+    return m_aEntityMgr.createEntityGraph (graphName);
+  }
+
+  public EntityGraph <?> getEntityGraph (final String graphName)
+  {
+    return m_aEntityMgr.getEntityGraph (graphName);
+  }
+
+  public <T> List <EntityGraph <? super T>> getEntityGraphs (final Class <T> entityClass)
+  {
+    return m_aEntityMgr.getEntityGraphs (entityClass);
   }
 }

@@ -24,6 +24,7 @@ import javax.annotation.Nullable;
 import javax.annotation.OverridingMethodsMustInvokeSuper;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.SynchronizationType;
 
 /**
  * A special {@link EntityManagerFactory} that creates {@link EntityManager}
@@ -40,10 +41,11 @@ public class EntityManagerFactoryWithListener extends EntityManagerFactoryProxy 
     super (aEntityMgrFactory);
   }
 
+  @SuppressWarnings ("rawtypes")
   @Override
   public EntityManagerWithListener createEntityManager ()
   {
-    return createEntityManager (null);
+    return createEntityManager ((Map) null);
   }
 
   @Override
@@ -53,6 +55,28 @@ public class EntityManagerFactoryWithListener extends EntityManagerFactoryProxy 
     if (aEntityMgr == null)
     {
       aEntityMgr = new EntityManagerWithListener (super.createEntityManager (aProperties));
+      s_aTL.set (aEntityMgr);
+      // Set special listener, so that the ThreadLocal is cleared after close
+      aEntityMgr.setCloseListener (this);
+    }
+    return aEntityMgr;
+  }
+
+  @SuppressWarnings ("rawtypes")
+  @Override
+  public EntityManager createEntityManager (final SynchronizationType eSynchronizationType)
+  {
+    return createEntityManager (eSynchronizationType, (Map) null);
+  }
+
+  @Override
+  public EntityManager createEntityManager (final SynchronizationType eSynchronizationType,
+                                            @SuppressWarnings ("rawtypes") final Map aProperties)
+  {
+    EntityManagerWithListener aEntityMgr = s_aTL.get ();
+    if (aEntityMgr == null)
+    {
+      aEntityMgr = new EntityManagerWithListener (super.createEntityManager (eSynchronizationType, aProperties));
       s_aTL.set (aEntityMgr);
       // Set special listener, so that the ThreadLocal is cleared after close
       aEntityMgr.setCloseListener (this);
