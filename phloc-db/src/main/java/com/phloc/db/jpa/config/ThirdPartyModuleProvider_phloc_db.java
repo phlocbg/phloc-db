@@ -39,7 +39,7 @@ public final class ThirdPartyModuleProvider_phloc_db implements IThirdPartyModul
   private static final IThirdPartyModule ECLIPSE_LINK = new ThirdPartyModule ("EclipseLink",
                                                                               "Eclipse Foundation",
                                                                               ELicense.EPL10,
-                                                                              new Version (2, 4, 1),
+                                                                              new Version (2, 5, 0),
                                                                               "http://www.eclipse.org/eclipselink/");
 
   /** H2 database */

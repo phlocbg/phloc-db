@@ -21,10 +21,12 @@ import java.util.Map;
 
 import javax.annotation.Nonnull;
 import javax.persistence.Cache;
+import javax.persistence.EntityGraph;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceUnitUtil;
 import javax.persistence.Query;
+import javax.persistence.SynchronizationType;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.metamodel.Metamodel;
 
@@ -58,6 +60,17 @@ public class EntityManagerFactoryProxy implements EntityManagerFactory
   public EntityManager createEntityManager (@SuppressWarnings ("rawtypes") final Map map)
   {
     return m_aEntityMgrFactory.createEntityManager (map);
+  }
+
+  public EntityManager createEntityManager (final SynchronizationType synchronizationType)
+  {
+    return m_aEntityMgrFactory.createEntityManager (synchronizationType);
+  }
+
+  public EntityManager createEntityManager (final SynchronizationType synchronizationType,
+                                            @SuppressWarnings ("rawtypes") final Map map)
+  {
+    return m_aEntityMgrFactory.createEntityManager (synchronizationType, map);
   }
 
   public boolean isOpen ()
@@ -103,5 +116,10 @@ public class EntityManagerFactoryProxy implements EntityManagerFactory
   public <T> T unwrap (final Class <T> cls)
   {
     return m_aEntityMgrFactory.unwrap (cls);
+  }
+
+  public <T> void addNamedEntityGraph (final String graphName, final EntityGraph <T> entityGraph)
+  {
+    m_aEntityMgrFactory.addNamedEntityGraph (graphName, entityGraph);
   }
 }
