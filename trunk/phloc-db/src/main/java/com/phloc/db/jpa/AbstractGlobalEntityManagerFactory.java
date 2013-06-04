@@ -289,8 +289,8 @@ public abstract class AbstractGlobalEntityManagerFactory extends GlobalSingleton
   @Nonnull
   public EntityManager createEntityManager (@SuppressWarnings ("rawtypes") final Map aMap)
   {
-    // Create entity manager
-    final EntityManager aEntityManager = m_aFactory.createEntityManager (aMap);
+    // Create entity manager (factory may be null - e.g. after close)
+    final EntityManager aEntityManager = getEntityManagerFactory ().createEntityManager (aMap);
     if (aEntityManager == null)
       throw new IllegalStateException ("Failed to create EntityManager from factory " +
                                        m_aFactory +
