@@ -112,7 +112,7 @@
     <dependency>
       <groupId>com.phloc</groupId>
       <artifactId>phloc-db-api</artifactId>
-      <version>1.0.0</version>
+      <version>1.0.1</version>
     </dependency>
 
     <dependency>
