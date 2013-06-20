@@ -32,6 +32,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.phloc.commons.annotations.Nonempty;
+import com.phloc.commons.annotations.OverrideOnDemand;
 import com.phloc.commons.string.ToStringGenerator;
 
 /**
@@ -79,8 +80,24 @@ public abstract class AbstractConnector implements IDataSourceProvider, Closeabl
   @Nonnull
   protected abstract String getDatabase ();
 
+  /**
+   * @return The final connection URL to be used for connecting. May not be
+   *         <code>null</code>.
+   */
   @Nonnull
   public abstract String getConnectionUrl ();
+
+  @OverrideOnDemand
+  protected boolean isUseDefaultAutoCommit ()
+  {
+    return false;
+  }
+
+  @OverrideOnDemand
+  protected boolean isPoolPreparedStatements ()
+  {
+    return true;
+  }
 
   @Nonnull
   public final DataSource getDataSource ()
@@ -98,8 +115,10 @@ public abstract class AbstractConnector implements IDataSourceProvider, Closeabl
         if (getPassword () != null)
           m_aDataSource.setPassword (getPassword ());
         m_aDataSource.setUrl (getConnectionUrl ());
-        m_aDataSource.setDefaultAutoCommit (false);
-        m_aDataSource.setPoolPreparedStatements (true);
+
+        // settings
+        m_aDataSource.setDefaultAutoCommit (isUseDefaultAutoCommit ());
+        m_aDataSource.setPoolPreparedStatements (isPoolPreparedStatements ());
       }
       return m_aDataSource;
     }
