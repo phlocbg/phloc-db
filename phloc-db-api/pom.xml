@@ -8,7 +8,7 @@
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <artifactId>phloc-db-api</artifactId>
-  <version>1.0.1</version>
+  <version>1.0.2-SNAPSHOT</version>
   <packaging>bundle</packaging>
   <name>phloc-db-api</name>
   <description>phloc basic database API stuff</description>
@@ -23,9 +23,9 @@
   </licenses>
      
   <scm>
-    <url>http://code.google.com/p/phloc-db/source/browse/tags/phloc-db-api-1.0.1</url>
-    <connection>scm:svn:http://phloc-db.googlecode.com/svn/tags/phloc-db-api-1.0.1</connection>
-    <developerConnection>scm:svn:https://phloc-db.googlecode.com/svn/tags/phloc-db-api-1.0.1</developerConnection>
+    <url>http://code.google.com/p/phloc-db/source/browse/</url>
+    <connection>scm:svn:http://phloc-db.googlecode.com/svn/trunk/phloc-db-api</connection>
+    <developerConnection>scm:svn:https://phloc-db.googlecode.com/svn/trunk/phloc-db-api</developerConnection>
   </scm>
 
   <organization>
