@@ -219,20 +219,27 @@ public abstract class AbstractH2Connector extends AbstractConnector
       s_aLogger.info ("Dumping database '" + getDatabase () + "' to OutputStream");
       final PrintWriter aPrintWriter = new PrintWriter (new NonBlockingBufferedWriter (StreamUtils.createWriter (aOS,
                                                                                                                  CCharset.CHARSET_UTF_8_OBJ)));
-      final DBExecutor aExecutor = new DBExecutor (this);
-      final ESuccess ret = aExecutor.queryAll ("SCRIPT SIMPLE", new IResultSetRowCallback ()
+      try
       {
-        public void run (@Nullable final DBResultRow aCurrentObject)
+        final DBExecutor aExecutor = new DBExecutor (this);
+        final ESuccess ret = aExecutor.queryAll ("SCRIPT SIMPLE", new IResultSetRowCallback ()
         {
-          if (aCurrentObject != null)
+          public void run (@Nullable final DBResultRow aCurrentObject)
           {
-            // The value of the first column is the script line
-            aPrintWriter.println (aCurrentObject.get (0).getValue ());
+            if (aCurrentObject != null)
+            {
+              // The value of the first column is the script line
+              aPrintWriter.println (aCurrentObject.get (0).getValue ());
+            }
           }
-        }
-      });
-      aPrintWriter.flush ();
-      return ret;
+        });
+        aPrintWriter.flush ();
+        return ret;
+      }
+      finally
+      {
+        StreamUtils.close (aPrintWriter);
+      }
     }
     finally
     {
