@@ -8,7 +8,7 @@
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <artifactId>phloc-db</artifactId>
-  <version>3.1.1</version>
+  <version>3.1.2-SNAPSHOT</version>
   <packaging>bundle</packaging>
   <name>phloc-db</name>
   <description>phloc basic JDBC and SQL stuff</description>
@@ -23,9 +23,9 @@
   </licenses>
      
   <scm>
-    <url>http://code.google.com/p/phloc-db/source/browse/tags/phloc-db-3.1.1</url>
-    <connection>scm:svn:http://phloc-db.googlecode.com/svn/tags/phloc-db-3.1.1</connection>
-    <developerConnection>scm:svn:https://phloc-db.googlecode.com/svn/tags/phloc-db-3.1.1</developerConnection>
+    <url>http://code.google.com/p/phloc-db/source/browse/</url>
+    <connection>scm:svn:http://phloc-db.googlecode.com/svn/trunk/phloc-db</connection>
+    <developerConnection>scm:svn:https://phloc-db.googlecode.com/svn/trunk/phloc-db</developerConnection>
   </scm>
 
   <organization>
