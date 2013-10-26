@@ -37,7 +37,7 @@ import com.phloc.db.jpa.JPAEnabledManager;
 @ThreadSafe
 public class JPAEnabledManagerH2 extends JPAEnabledManager
 {
-  static final Logger s_aLogger = LoggerFactory.getLogger (JPAEnabledManager.class);
+  private static final Logger s_aLogger = LoggerFactory.getLogger (JPAEnabledManager.class);
 
   public JPAEnabledManagerH2 (@Nonnull final IEntityManagerProvider aEntityManagerProvider)
   {
