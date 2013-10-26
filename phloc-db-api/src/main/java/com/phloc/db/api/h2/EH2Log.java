@@ -26,7 +26,7 @@ public enum EH2Log
   /** Default log mode: log and sync */
   public static final EH2Log DEFAULT = LOG_AND_SYNC;
 
-  private int m_nValue;
+  private final int m_nValue;
 
   private EH2Log (final int i)
   {

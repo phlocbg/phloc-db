@@ -26,7 +26,7 @@ public enum EH2LockMode
   /** Default lock mode: read committed */
   public static final EH2LockMode DEFAULT = READ_COMMITTED;
 
-  private int m_nValue;
+  private final int m_nValue;
 
   private EH2LockMode (final int i)
   {
