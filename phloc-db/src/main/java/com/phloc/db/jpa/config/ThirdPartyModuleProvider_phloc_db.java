@@ -53,7 +53,7 @@ public final class ThirdPartyModuleProvider_phloc_db implements IThirdPartyModul
   public static final IThirdPartyModule MYSQL = new ThirdPartyModule ("MySQL Connector/J",
                                                                       "Oracle",
                                                                       ELicense.GPL20,
-                                                                      new Version (5, 1, 26),
+                                                                      new Version (5, 1, 27),
                                                                       "http://www.mysql.com/",
                                                                       true);
 
