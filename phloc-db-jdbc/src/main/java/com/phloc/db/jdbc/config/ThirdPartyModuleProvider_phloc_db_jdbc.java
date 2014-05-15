@@ -29,7 +29,7 @@ import com.phloc.commons.version.Version;
 /**
  * Implement this SPI interface if your JAR file contains external third party
  * modules.
- *
+ * 
  * @author Philip Helger
  */
 @IsSPIImplementation
@@ -40,18 +40,18 @@ public final class ThirdPartyModuleProvider_phloc_db_jdbc implements IThirdParty
                                                                              "Apache",
                                                                              ELicense.APACHE2,
                                                                              new Version (1, 6, 0),
-      "http://commons.apache.org/pool/");
+                                                                             "http://commons.apache.org/pool/");
   /** Apache commons-dbcp */
   public static final IThirdPartyModule COMMONS_DBCP = new ThirdPartyModule ("Apache Commons DBCP",
                                                                              "Apache",
                                                                              ELicense.APACHE2,
                                                                              new Version (1, 4, 0),
-      "http://commons.apache.org/dbcp/");
+                                                                             "http://commons.apache.org/dbcp/");
   /** H2 database */
   public static final IThirdPartyModule H2 = new ThirdPartyModule ("H2 Database Engine",
                                                                    "Eclipse Foundation",
                                                                    ELicense.EPL10,
-                                                                   new Version (1, 4, 177),
+                                                                   new Version (1, 4, 178),
                                                                    "http://www.h2database.com/",
                                                                    true);
   /** MySQL connector */
