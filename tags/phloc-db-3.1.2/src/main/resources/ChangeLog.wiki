@@ -1,0 +1,108 @@
+#summary Change log of phloc-db
+= Change log =
+<wiki:comment>This content is generated. Do not modify!</wiki:comment>
+<table border="1" cellspacing="0"><thead><tr><th>Date</th><th>Action</th><th>Category</th><th>Incompatible?</th><th>Description</th></tr></thead><tbody>
+<tr border="1"><td>5/21/14</td><td colspan="4">_Release *3.1.2*_</td></tr>
+<tr><td>5/21/14</td><td>change</td><td>tech</td><td></td><td>Prepared for Maven central release</td></tr>
+<tr><td>5/15/14</td><td>update</td><td>tech</td><td></td><td>Updated to H2 1.4.178</td></tr>
+<tr><td>4/12/14</td><td>update</td><td>tech</td><td></td><td>Updated to H2 1.4.177</td></tr>
+<tr><td>4/8/14</td><td>update</td><td>tech</td><td></td><td>Updated to H2 1.3.176</td></tr>
+<tr><td>1/19/14</td><td>update</td><td>tech</td><td></td><td>Updated to H2 1.3.175</td></tr>
+<tr><td>1/19/14</td><td>update</td><td>tech</td><td></td><td>Updated to MySQL 5.1.28</td></tr>
+<tr><td>10/22/13</td><td>update</td><td>tech</td><td></td><td>Updated to H2 1.3.174</td></tr>
+<tr border="1"><td>10/9/13</td><td colspan="4">_Release *3.1.1*_</td></tr>
+<tr><td>10/9/13</td><td>update</td><td>tech</td><td></td><td>Updated to EclipseLink 2.5.1</td></tr>
+<tr><td>5/27/13</td><td>update</td><td>tech</td><td></td><td>Updated to H2 1.3.172</td></tr>
+<tr border="1"><td>5/23/13</td><td colspan="4">_Release *3.1.0*_</td></tr>
+<tr><td>5/23/13</td><td>update</td><td>tech</td><td></td><td>Updated to EclipseLink 2.5.0</td></tr>
+<tr border="1"><td>5/5/13</td><td colspan="4">_Release *3.0.0*_</td></tr>
+<tr><td>5/5/13</td><td>change</td><td>tech</td><td></td><td>In case of an Exception the logging happens only if no custom exception handler is present</td></tr>
+<tr border="1"><td>5/5/13</td><td colspan="4">_Release *3.0.0.RC5*_</td></tr>
+<tr><td>5/5/13</td><td>update</td><td>api</td><td></td><td>Added support for IThrowingRunnable to JPAEnabledManager</td></tr>
+<tr><td>5/5/13</td><td>update</td><td>api</td><td></td><td>Extended API of JPAExecutionResult</td></tr>
+<tr border="1"><td>5/3/13</td><td colspan="4">_Release *3.0.0.RC4*_</td></tr>
+<tr border="1"><td>5/3/13</td><td colspan="4">_Release *3.0.0.RC3*_</td></tr>
+<tr><td>5/3/13</td><td>update</td><td>tech</td><td></td><td>Updated to [http://code.google.com/p/phloc-commons phloc-commons] 4.0.5 to subclass SuccessWithValue</td></tr>
+<tr><td>5/3/13</td><td>change</td><td>api</td><td></td><td>Changed return types of JPAEnabledManager from SuccessWithValue to JPAExecutionResult</td></tr>
+<tr border="1"><td>5/2/13</td><td colspan="4">_Release *3.0.0.RC2*_</td></tr>
+<tr><td>5/2/13</td><td>change</td><td>api</td><td></td><td>AbstractEntityManagerFactorySingleton now has constructor with String instead of Class for increased flexibility</td></tr>
+<tr border="1"><td>5/2/13</td><td colspan="4">_Release *3.0.0.RC1*_</td></tr>
+<tr><td>5/1/13</td><td>update</td><td>tech</td><td></td><td>Using [http://code.google.com/p/phloc-db phloc-db-api] 1.0.0</td></tr>
+<tr><td>5/1/13</td><td>change</td><td>api</td><td>*yes*</td><td>Changed all package names so that they start with com.phloc.db.jpa</td></tr>
+<tr><td>5/1/13</td><td>change</td><td>api</td><td>*yes*</td><td>Extracted all JDBC stuff to [http://code.google.com/p/phloc-db phloc-db-jdbc]</td></tr>
+<tr border="1"><td>5/1/13</td><td colspan="4">_Release *2.10.1*_</td></tr>
+<tr><td>4/17/13</td><td>update</td><td>tech</td><td></td><td>Updated to [http://code.google.com/p/phloc-commons phloc-commons] 4.0.3</td></tr>
+<tr><td>4/12/13</td><td>add</td><td>api</td><td></td><td>Started adding support for thread-safe EntityManager</td></tr>
+<tr><td>4/12/13</td><td>add</td><td>api</td><td></td><td>Added EntityManagerFactory and EntityManager proxy classes</td></tr>
+<tr><td>3/27/13</td><td>add</td><td>api</td><td></td><td>Added abstract DB2 JDBC connector</td></tr>
+<tr><td>3/17/13</td><td>update</td><td>tech</td><td></td><td>Updated to H2 1.3.171</td></tr>
+<tr border="1"><td>3/7/13</td><td colspan="4">_Release *2.10.0*_</td></tr>
+<tr><td>3/7/13</td><td>update</td><td>tech</td><td>*yes*</td><td>Updated to [http://code.google.com/p/phloc-scopes phloc-scopes] 6.0.0</td></tr>
+<tr border="1"><td>2/27/13</td><td colspan="4">_Release *2.9.0*_</td></tr>
+<tr><td>2/27/13</td><td>update</td><td>tech</td><td>*yes*</td><td>Updated to [http://code.google.com/p/phloc-scopes phloc-scopes] 5.0.0</td></tr>
+<tr border="1"><td>2/27/13</td><td colspan="4">_Release *2.8.5*_</td></tr>
+<tr><td>2/27/13</td><td>update</td><td>tech</td><td></td><td>Updated to [http://code.google.com/p/phloc-scopes phloc-scopes] 4.5.0</td></tr>
+<tr border="1"><td>2/26/13</td><td colspan="4">_Release *2.8.3*_</td></tr>
+<tr><td>1/15/13</td><td>add</td><td>api</td><td></td><td>Extended DBResultField and DBResultRow to access the data type of a column</td></tr>
+<tr><td>1/15/13</td><td>add</td><td>api</td><td></td><td>Extended DBResultField and DBResultRow with the possibility to access specific SQL types</td></tr>
+<tr><td>1/15/13</td><td>add</td><td>tech</td><td></td><td>Extended JDBCUtils.getJDBCTypeName with JDBC 4.0 types</td></tr>
+<tr border="1"><td>12/29/12</td><td colspan="4">_Release *2.8.2*_</td></tr>
+<tr><td>12/29/12</td><td>add</td><td>api</td><td></td><td>Added class AbstractMSSQLConnector based on a common AbstractConnector</td></tr>
+<tr><td>12/18/12</td><td>add</td><td>api</td><td></td><td>Extended API in DBResultField and DBResultRow</td></tr>
+<tr border="1"><td>10/22/12</td><td colspan="4">_Release *2.8.1*_</td></tr>
+<tr><td>10/22/12</td><td>update</td><td>tech</td><td></td><td>Initial release as OSS under Apache2 license</td></tr>
+<tr><td>9/9/12</td><td>update</td><td>tech</td><td></td><td>Updated to H2 1.3.169</td></tr>
+<tr border="1"><td>9/6/12</td><td colspan="4">_Release *2.8.0*_</td></tr>
+<tr border="1"><td>8/17/12</td><td colspan="4">_Release *2.7.9*_</td></tr>
+<tr><td>8/14/12</td><td>add</td><td>api</td><td></td><td>Added customizable JPA execution time exceeded handler</td></tr>
+<tr border="1"><td>8/12/12</td><td colspan="4">_Release *2.7.8*_</td></tr>
+<tr><td>8/12/12</td><td>update</td><td>api</td><td>*yes*</td><td>Heavily improved DBExecutor API to handle things even more easily</td></tr>
+<tr border="1"><td>8/12/12</td><td colspan="4">_Release *2.7.7*_</td></tr>
+<tr><td>8/12/12</td><td>update</td><td>tech</td><td></td><td>Added sanity check on JPA factory parameters when PersistenceUnitProperties.DDL`_`GENERATION is defined and PersistenceUnitProperties.DDL`_`GENERATION`_`MODE is not defined</td></tr>
+<tr border="1"><td>8/10/12</td><td colspan="4">_Release *2.7.6*_</td></tr>
+<tr><td>8/10/12</td><td>update</td><td>tech</td><td></td><td>Using the correct property to set the EclipseLink logger to JPALogger</td></tr>
+<tr><td>7/14/12</td><td>update</td><td>tech</td><td></td><td>Updated to H2 1.3.168</td></tr>
+<tr border="1"><td>6/27/12</td><td colspan="4">_Release *2.7.5*_</td></tr>
+<tr><td>6/27/12</td><td>update</td><td>tech</td><td></td><td>Updated to EclipseLink 2.4</td></tr>
+<tr border="1"><td>6/4/12</td><td colspan="4">_Release *2.7.4*_</td></tr>
+<tr><td>5/24/12</td><td>update</td><td>tech</td><td></td><td>Updated to H2 1.3.167</td></tr>
+<tr><td>4/10/12</td><td>update</td><td>tech</td><td></td><td>Updated to H2 1.3.166</td></tr>
+<tr border="1"><td>3/22/12</td><td colspan="4">_Release *2.7.3*_</td></tr>
+<tr border="1"><td>3/20/12</td><td colspan="4">_Release *2.7.2*_</td></tr>
+<tr><td>3/19/12</td><td>update</td><td>tech</td><td></td><td>Updated to H2 1.3.165</td></tr>
+<tr border="1"><td>3/5/12</td><td colspan="4">_Release *2.7.1*_</td></tr>
+<tr><td>3/5/12</td><td>fix</td><td>tech</td><td></td><td>Catching exceptions from custom exception handlers</td></tr>
+<tr border="1"><td>2/9/12</td><td colspan="4">_Release *2.7.0*_</td></tr>
+<tr><td>2/27/12</td><td>add</td><td>tech</td><td></td><td>Added statistics to AbstractJPAEnabledManager</td></tr>
+<tr><td>2/27/12</td><td>update</td><td>tech</td><td></td><td>Improved synchronization in AbstractJPAEnabledManager</td></tr>
+<tr><td>2/24/12</td><td>add</td><td>api</td><td></td><td>Started adding MySQL support</td></tr>
+<tr border="1"><td>2/5/12</td><td colspan="4">_Release *2.6.3*_</td></tr>
+<tr><td>2/4/12</td><td>update</td><td>tech</td><td></td><td>Updated to H2 1.3.164</td></tr>
+<tr border="1"><td>1/31/12</td><td colspan="4">_Release *2.6.2*_</td></tr>
+<tr><td>1/31/12</td><td>change</td><td>api</td><td>*yes*</td><td>Moved H2 JPA components into a separate package and added a new constructor parameter for connection string properties</td></tr>
+<tr border="1"><td>1/26/12</td><td colspan="4">_Release *2.6.1*_</td></tr>
+<tr><td>1/23/12</td><td>change</td><td>api</td><td></td><td>Using SuccessWithValue from [http://code.google.com/p/phloc-commons phloc-commons]</td></tr>
+<tr border="1"><td>1/26/12</td><td colspan="4">_Release *2.6.0*_</td></tr>
+<tr><td>1/23/12</td><td>add</td><td>api</td><td></td><td>Added the possibility to set whether select statements should use transactions or not in the AbstractJPAEnabledManager</td></tr>
+<tr><td>1/23/12</td><td>add</td><td>api</td><td></td><td>Added the possibility to set nested transaction handling and entity manager synchronization in the AbstractJPAEnabledManager</td></tr>
+<tr border="1"><td>1/23/12</td><td colspan="4">_Release *2.5.10*_</td></tr>
+<tr><td>1/23/12</td><td>add</td><td>api</td><td></td><td>Added the possibility to set an external callback handler, if a transaction failed</td></tr>
+<tr border="1"><td>1/21/12</td><td colspan="4">_Release *2.5.9*_</td></tr>
+<tr border="1"><td>1/11/12</td><td colspan="4">_Release *2.5.8*_</td></tr>
+<tr border="1"><td>12/22/11</td><td colspan="4">_Release *2.5.7*_</td></tr>
+<tr border="1"><td>12/15/11</td><td colspan="4">_Release *2.5.6*_</td></tr>
+<tr><td>12/15/11</td><td>change</td><td>api</td><td>*yes*</td><td>Changed the way, how the logging level in the JPASessionCustomizer can be set from the outside</td></tr>
+<tr><td>12/15/11</td><td>update</td><td>tech</td><td></td><td>Updated to EclipseLink 2.3.2</td></tr>
+<tr><td>11/28/11</td><td>update</td><td>tech</td><td></td><td>Updated to H2 DB 1.3.162</td></tr>
+<tr border="1"><td>11/22/11</td><td colspan="4">_Release *2.5.5*_</td></tr>
+<tr><td>11/22/11</td><td>update</td><td>tech</td><td></td><td>Updated to EclipseLink 2.3.1</td></tr>
+<tr border="1"><td>11/21/11</td><td colspan="4">_Release *2.5.4*_</td></tr>
+<tr border="1"><td>10/7/11</td><td colspan="4">_Release *2.5.3*_</td></tr>
+<tr><td>10/7/11</td><td>update</td><td>tech</td><td></td><td>Updated to H2 DB 1.3.161</td></tr>
+<tr border="1"><td>9/12/11</td><td colspan="4">_Release *2.5.2*_</td></tr>
+<tr><td>9/12/11</td><td>update</td><td>tech</td><td></td><td>Updated to [http://code.google.com/p/phloc-commons phloc-commons] 3.1.0</td></tr>
+<tr><td>9/12/11</td><td>update</td><td>tech</td><td></td><td>Updated to H2 DB 1.3.160</td></tr>
+<tr border="1"><td>9/7/11</td><td colspan="4">_Release *2.5.1*_</td></tr>
+<tr><td>8/26/11</td><td>update</td><td>tech</td><td></td><td>Updated to EclipseLink 2.3.0</td></tr>
+<tr><td>8/15/11</td><td>update</td><td>tech</td><td></td><td>Updated to H2 DB 1.3.159</td></tr>
+</tbody></table>
