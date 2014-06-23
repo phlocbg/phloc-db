@@ -51,14 +51,14 @@ public final class ThirdPartyModuleProvider_phloc_db_jdbc implements IThirdParty
   public static final IThirdPartyModule H2 = new ThirdPartyModule ("H2 Database Engine",
                                                                    "Eclipse Foundation",
                                                                    ELicense.EPL10,
-                                                                   new Version (1, 4, 178),
+                                                                   new Version (1, 4, 179),
                                                                    "http://www.h2database.com/",
                                                                    true);
   /** MySQL connector */
   public static final IThirdPartyModule MYSQL = new ThirdPartyModule ("MySQL Connector/J",
                                                                       "Oracle",
                                                                       ELicense.GPL20,
-                                                                      new Version (5, 1, 29),
+                                                                      new Version (5, 1, 31),
                                                                       "http://www.mysql.com/",
                                                                       true);
 

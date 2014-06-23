@@ -17,7 +17,7 @@
     <orderEntry type="library" name="Maven: com.google.code.findbugs:annotations:2.0.3" level="project" />
     <orderEntry type="library" name="Maven: com.phloc:phloc-datetime:3.1.4" level="project" />
     <orderEntry type="library" name="Maven: joda-time:joda-time:2.3" level="project" />
-    <orderEntry type="library" name="Maven: com.phloc:phloc-db-api:1.0.1" level="project" />
+    <orderEntry type="library" name="Maven: com.phloc:phloc-db-api:1.0.2" level="project" />
     <orderEntry type="library" name="Maven: commons-pool:commons-pool:1.6" level="project" />
     <orderEntry type="library" name="Maven: commons-dbcp:commons-dbcp:1.4" level="project" />
     <orderEntry type="library" name="Maven: com.h2database:h2:1.4.178" level="project" />
