@@ -20,6 +20,11 @@
 -->
 <changelog xmlns="http://www.phloc.com/ns/changelog/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://www.phloc.com/ns/changelog/1.0 schemas/changelog-1.0.xsd" version="1.0" component="phloc-db-jdbc">
+  <entry date="2014-08-14" category="tech" action="update">
+    <change>
+      <text locale="en">Updated to H2 1.4.181 and MySQL 5.1.32</text>
+    </change>
+  </entry>
   <entry date="2014-06-23" category="tech" action="update">
     <change>
       <text locale="en">Updated to H2 1.4.179 and MySQL 5.1.31</text>
