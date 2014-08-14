@@ -29,7 +29,7 @@ import com.phloc.commons.version.Version;
 /**
  * Implement this SPI interface if your JAR file contains external third party
  * modules.
- * 
+ *
  * @author Philip Helger
  */
 @IsSPIImplementation
@@ -39,21 +39,21 @@ public final class ThirdPartyModuleProvider_phloc_db implements IThirdPartyModul
   private static final IThirdPartyModule ECLIPSE_LINK = new ThirdPartyModule ("EclipseLink",
                                                                               "Eclipse Foundation",
                                                                               ELicense.EPL10,
-                                                                              new Version (2, 5, 1),
+                                                                              new Version (2, 5, 2),
                                                                               "http://www.eclipse.org/eclipselink/");
 
   /** H2 database */
   public static final IThirdPartyModule H2 = new ThirdPartyModule ("H2 Database Engine",
                                                                    "Eclipse Foundation",
                                                                    ELicense.EPL10,
-                                                                   new Version (1, 4, 179),
+                                                                   new Version (1, 4, 181),
                                                                    "http://www.h2database.com/",
                                                                    true);
   /** MySQL connector */
   public static final IThirdPartyModule MYSQL = new ThirdPartyModule ("MySQL Connector/J",
                                                                       "Oracle",
                                                                       ELicense.GPL20,
-                                                                      new Version (5, 1, 31),
+                                                                      new Version (5, 1, 32),
                                                                       "http://www.mysql.com/",
                                                                       true);
 
