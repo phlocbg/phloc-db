@@ -8,6 +8,6 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.phloc</groupId>
   <artifactId>phloc-db-api</artifactId>
-  <version>1.2.0</version>
+  <version>1.3.0</version>
 </dependency>
 ```
