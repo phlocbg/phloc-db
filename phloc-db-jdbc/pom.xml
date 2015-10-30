@@ -27,7 +27,7 @@
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <artifactId>phloc-db-jdbc</artifactId>
-  <version>1.1.0</version>
+  <version>1.1.1-SNAPSHOT</version>
   <packaging>bundle</packaging>
   <name>phloc-db-jdbc</name>
   <description>phloc basic JDBC stuff</description>
@@ -45,7 +45,7 @@
     <connection>scm:git:https://github.com/phlocbg/phloc-db</connection>
     <developerConnection>scm:git:https://github.com/phlocbg/phloc-db</developerConnection>
   <url>http://github.com/phlocbg/phloc-db</url>
-    <tag>phloc-db-jdbc-1.1.0</tag>
+    <tag>HEAD</tag>
 
 </scm>
 
