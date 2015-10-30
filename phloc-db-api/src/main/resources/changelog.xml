@@ -20,7 +20,7 @@
 -->
 <changelog xmlns="http://www.phloc.com/ns/changelog/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://www.phloc.com/ns/changelog/1.0 schemas/changelog-1.0.xsd" version="1.0" component="phloc-db-api">
-  <release date="2015-10-30" version="1.4.0" />
+  <release date="2015-10-30" version="1.5.0" />
   <entry date="2014-08-14" category="tech" action="update">
     <change>
       <text locale="en">Updated to H2 1.4.181 and MySQL 5.1.32</text>
