@@ -27,7 +27,7 @@
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <artifactId>phloc-db</artifactId>
-  <version>3.4.0</version>
+  <version>3.4.1-SNAPSHOT</version>
   <packaging>bundle</packaging>
   <name>phloc-db</name>
   <description>phloc basic JPA stuff</description>
@@ -45,7 +45,7 @@
     <connection>scm:git:https://github.com/phlocbg/phloc-db</connection>
     <developerConnection>scm:git:https://github.com/phlocbg/phloc-db</developerConnection>
   <url>http://github.com/phlocbg/phloc-db</url>
-    <tag>phloc-db-3.4.0</tag>
+    <tag>HEAD</tag>
 
 </scm>
 
